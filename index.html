@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Ria — With Love from Priyanshu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,600;1,400;1,600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       GLOBAL STYLES & PAPER TEXTURE AESTHETIC
+       ========================================================== */
+    :root {
+      --ink: #302d2a;
+      --paper: #fbf7ef;
+      --pink: #eaa1b5;
+      --red: #d85c70;
+      --yellow: #efc95c;
+      --green: #718b62;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: #f4ede2;
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .paper-grain-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.35;
+      background-image: radial-gradient(#8f7d65 0.75px, transparent 0.75px);
+      background-size: 8px 8px;
+    }
+
+    .font-sketch {
+      font-family: 'Caveat', cursive;
+    }
+
+    .font-romantic {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Screen transition states */
+    .screen-panel {
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+      z-index: 10;
+      position: relative;
+    }
+
+    .screen-panel.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================
+       COMPONENT 1: CANVAS EASEL TOGGLE (canvas button.txt)
+       ========================================================== */
+    .bg-easel-container {
+      width: min(92vw, 420px);
+      height: 270px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 50% 40%, #e2e8f0, #94a3b8);
+      transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: sans-serif;
+      border-radius: 28px;
+      user-select: none;
+      box-shadow: 0 15px 35px -5px rgba(60, 45, 30, 0.25);
+    }
+
+    .bg-easel-container:has(.theme-switch input:checked) {
+      background: radial-gradient(circle at 50% 40%, #fdf2f8, #fbcfe8);
+      box-shadow: 0 15px 40px rgba(244, 114, 182, 0.3);
+    }
+
+    .theme-switch {
+      position: relative;
+      display: inline-flex;
+      width: 260px;
+      height: 160px;
+    }
+
+    .theme-switch input {
+      display: none;
+    }
+
+    .easel-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      border: 4px solid #78350f;
+      border-radius: 8px;
+      box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 8px #fdfbf7,
+        inset 0 2px 8px 8px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 10px #d6d3d1;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.5s ease;
+    }
+
+    .easel-frame::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border: 2px solid #451a03;
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .theme-switch input:checked ~ .easel-frame {
+      box-shadow:
+        0 20px 40px rgba(244, 114, 182, 0.35),
+        0 0 30px rgba(251, 113, 133, 0.2),
+        inset 0 0 0 8px #fdfbf7,
+        inset 0 2px 8px 8px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 10px #d6d3d1;
+    }
+
+    .canvas-texture {
+      position: absolute;
+      inset: 10px;
+      background-image:
+        radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+      background-size: 6px 6px, 4px 4px;
+      background-position: 0 0, 2px 2px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .sketch-scene {
+      position: absolute;
+      inset: 10px;
+      background: #fdfbf7;
+      z-index: 1;
+    }
+
+    .s-sun {
+      position: absolute;
+      bottom: 50px;
+      left: 110px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px dashed #94a3b8;
+      box-shadow: inset 0 0 4px rgba(148, 163, 184, 0.2);
+    }
+
+    .s-mountain {
+      position: absolute;
+      border-top: 1.5px solid #94a3b8;
+      border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%;
+      background: transparent;
+    }
+
+    .s-mountain::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-top: 1px dashed #cbd5e1;
+      border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%;
+    }
+
+    .sm1 { bottom: -12px; left: 8px; width: 70px; height: 50px; transform: rotate(-10deg); }
+    .sm2 { bottom: -18px; left: 50px; width: 88px; height: 70px; transform: rotate(5deg); }
+    .sm3 { bottom: -8px; left: 120px; width: 65px; height: 45px; transform: rotate(-5deg); }
+
+    .s-water {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      border-top: 1.5px solid #94a3b8;
+    }
+
+    .s-water-line {
+      position: absolute;
+      background: #cbd5e1;
+      height: 1px;
+      border-radius: 1px;
+    }
+    .sw1 { top: 8px; left: 25px; width: 45px; }
+    .sw2 { top: 15px; left: 85px; width: 60px; }
+    .sw3 { top: 22px; left: 40px; width: 28px; }
+    .sw4 { top: 10px; left: 155px; width: 35px; }
+
+    .painting-mask {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      height: calc(100% - 20px);
+      width: 0%;
+      overflow: hidden;
+      z-index: 2;
+      transition: width 1.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
+
+    .theme-switch input:checked ~ .easel-frame .painting-mask {
+      width: calc(100% - 20px);
+    }
+
+    .painting-scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 140px;
+      background: linear-gradient(to bottom, #fda4af, #fde047 60%, #7dd3fc 100%);
+    }
+
+    .p-sun {
+      position: absolute;
+      bottom: 45px;
+      left: 100px;
+      width: 34px;
+      height: 34px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 18px #fef08a, 0 0 35px rgba(253, 224, 71, 0.8);
+      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s, box-shadow 1.2s ease 1.2s;
+    }
+
+    .theme-switch input:checked ~ .easel-frame .painting-mask .p-sun {
+      transform: translateY(-12px) scale(1.2);
+      box-shadow: 0 0 25px #ffffff, 0 0 50px #fde047, 0 0 80px rgba(253, 224, 71, 0.6);
+    }
+
+    .p-mountain {
+      position: absolute;
+      border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%;
+      box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.3), inset -3px -3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .pm1 { bottom: -12px; left: 5px; width: 70px; height: 50px; background: linear-gradient(135deg, #d946ef, #9333ea); transform: rotate(-10deg); z-index: 2; }
+    .pm2 { bottom: -20px; left: 45px; width: 95px; height: 70px; background: linear-gradient(135deg, #f43f5e, #be123c); transform: rotate(5deg); z-index: 1; }
+    .pm3 { bottom: -10px; left: 115px; width: 70px; height: 48px; background: linear-gradient(135deg, #c084fc, #7e22ce); transform: rotate(-5deg); z-index: 2; }
+
+    .p-water {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: linear-gradient(to bottom, #ec4899, #0284c7);
+      z-index: 3;
+      overflow: hidden;
+      box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .p-reflection {
+      position: absolute;
+      top: 0;
+      left: 100px;
+      width: 38px;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(253, 224, 71, 0.9), rgba(253, 224, 71, 0));
+      filter: blur(4px);
+      opacity: 0;
+      transform: translateX(0);
+      transition: opacity 1.2s ease 1.2s;
+    }
+
+    .theme-switch input:checked ~ .easel-frame .painting-mask .p-reflection {
+      opacity: 1;
+      animation: water-sway 3s infinite alternate ease-in-out 1.2s;
+    }
+
+    @keyframes water-sway {
+      0% { transform: translateX(-3px) skewX(-5deg); }
+      100% { transform: translateX(3px) skewX(5deg); }
+    }
+
+    .p-water-shimmer {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg, transparent 0, transparent 20px, rgba(255, 255, 255, 0.4) 23px, transparent 26px);
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    .theme-switch input:checked ~ .easel-frame .painting-mask .p-water-shimmer {
+      opacity: 1;
+      animation: water-flow 5s linear infinite;
+    }
+
+    @keyframes water-flow { 100% { transform: translateX(0); } }
+
+    .p-bird {
+      position: absolute;
+      width: 16px;
+      height: 12px;
+      opacity: 0;
+      z-index: 5;
+    }
+    .pb1 { top: 15px; left: -25px; }
+    .pb2 { top: 28px; left: -40px; transform: scale(0.65); }
+
+    .theme-switch input:checked ~ .easel-frame .painting-mask .pb1 {
+      animation: bird-fly 8s cubic-bezier(0.4, 0, 0.6, 1) infinite 1.8s;
+    }
+    .theme-switch input:checked ~ .easel-frame .painting-mask .pb2 {
+      animation: bird-fly 9s cubic-bezier(0.4, 0, 0.6, 1) infinite 2.5s;
+    }
+
+    @keyframes bird-fly {
+      0% { transform: translateX(0) translateY(0) scale(1); opacity: 0; }
+      10% { opacity: 0.85; }
+      30% { transform: translateX(80px) translateY(-8px) scale(0.9); }
+      60% { transform: translateX(160px) translateY(8px) scale(0.8); }
+      90% { opacity: 0.85; }
+      100% { transform: translateX(260px) translateY(-16px) scale(0.7); opacity: 0; }
+    }
+
+    .wing {
+      position: absolute;
+      top: 0;
+      width: 8px;
+      height: 8px;
+      border-top: 1.5px solid #0f172a;
+      border-radius: 50%;
+    }
+    .wing-l { left: 0; transform-origin: right center; animation: flap-l 0.3s infinite alternate ease-in-out; }
+    .wing-r { right: 0; transform-origin: left center; animation: flap-r 0.3s infinite alternate-reverse ease-in-out; }
+
+    @keyframes flap-l { 0% { transform: rotate(-35deg); } 100% { transform: rotate(25deg); } }
+    @keyframes flap-r { 0% { transform: rotate(35deg); } 100% { transform: rotate(-25deg); } }
+
+    .brush-tracker {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 32px;
+      height: 150px;
+      z-index: 10;
+      transition: transform 1.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
+
+    .theme-switch input:checked ~ .easel-frame .brush-tracker {
+      transform: translateX(210px);
+    }
+
+    .paintbrush {
+      width: 100%;
+      height: 100%;
+      transform-origin: center 65%;
+      transition: transform 0.4s ease;
+      filter: drop-shadow(8px 8px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .theme-switch input:checked ~ .easel-frame .brush-tracker .paintbrush {
+      animation: paint-stroke 1.8s ease-in-out;
+      transform: rotate(15deg);
+    }
+
+    @keyframes paint-stroke {
+      0% { transform: rotate(0deg) translateY(0); }
+      20% { transform: rotate(-20deg) translateY(-12px); }
+      40% { transform: rotate(15deg) translateY(12px); }
+      60% { transform: rotate(-15deg) translateY(-8px); }
+      80% { transform: rotate(18deg) translateY(8px); }
+      100% { transform: rotate(15deg) translateY(0); }
+    }
+
+    .handle {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      width: 12px;
+      height: 80px;
+      background: linear-gradient(to right, #451a03, #b45309, #451a03);
+      border-radius: 8px 8px 0 0;
+    }
+    .ferrule {
+      position: absolute;
+      top: 80px;
+      left: 10px;
+      width: 12px;
+      height: 18px;
+      background: linear-gradient(to right, #64748b, #f8fafc, #64748b);
+      border-radius: 2px;
+    }
+    .bristles {
+      position: absolute;
+      top: 98px;
+      left: 10px;
+      width: 12px;
+      height: 32px;
+      background: linear-gradient(to right, #1c1917, #78716c, #1c1917);
+      border-radius: 0 0 50% 50%;
+      overflow: hidden;
+    }
+    .bristles::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient(to bottom, transparent, #fb7185, #f43f5e);
+    }
+
+    .magic-spark {
+      position: absolute;
+      bottom: 5px;
+      left: 16px;
+      width: 6px;
+      height: 6px;
+      background: #fde047;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fde047, 0 0 20px #ffffff;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .theme-switch input:checked ~ .easel-frame .brush-tracker .s1 { animation: spark-drop 0.9s infinite ease-out 0.2s; }
+    .theme-switch input:checked ~ .easel-frame .brush-tracker .s2 { animation: spark-drop 0.7s infinite ease-out 0.5s; left: 10px; }
+    .theme-switch input:checked ~ .easel-frame .brush-tracker .s3 { animation: spark-drop 1s infinite ease-out 0.8s; left: 20px; }
+
+    @keyframes spark-drop {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(35px) scale(0); opacity: 0; }
+    }
+
+    /* ==========================================================
+       COMPONENT 2: THE SKETCH BUTTON (button.txt)
+       ========================================================== */
+    .button-sketch-wrapper {
+      position: relative;
+      display: inline-block;
+      margin: 1rem 0;
+    }
+
+    .button {
+      text-align: center;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+      background-color: transparent;
+      filter: url(#handDrawnNoise);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      font-family: 'Caveat', cursive, monospace;
+      font-size: 1.45rem;
+      font-weight: 700;
+      padding: 0.85em 1.8em;
+      border-width: 0px;
+      border-radius: 2rem;
+      box-shadow: #33333366 4px 4px 0 1px;
+      animation: idle 1.5s infinite ease-in-out;
+      color: #1f1b18;
+      background-color: #fcf8f2;
+      position: relative;
+    }
+
+    .highlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      fill: rgba(255, 225, 0, 0.5);
+      stroke: rgba(255, 225, 0, 0.5);
+      stroke-width: 10;
+      stroke-linecap: round;
+      pointer-events: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      transition: stroke-dashoffset 0.5s ease-in-out;
+    }
+
+    @keyframes idle {
+      0% { filter: url(#handDrawnNoise); }
+      50% { rotate: 2deg; filter: url(#handDrawnNoise2); }
+      100% { filter: url(#handDrawnNoise); }
+    }
+
+    .button-cosm {
+      fill: #33333366;
+      transition: 0.3s ease-out;
+      scale: 0.45;
+      position: absolute;
+      left: 10px;
+      pointer-events: none;
+    }
+
+    .button:hover {
+      rotate: -2deg;
+      animation: hover 2.5s infinite ease-in-out;
+      background-color: #fffaf0;
+    }
+
+    .button:hover .highlight {
+      stroke-dashoffset: 0;
+    }
+
+    .button:active .highlight {
+      stroke-dashoffset: 1000;
+      animation: highlight 5s infinite, col 0.5s forwards;
+      stroke: #bc4e2666;
+    }
+
+    @keyframes col {
+      0% { stroke: rgba(255, 225, 0, 0.5); }
+      100% { stroke: #1c98eb66; }
+    }
+
+    @keyframes highlight {
+      0% { stroke-dashoffset: 0; }
+      25% { stroke-dashoffset: 1000; }
+      50% { stroke-dashoffset: 1000; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes hover {
+      0% { rotate: 0deg; filter: url(#handDrawnNoise); translate: 0 0px; }
+      25% { rotate: -1deg; filter: url(#handDrawnNoise2); translate: 0 -2px; }
+      50% { rotate: 0deg; filter: url(#handDrawnNoise); translate: 0 2px; }
+      75% { rotate: 1deg; filter: url(#handDrawnNoise2); translate: 0 -2px; }
+      100% { rotate: 0deg; filter: url(#handDrawnNoise); translate: 0 0px; }
+    }
+
+    .button:active {
+      box-shadow: inset #333333f1 4px 4px 0 1px;
+      rotate: -2deg;
+      animation: active 1s infinite ease-in-out;
+    }
+
+    @keyframes active {
+      0% { filter: url(#handDrawnNoiset); translate: 0 -1px; }
+      25% { rotate: -2deg; }
+      50% { filter: url(#handDrawnNoiset2); translate: 0 1px; }
+      66% { rotate: 1.5deg; }
+      100% { filter: url(#handDrawnNoiset); translate: 0 -1px; }
+    }
+
+    /* ==========================================================
+       COMPONENT 3: RETRO CRT TV NOT FOUND (Not found.txt)
+       ========================================================== */
+    .main_wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 25em;
+      height: 22em;
+      margin: 0 auto;
+    }
+
+    .text_404 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      column-gap: 5.5em;
+      z-index: 0;
+      margin-bottom: 2em;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.35;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: #9f7e69;
+    }
+
+    .text_4041, .text_4042, .text_4043 {
+      transform: scaleY(18) scaleX(7);
+    }
+
+    .main_tv {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3.8em;
+      z-index: 10;
+      position: relative;
+    }
+
+    .antenna {
+      width: 4.5em;
+      height: 4.5em;
+      border-radius: 50%;
+      border: 2px solid black;
+      background-color: #f27405;
+      margin-bottom: -5.5em;
+      z-index: -1;
+      position: relative;
+    }
+
+    .antenna_shadow {
+      position: absolute;
+      background-color: transparent;
+      width: 45px;
+      height: 50px;
+      margin-left: 1.4em;
+      border-radius: 45%;
+      transform: rotate(140deg);
+      border: 4px solid transparent;
+      box-shadow: inset 0px 14px #a85103, inset 0px 14px 1px 1px #a85103;
+    }
+
+    .a1 {
+      position: relative;
+      top: -105%;
+      left: -130%;
+      width: 11em;
+      height: 5em;
+      border-radius: 50px;
+      background-image: linear-gradient(#171717, #353535, #171717);
+      transform: rotate(-29deg);
+      clip-path: polygon(50% 0%, 49% 100%, 52% 100%);
+    }
+
+    .a1d {
+      position: relative;
+      top: -212%;
+      left: -35%;
+      transform: rotate(45deg);
+      width: 0.5em;
+      height: 0.5em;
+      border-radius: 50%;
+      border: 2px solid black;
+      background-color: #979797;
+      z-index: 99;
+    }
+
+    .a2 {
+      position: relative;
+      top: -212%;
+      left: -10%;
+      width: 11em;
+      height: 3.8em;
+      border-radius: 50px;
+      background-image: linear-gradient(#171717, #353535, #171717);
+      margin-right: 4.5em;
+      clip-path: polygon(47% 0, 47% 0, 34% 34%, 54% 25%, 32% 100%, 29% 96%, 49% 32%, 30% 38%);
+      transform: rotate(-8deg);
+    }
+
+    .a2d {
+      position: relative;
+      top: -294%;
+      left: 94%;
+      width: 0.5em;
+      height: 0.5em;
+      border-radius: 50%;
+      border: 2px solid black;
+      background-color: #979797;
+      z-index: 99;
+    }
+
+    .tv {
+      width: 16.5em;
+      height: 8.8em;
+      margin-top: 2.5em;
+      border-radius: 15px;
+      background-color: #d36604;
+      display: flex;
+      justify-content: center;
+      border: 2px solid #1d0e01;
+      box-shadow: inset 0.2em 0.2em #e69635, 0 10px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .display_div {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      justify-content: center;
+      border-radius: 15px;
+      box-shadow: 3.5px 3.5px 0px #e69635;
+    }
+
+    .screen_out1 {
+      width: 10.5em;
+      height: 7.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+    }
+
+    .screenM {
+      width: 12.5em;
+      height: 7.5em;
+      position: relative;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(
+        to right,
+        #002fc6 0%, #002bb2 14.28%,
+        #3a3a3a 14.28%, #303030 28.57%,
+        #ff0afe 28.57%, #f500f4 42.85%,
+        #6c6c6c 42.85%, #626262 57.14%,
+        #0affd9 57.14%, #00f5ce 71.42%,
+        #3a3a3a 71.42%, #303030 85.71%,
+        white 85.71%, #fafafa 100%
+      );
+      border-radius: 10px;
+      border: 2px solid black;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #252525;
+      letter-spacing: 0.15em;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .screenM:before,
+    .screenM:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .screenM:before {
+      top: 0;
+      height: 68.4%;
+      background: linear-gradient(
+        to right,
+        white 0%, #fafafa 14.28%,
+        #ffe60a 14.28%, #f5dc00 28.57%,
+        #0affd9 28.57%, #00f5ce 42.85%,
+        #10ea00 42.85%, #0ed600 57.14%,
+        #ff0afe 57.14%, #f500f4 71.42%,
+        #ed0014 71.42%, #d90012 85.71%,
+        #002fc6 85.71%, #002bb2 100%
+      );
+    }
+
+    .screenM:after {
+      bottom: 0;
+      height: 21.7%;
+      background: linear-gradient(
+        to right,
+        #006c6b 0%, #005857 16.66%,
+        white 16.66%, #fafafa 33.33%,
+        #001b75 33.33%, #001761 50%,
+        #6c6c6c 50%, #626262 66.66%,
+        #929292 66.66%, #888888 83.33%,
+        #3a3a3a 83.33%, #303030 100%
+      );
+    }
+
+    .notfound_text {
+      background-color: black;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
+      font-size: 0.8rem;
+      color: white;
+      letter-spacing: 0.05em;
+      border-radius: 5px;
+      z-index: 10;
+      animation: blink 1.2s infinite ease-in-out;
+    }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .buttons_div {
+      width: 4em;
+      align-self: center;
+      height: 7.6em;
+      background-color: #e69635;
+      border: 2px solid #1d0e01;
+      padding: 0.5em;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      row-gap: 0.6em;
+      box-shadow: 3px 3px 0px #e69635;
+    }
+
+    .b1, .b2 {
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 50%;
+      background-color: #7f5934;
+      border: 2px solid black;
+      box-shadow: inset 2px 2px 1px #b49577, -2px 0px #513721;
+    }
+
+    .speakers {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.4em;
+    }
+
+    .speakers .g1 {
+      display: flex;
+      column-gap: 0.2em;
+    }
+
+    .speakers .g11, .g12, .g13 {
+      width: 0.55em;
+      height: 0.55em;
+      border-radius: 50%;
+      background-color: #7f5934;
+      border: 2px solid black;
+    }
+
+    .speakers .g {
+      width: 100%;
+      height: 2px;
+      background-color: #171717;
+    }
+
+    .bottom_tv {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 8.5em;
+    }
+
+    .base1, .base2 {
+      height: 0.9em;
+      width: 1.8em;
+      border: 2px solid #171717;
+      background-color: #4d4d4d;
+      margin-top: -0.1em;
+      z-index: -1;
+    }
+
+    .base3 {
+      position: absolute;
+      height: 0.15em;
+      width: 16.5em;
+      background-color: #171717;
+      margin-top: 0.7em;
+    }
+
+    /* ==========================================================
+       COMPONENT 4: DOODLE WALKING LOADER (load.txt)
+       ========================================================== */
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+      position: relative;
+    }
+
+    .loader {
+      scale: 0.85;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+
+    .loader svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .head {
+      translate: 27px -30px;
+      z-index: 3;
+      animation: bob 1s infinite ease-in;
+    }
+
+    .bod {
+      translate: 0px 30px;
+      z-index: 3;
+      animation: bob 1s infinite ease-in-out;
+    }
+
+    .legr {
+      translate: 75px 135px;
+      z-index: 0;
+      animation: rstep 1s infinite ease-in;
+      animation-delay: 0.45s;
+    }
+
+    .legl {
+      translate: 30px 155px;
+      z-index: 3;
+      animation: lstep 1s infinite ease-in;
+    }
+
+    @keyframes bob {
+      0%, 5% { transform: translateY(0) rotate(3deg); }
+      25% { transform: translateY(5px) rotate(0deg); }
+      50% { transform: translateY(0px) rotate(-3deg); }
+      70% { transform: translateY(5px) rotate(0deg); }
+      100% { transform: translateY(0) rotate(3deg); }
+    }
+
+    @keyframes lstep {
+      0% { transform: translateY(0) rotate(-5deg); }
+      33% { transform: translateY(-15px) translate(32px) rotate(35deg); }
+      66% { transform: translateY(0) translate(25px) rotate(-25deg); }
+      100% { transform: translateY(0) rotate(-5deg); }
+    }
+
+    @keyframes rstep {
+      0% { transform: translateY(0) translate(0px) rotate(-5deg); }
+      33% { transform: translateY(-10px) translate(30px) rotate(35deg); }
+      66% { transform: translateY(0) translate(20px) rotate(-25deg); }
+      100% { transform: translateY(0) translate(0px) rotate(-5deg); }
+    }
+
+    #gnd {
+      translate: -140px 0;
+      rotate: 10deg;
+      z-index: -1;
+      filter: blur(0.5px) drop-shadow(1px 3px 5px #000000);
+      opacity: 0.25;
+      animation: scroll 5s infinite linear;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateY(25px) translate(50px); opacity: 0; }
+      33%, 66% { opacity: 0.25; }
+      to { transform: translateY(-50px) translate(-100px); opacity: 0; }
+    }
+
+    /* ==========================================================
+       COMPONENT 5: NEO-BRUTALIST 3D INPUT (input.txt)
+       ========================================================== */
+    .input__container {
+      position: relative;
+      background: #fdfbf7;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 12px;
+      border: 3.5px solid #000;
+      max-width: 360px;
+      width: 100%;
+      transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+      transform: rotateX(8deg) rotateY(-8deg);
+      perspective: 1000px;
+      box-shadow: 8px 8px 0 #000;
+      margin: 1.5rem auto;
+    }
+
+    .input__container:hover {
+      transform: rotateX(4deg) rotateY(1deg) scale(1.03);
+      box-shadow: 18px 18px 0 -4px #e9b50b, 18px 18px 0 0 #000;
+    }
+
+    .shadow__input {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      bottom: 0;
+      z-index: -1;
+      transform: translateZ(-50px);
+      background: linear-gradient(45deg, rgba(255, 107, 107, 0.4) 0%, rgba(255, 107, 107, 0.1) 100%);
+      filter: blur(20px);
+    }
+
+    .input__button__shadow {
+      cursor: pointer;
+      border: 3px solid #000;
+      background: #e9b50b;
+      transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      transform: translateZ(20px);
+      position: relative;
+      z-index: 3;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .input__button__shadow:hover {
+      background: #e9b50b;
+      transform: translateZ(10px) translateX(-4px) translateY(-4px);
+      box-shadow: 4px 4px 0 0 #000;
+    }
+
+    .input__button__shadow svg {
+      fill: #000;
+      width: 22px;
+      height: 22px;
+    }
+
+    .input__search {
+      width: 100%;
+      outline: none;
+      border: 3px solid #000;
+      padding: 12px;
+      font-size: 16px;
+      background: #fff;
+      color: #000;
+      transform: translateZ(10px);
+      transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      z-index: 3;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .input__search::placeholder {
+      color: #777;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .input__container::before {
+      content: "FOR RIA";
+      position: absolute;
+      top: -14px;
+      left: 20px;
+      background: #e9b50b;
+      color: #000;
+      font-weight: 800;
+      padding: 3px 8px;
+      font-size: 12px;
+      transform: translateZ(50px);
+      z-index: 4;
+      border: 2px solid #000;
+    }
+
+    /* ==========================================================
+       COMPONENT 6: BOUQUET DOODLE BOY (flower.txt)
+       ========================================================== */
+    .scene-flower {
+      position: relative;
+      isolation: isolate;
+      width: min(100%, 680px);
+      min-height: 650px;
+      overflow: hidden;
+      border: 2px dashed rgba(68, 57, 45, 0.25);
+      border-radius: 24px;
+      background: var(--paper);
+      box-shadow: 0 20px 60px rgba(57, 44, 33, 0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      margin: 1rem 0;
+    }
+
+    .caption { text-align: center; z-index: 2; margin-bottom: 0.5rem; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: #a28b79; }
+    .caption h1 { margin: 4px 0 0; font: 600 clamp(2.2rem, 6vw, 3.5rem)/1 'Caveat', cursive; letter-spacing: -0.02em; color: #2d2621; }
+    .subtitle { margin: 6px 0 0; color: #9b8174; font: 500 1.25rem 'Caveat', cursive; }
+
+    .boy { width: min(85%, 380px); height: auto; overflow: visible; }
+    .sketch { stroke: var(--ink); stroke-width: 2.7; stroke-linecap: round; stroke-linejoin: round; filter: url(#pencil); }
+    .ground { fill: none; stroke: #b9aa98; stroke-width: 1.6; stroke-linecap: round; opacity: 0.7; }
+    .legs { stroke-width: 2.2; }
+    .arms-hidden { transform-origin: 180px 270px; animation: hideArms 6.8s ease-in-out infinite; }
+    .body { transform-origin: 180px 300px; animation: shySway 6.8s ease-in-out infinite; }
+    .head-boy { transform-origin: 180px 170px; animation: headTilt 6.8s ease-in-out infinite; }
+    .eyes { animation: blinkBoy 6.8s linear infinite; }
+    .smile { stroke: var(--ink); }
+    .offer { transform-origin: 180px 280px; opacity: 0; transform: translateY(20px) scale(0.82); animation: revealBouquet 6.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+    .stem { fill: none; stroke: #607c55; stroke-width: 3.1; stroke-linecap: round; }
+    .leaf { fill: #81986b; stroke: #526c49; stroke-width: 1.7; }
+    .flower { stroke: #9e5865; stroke-width: 1.8; stroke-linejoin: round; transform-box: fill-box; transform-origin: bottom center; animation: flowerSway 2.4s ease-in-out infinite alternate; }
+    .flower-pink { fill: #eaa1b5; }
+    .flower-yellow { fill: #efc95c; animation-delay: -0.4s; }
+    .flower-red { fill: #d85c70; animation-delay: -0.8s; }
+    .flower-pink2 { fill: #efb4c3; animation-delay: -0.3s; }
+    .flower-yellow2 { fill: #f1d36e; animation-delay: -0.6s; }
+    .detail { fill: none; stroke: rgba(125, 66, 75, 0.55); stroke-width: 1.3; }
+    .wrap { fill: #e8d4b8; stroke: #b99d7c; stroke-width: 2; }
+    .wrap-line { fill: none; stroke: #c7ad8e; stroke-width: 1.3; }
+    .ribbon { fill: #c77f8a; stroke: #965b64; stroke-width: 1.7; }
+    .ribbon-line { fill: none; stroke: #965b64; stroke-width: 2.3; }
+    .hand { fill: #efc4a9; stroke: #302d2a; stroke-width: 2.2; }
+    .finger { fill: none; stroke: #b77e6a; stroke-width: 1.5; }
+
+    .sparkle, .tiny-heart { position: absolute; color: #c88a93; user-select: none; animation: float 3s ease-in-out infinite; }
+    .sparkle { font-size: 28px; }
+    .sparkle-one { top: 38%; left: 14%; animation-delay: -0.8s; }
+    .sparkle-two { top: 46%; right: 12%; font-size: 34px; animation-delay: -1.6s; }
+    .tiny-heart { font-size: 24px; }
+    .heart-one { top: 32%; right: 20%; animation-delay: -0.4s; }
+    .heart-two { top: 56%; left: 18%; font-size: 16px; animation-delay: -1.2s; }
+    .bottom-note { margin: 12px 0 6px; color: #ad9a89; font: 500 15px 'Caveat', cursive; letter-spacing: 0.04em; }
+
+    @keyframes hideArms {
+      0%, 28% { opacity: 1; transform: translateY(0) scale(1); }
+      40%, 88% { opacity: 0; transform: translateY(9px) scale(0.96); }
+      96%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes revealBouquet {
+      0%, 27% { opacity: 0; transform: translateY(22px) scale(0.78); }
+      42% { opacity: 1; transform: translateY(-2px) scale(1.03); }
+      49%, 82% { opacity: 1; transform: translateY(0) scale(1); }
+      91%, 100% { opacity: 0; transform: translateY(17px) scale(0.84); }
+    }
+    @keyframes shySway {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      20%, 35% { transform: rotate(-1deg) translateY(1px); }
+      48%, 78% { transform: rotate(0.5deg) translateY(-1px); }
+    }
+    @keyframes headTilt {
+      0%, 20%, 100% { transform: rotate(0deg); }
+      28%, 38% { transform: rotate(-5deg) translateY(2px); }
+      48%, 75% { transform: rotate(2deg); }
+      84% { transform: rotate(0deg); }
+    }
+    @keyframes blinkBoy {
+      0%, 12%, 16%, 54%, 58%, 100% { opacity: 1; }
+      14%, 56% { opacity: 0.15; }
+    }
+    @keyframes flowerSway { from { rotate: -2deg; } to { rotate: 2deg; } }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); opacity: 0.65; }
+      50% { transform: translateY(-12px) rotate(8deg); opacity: 1; }
+    }
+
+    /* Sketched Hand-Drawn Wobbly Text Animation */
+    .sketch-wobble {
+      display: inline-block;
+      filter: url(#handDrawnNoise);
+      animation: wobbleText 3s infinite ease-in-out;
+    }
+    @keyframes wobbleText {
+      0%, 100% { transform: rotate(-0.5deg); }
+      50% { transform: rotate(0.8deg); }
+    }
+
+    /* Handwritten Underline SVG stroke */
+    .drawn-line {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: drawLine 2s forwards ease-in-out 0.5s;
+    }
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Sketched Note Cards */
+    .sketch-card {
+      background: #fffdf9;
+      border: 2px solid #302d2a;
+      border-radius: 16px;
+      box-shadow: 4px 4px 0 #302d2a;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .sketch-card:hover {
+      transform: translateY(-3px) rotate(-0.5deg);
+      box-shadow: 6px 6px 0 #302d2a;
+    }
+  </style>
+</head>
+<body class="selection:bg-amber-200 selection:text-black">
+
+  <!-- Ambient Paper Background Grain -->
+  <div class="paper-grain-bg" aria-hidden="true"></div>
+
+  <!-- Soft Ambient Audio Toggle Button -->
+  <div class="fixed top-4 right-4 z-50">
+    <button id="sound-toggle" class="bg-white/80 hover:bg-white text-stone-700 px-3.5 py-1.5 rounded-full border-2 border-stone-800 text-xs font-bold shadow-[2px_2px_0px_#000] flex items-center gap-1.5 transition active:translate-x-0.5 active:translate-y-0.5">
+      <span id="sound-icon">🎵</span>
+      <span id="sound-label">Music: Off</span>
+    </button>
+  </div>
+
+  <!-- ==========================================================
+       SVG FILTERS (Required for Hand-Drawn Wobble & Pencil Grain)
+       ========================================================== -->
+  <svg height="0" width="0" class="absolute">
+    <defs>
+      <!-- Pencil Filter for Flower Scene -->
+      <filter id="pencil" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.55" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+
+      <!-- Noise Filters for Sketched Buttons & Text (button.txt) -->
+      <filter id="handDrawnNoise">
+        <feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" type="fractalNoise"></feTurbulence>
+        <feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="3" in2="noise" in="SourceGraphic"></feDisplacementMap>
+      </filter>
+      <filter id="handDrawnNoise2">
+        <feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" seed="1010" type="fractalNoise"></feTurbulence>
+        <feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="3" in2="noise" in="SourceGraphic"></feDisplacementMap>
+      </filter>
+      <filter id="handDrawnNoiset">
+        <feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" type="fractalNoise"></feTurbulence>
+        <feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="6" in2="noise" in="SourceGraphic"></feDisplacementMap>
+      </filter>
+      <filter id="handDrawnNoiset2">
+        <feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" seed="1010" type="fractalNoise"></feTurbulence>
+        <feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="6" in2="noise" in="SourceGraphic"></feDisplacementMap>
+      </filter>
+    </defs>
+  </svg>
+
+  <main class="w-full flex flex-col items-center justify-center p-4 min-h-screen">
+
+    <!-- ==========================================================
+         SCREEN 1: THE INVITATION & CANVAS EASEL
+         ========================================================== -->
+    <section id="screen-1" class="screen-panel active text-center py-10">
+      
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-stone-400 bg-white/60 text-stone-600 text-xs uppercase tracking-widest font-mono mb-4">
+        <span>✎ Handcrafted with Care</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-sketch font-bold text-stone-900 tracking-tight leading-tight mb-2 sketch-wobble">
+        Ria, A Canvas Awaits You
+      </h1>
+
+      <p class="font-sketch text-xl sm:text-2xl text-stone-700 max-w-lg mx-auto mb-6">
+        "Before you step inside, bring color to the blank sketch..."
+      </p>
+
+      <!-- CANVAS BUTTON COMPONENT (canvas button.txt) -->
+      <div class="bg-easel-container my-3" id="canvas-card">
+        <label class="theme-switch" title="Tap the easel to paint the canvas!">
+          <input type="checkbox" id="canvas-checkbox" />
+          <div class="easel-frame" id="easel-interactive">
+            <div class="canvas-texture"></div>
+
+            <!-- Sketch scene -->
+            <div class="sketch-scene">
+              <div class="s-sun"></div>
+              <div class="s-mountain sm1"></div>
+              <div class="s-mountain sm2"></div>
+              <div class="s-mountain sm3"></div>
+              <div class="s-water">
+                <div class="s-water-line sw1"></div>
+                <div class="s-water-line sw2"></div>
+                <div class="s-water-line sw3"></div>
+                <div class="s-water-line sw4"></div>
+              </div>
+            </div>
+
+            <!-- Painting mask -->
+            <div class="painting-mask">
+              <div class="painting-scene">
+                <div class="p-sun"></div>
+                <div class="p-mountain pm1"></div>
+                <div class="p-mountain pm2"></div>
+                <div class="p-mountain pm3"></div>
+                <div class="p-water">
+                  <div class="p-reflection"></div>
+                  <div class="p-water-shimmer"></div>
+                </div>
+                <div class="p-bird pb1"><div class="wing wing-l"></div><div class="wing wing-r"></div></div>
+                <div class="p-bird pb2"><div class="wing wing-l"></div><div class="wing wing-r"></div></div>
+              </div>
+            </div>
+
+            <!-- Brush tracker -->
+            <div class="brush-tracker">
+              <div class="magic-spark s1"></div>
+              <div class="magic-spark s2"></div>
+              <div class="magic-spark s3"></div>
+              <div class="paintbrush">
+                <div class="handle"></div>
+                <div class="ferrule"></div>
+                <div class="bristles"></div>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Action Button to Trigger the Canvas Animation & Proceed -->
+      <div class="button-sketch-wrapper mt-4">
+        <button id="btn-enter-heart" class="button">
+          <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+            <g transform="translate(-171.52826,-126.11624)">
+              <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+              </g>
+            </g>
+          </svg>
+          Enter into Priyanshu's Heart 🌸
+        </button>
+      </div>
+
+      <p id="easel-hint" class="font-sketch text-lg text-stone-500 mt-2">
+        (Tap the button or easel above to paint the view)
+      </p>
+
+    </section>
+
+    <!-- ==========================================================
+         REUSABLE SCREEN: WALKING DOODLE LOADER (load.txt)
+         ========================================================== -->
+    <section id="screen-loader" class="screen-panel text-center py-12">
+      <div class="loader-wrapper">
+        <div class="loader">
+          <!-- Left Leg -->
+          <svg class="legl" version="1.1" xmlns="http://www.w3.org/2000/svg" width="20.69332" height="68.19944" viewBox="0,0,20.69332,68.19944">
+            <g transform="translate(-201.44063,-235.75466)">
+              <g stroke-miterlimit="10">
+                <path d="M218.11971,301.20087c-2.20708,1.73229 -4.41416,0 -4.41416,0l-1.43017,-1.1437c-1.42954,-1.40829 -3.04351,-2.54728 -4.56954,-3.87927c-0.95183,-0.8308 -2.29837,-1.49883 -2.7652,-2.55433c-0.42378,-0.95815 0.14432,-2.02654 0.29355,-3.03399c0.41251,-2.78499 1.82164,-5.43386 2.41472,-8.22683c1.25895,-4.44509 2.73863,-8.98683 3.15318,-13.54796c0.22615,-2.4883 -0.21672,-5.0155 -0.00278,-7.50605c0.30636,-3.56649 1.24602,-7.10406 1.59992,-10.6738c0.29105,-2.93579 -0.00785,-5.9806 -0.00785,-8.93046c0,0 0,-2.44982 3.12129,-2.44982c3.12129,0 3.12129,2.44982 3.12129,2.44982c0,3.06839 0.28868,6.22201 -0.00786,9.27779c-0.34637,3.56935 -1.30115,7.10906 -1.59992,10.6738c-0.2103,2.50918 0.22586,5.05326 -0.00278,7.56284c-0.43159,4.7371 -1.94029,9.46317 -3.24651,14.07835c-0.47439,2.23403 -1.29927,4.31705 -2.05805,6.47156c-0.18628,0.52896 -0.1402,1.0974 -0.327,1.62624c-0.09463,0.26791 -0.64731,0.47816 -0.50641,0.73323c0.19122,0.34617 0.86423,0.3445 1.2346,0.58502c1.88637,1.22503 3.50777,2.79494 5.03,4.28305l0.96971,0.73991c0,0 2.20708,1.73229 0,3.46457z" fill="none" stroke="#191e2e" stroke-width="7"></path>
+              </g>
+            </g>
+          </svg>
+
+          <!-- Right Leg -->
+          <svg class="legr" version="1.1" xmlns="http://www.w3.org/2000/svg" width="41.02537" height="64.85502" viewBox="0,0,41.02537,64.85502">
+            <g transform="translate(-241.54137,-218.44347)">
+              <g stroke-miterlimit="10">
+                <path d="M279.06674,279.42662c-2.27967,1.98991 -6.08116,0.58804 -6.08116,0.58804l-2.47264,-0.92915c-2.58799,-1.18826 -5.31176,-2.08831 -7.99917,-3.18902c-1.67622,-0.68654 -3.82471,-1.16116 -4.93147,-2.13229c-1.00468,-0.88156 -0.69132,-2.00318 -0.92827,-3.00935c-0.65501,-2.78142 0.12275,-5.56236 -0.287,-8.37565c-0.2181,-4.51941 -0.17458,-9.16283 -1.60696,-13.68334c-0.78143,-2.46614 -2.50162,-4.88125 -3.30086,-7.34796c-1.14452,-3.53236 -1.40387,-7.12078 -2.48433,-10.66266c-0.88858,-2.91287 -2.63779,-5.85389 -3.93351,-8.74177c0,0 -1.07608,-2.39835 3.22395,-2.81415c4.30003,-0.41581 2.41605,1.98254 2.41605,1.98254c1.34779,3.00392 3.13072,6.05282 4.06444,9.0839c1.09065,3.54049 1.33011,7.13302 2.48433,10.66266c0.81245,2.48448 2.5308,4.917 3.31813,7.40431c1.48619,4.69506 1.48366,9.52281 1.71137,14.21503c0.32776,2.25028 0.10631,4.39942 0.00736,6.60975c-0.02429,0.54266 0.28888,1.09302 0.26382,1.63563c-0.01269,0.27488 -0.68173,0.55435 -0.37558,0.78529c0.41549,0.31342 1.34191,0.22213 1.95781,0.40826c3.13684,0.94799 6.06014,2.26892 8.81088,3.52298l1.66093,0.59519c0,0 6.76155,1.40187 4.48187,3.39177z" fill="none" stroke="#000000" stroke-width="7"></path>
+              </g>
+            </g>
+          </svg>
+
+          <!-- Body -->
+          <div class="bod">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="144.10576" height="144.91623" viewBox="0,0,144.10576,144.91623">
+              <g transform="translate(-164.41679,-112.94712)">
+                <g stroke-miterlimit="10">
+                  <path d="M166.9168,184.02633c0,-36.49454 35.0206,-66.07921 72.05288,-66.07921c37.03228,0 67.05288,29.58467 67.05288,66.07921c0,6.94489 -1.08716,13.63956 -3.10292,19.92772c-2.71464,8.46831 -7.1134,16.19939 -12.809,22.81158c-2.31017,2.68194 -7.54471,12.91599 -7.54471,12.91599c0,0 -5.46714,-1.18309 -8.44434,0.6266c-3.86867,2.35159 -10.95356,10.86714 -10.95356,10.86714c0,0 -6.96906,-3.20396 -9.87477,-2.58085c-2.64748,0.56773 -6.72538,5.77072 -6.72538,5.77072c0,0 -5.5023,-4.25969 -7.5982,-4.25969c-3.08622,0 -9.09924,3.48259 -9.09924,3.48259c0,0 -6.0782,-5.11244 -9.00348,-5.91884c-4.26461,-1.17561 -12.23343,0.75049 -12.23343,0.75049c0,0 -5.18164,-8.26065 -7.60688,-9.90388c-3.50443,-2.37445 -8.8271,-3.95414 -8.8271,-3.95414c0,0 -5.33472,-8.81718 -7.27019,-11.40895c-4.81099,-6.44239 -13.46422,-9.83437 -15.65729,-17.76175c-1.53558,-5.55073 -2.35527,-21.36472 -2.35527,-21.36472z" fill="#191e2e" stroke="#000000" stroke-width="5" stroke-linecap="butt"></path>
+                </g>
+              </g>
+            </svg>
+            <!-- Head -->
+            <svg class="head" version="1.1" xmlns="http://www.w3.org/2000/svg" width="115.68559" height="88.29441" viewBox="0,0,115.68559,88.29441">
+              <g transform="translate(-191.87889,-75.62023)">
+                <g stroke-miterlimit="10">
+                  <path d="M195.12889,128.77752c0,-26.96048 21.33334,-48.81626 47.64934,-48.81626c26.316,0 47.64935,21.85578 47.64935,48.81626c0,0.60102 -9.22352,20.49284 -9.22352,20.49284l-7.75885,0.35623l-7.59417,6.15039l-8.64295,-1.74822l-11.70703,6.06119l-6.38599,-4.79382l-6.45999,2.36133l-7.01451,-7.38888l-8.11916,1.29382l-6.19237,-6.07265l-7.6263,-1.37795l-4.19835,-7.87062l-4.24236,-4.16907c0,0 -0.13314,-2.0999 -0.13314,-3.29458z" fill="none" stroke="#2f3a50" stroke-width="6" stroke-linecap="butt"></path>
+                  <path d="M276.02738,115.72434c-0.66448,-4.64715 2.56411,-8.95308 7.21127,-9.61756c4.64715,-0.66448 8.95309,2.56411 9.61757,7.21126c0.46467,3.24972 -1.94776,8.02206 -5.96624,9.09336c-2.11289,-1.73012 -5.08673,-5.03426 -5.08673,-5.03426c0,0 -4.12095,1.16329 -4.60481,1.54229c-0.16433,-0.04891 -0.62732,-0.38126 -0.72803,-0.61269c-0.30602,-0.70328 -0.36302,-2.02286 -0.44303,-2.58239z" fill="#ffffff" stroke="none" stroke-width="0.5"></path>
+                  <path d="M242.49281,125.6424c0,-4.69442 3.80558,-8.5 8.5,-8.5c4.69442,0 8.5,3.80558 8.5,8.5c0,4.69442 -3.80558,8.5 -8.5,8.5c-4.69442,0 -8.5,-3.80558 -8.5,-8.5z" fill="#ffffff" stroke="none" stroke-width="0.5"></path>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Ground Line -->
+          <svg id="gnd" version="1.1" xmlns="http://www.w3.org/2000/svg" width="475" height="530" viewBox="0,0,163.40011,85.20095">
+            <g transform="translate(-176.25,-207.64957)">
+              <g stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-miterlimit="10">
+                <path d="M295.5,273.1829c0,0 -57.38915,6.69521 -76.94095,-9.01465c-13.65063,-10.50609 15.70098,-20.69467 -2.5451,-19.94465c-30.31027,2.05753 -38.51396,-26.84135 -38.51396,-26.84135c0,0 6.50084,13.30023 18.93224,19.17888c9.53286,4.50796 26.23632,-1.02541 32.09529,4.95137c3.62417,3.69704 2.8012,6.33005 0.66517,8.49452c-3.79415,3.84467 -11.7312,6.21103 -6.24682,10.43645c22.01082,16.95812 72.55412,12.73944 72.55412,12.73944z" fill="#000000"></path>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="mt-4">
+          <p id="loader-status" class="font-sketch text-2xl sm:text-3xl text-stone-800 font-bold tracking-wide">
+            Opening the doors to his heart... ⏳
+          </p>
+          <div class="w-48 mx-auto mt-3 h-1.5 bg-stone-300 rounded-full overflow-hidden">
+            <div id="loader-bar" class="h-full bg-stone-800 w-0 transition-all duration-300 ease-linear"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SCREEN 2: THE QUESTION & NOT FOUND TV
+         ========================================================== -->
+    <section id="screen-2" class="screen-panel text-center py-8">
+      
+      <div class="sketch-card p-6 sm:p-10 w-full mb-6">
+        <span class="text-xs font-mono uppercase tracking-widest text-stone-500 bg-stone-100 px-3 py-1 rounded-full border border-stone-300">
+          A Gentle Honest Question
+        </span>
+
+        <h2 class="text-3xl sm:text-5xl font-sketch font-bold text-stone-900 mt-4 mb-3 sketch-wobble">
+          "Do you have any hate for Priyanshu?"
+        </h2>
+
+        <p class="font-sketch text-xl text-stone-600 mb-6">
+          Let’s ask the nostalgic retro scanner to check Ria’s heart...
+        </p>
+
+        <!-- THE SKETCH BUTTON ("LET'S SEE...") -->
+        <div class="button-sketch-wrapper" id="lets-see-box">
+          <button id="btn-lets-see" class="button">
+            <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+              <g transform="translate(-171.52826,-126.11624)">
+                <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                  <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+                </g>
+              </g>
+            </svg>
+            LET'S SEE... 🔍
+          </button>
+        </div>
+
+        <!-- TV RESULT REVEAL CONTAINER -->
+        <div id="tv-container" class="hidden flex-col items-center mt-6 transition-all">
+          
+          <!-- RETRO CRT TV (Not found.txt) -->
+          <div class="main_wrapper">
+            <div class="text_404">
+              <div class="text_4041">4</div>
+              <div class="text_4042">0</div>
+              <div class="text_4043">4</div>
+            </div>
+
+            <div class="main_tv">
+              <div class="antenna">
+                <div class="antenna_shadow"></div>
+                <div class="a1"></div>
+                <div class="a1d"></div>
+                <div class="a2"></div>
+                <div class="a2d"></div>
+              </div>
+
+              <div class="tv">
+                <div class="display_div">
+                  <div class="screen_out1">
+                    <div class="screenM">
+                      <span class="notfound_text">NOT FOUND</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="buttons_div">
+                  <div class="b1"></div>
+                  <div class="b2"></div>
+                  <div class="speakers">
+                    <div class="g1"><div class="g11"></div><div class="g12"></div><div class="g13"></div></div>
+                    <div class="g"></div>
+                    <div class="g"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bottom_tv">
+                <div class="base1"></div>
+                <div class="base2"></div>
+                <div class="base3"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sketched Typewritten Text Message -->
+          <div class="mt-8 p-6 bg-amber-50/70 border-2 border-stone-800 rounded-2xl max-w-lg mx-auto shadow-[3px_3px_0px_#000]">
+            <h3 class="font-sketch text-3xl font-bold text-stone-900 mb-2">
+              0% Hate Found...
+            </h3>
+            <p id="tv-explanation" class="font-sketch text-2xl text-stone-700 leading-snug mb-3">
+              <!-- Animated typewriter text injected via JS -->
+            </p>
+            <div id="unveil-btn-wrap" class="hidden mt-6">
+              <!-- Unveil What Lies Deep Under Priyanshu Heart Button -->
+              <div class="button-sketch-wrapper">
+                <button id="btn-unveil-deep" class="button">
+                  <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+                    <g transform="translate(-171.52826,-126.11624)">
+                      <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                        <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Unveil what lies deep under Priyanshu's heart Click here
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==========================================================
+         SCREEN 3: DEEP FEELINGS & NEO-BRUTALIST INPUT
+         ========================================================== -->
+    <section id="screen-3" class="screen-panel text-center py-8">
+      
+      <div class="w-full text-center mb-6">
+        <span class="font-mono text-xs uppercase tracking-widest text-stone-500 bg-white/70 px-3 py-1 rounded-full border border-stone-300">
+          Chapter: The Quiet Truth
+        </span>
+        <h2 class="text-4xl sm:text-5xl font-sketch font-bold text-stone-900 mt-2 mb-2 sketch-wobble">
+          What Truly Lives Deep Inside
+        </h2>
+        <p class="font-sketch text-xl sm:text-2xl text-stone-600 max-w-lg mx-auto">
+          "When all the superficial noise is stripped away, this is everything that remains for you."
+        </p>
+      </div>
+
+      <!-- NEO-BRUTALIST 3D INPUT (input.txt) -->
+      <div class="w-full my-2">
+        <div class="input__container">
+          <div class="shadow__input"></div>
+          <button id="input-btn-submit" class="input__button__shadow" title="Send a heartbeat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </button>
+          <input
+            type="text"
+            id="ria-custom-input"
+            class="input__search"
+            placeholder="Type 'Ria' or leave a smile"
+            value="Bittua"
+          />
+        </div>
+      </div>
+
+      <!-- 3 Sketched Note Cards with Doodles -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full my-6 text-left">
+        <div class="sketch-card p-5 bg-[#fffef9]">
+          <span class="text-2xl"></span>
+          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Comfort</h4>
+          <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
+            Talking to you brings a sense of calm that words can barely capture. It's home in its purest form.
+          </p>
+        </div>
+
+        <div class="sketch-card p-5 bg-[#fffaf5]">
+          <span class="text-2xl"></span>
+          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Laughter</h4>
+          <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
+            Your smile has this effortless magic. No matter the storm, one little word from you lights the room.
+          </p>
+        </div>
+
+        <div class="sketch-card p-5 bg-[#fefaf8]">
+          <span class="text-2xl"></span>
+          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">Uhmmm..</h4>
+          <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
+            Pure admiration, genuine care, and wishing the highest happiness for you with every passing sunrise.
+          </p>
+        </div>
+      </div>
+
+      <!-- Hand-Drawn Button: "Click this for one last thing" -->
+      <div class="button-sketch-wrapper mt-4">
+        <button id="btn-one-last-thing" class="button">
+          <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+            <g transform="translate(-171.52826,-126.11624)">
+              <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+              </g>
+            </g>
+          </svg>
+          Click this for one last thing 💌
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================
+         SCREEN 4: "THIS IS FOR U BITTUA" & BLANK TRANSITION
+         ========================================================== -->
+    <section id="screen-4-intro" class="screen-panel text-center py-20">
+      <div class="my-auto py-12">
+        <p class="eyebrow mb-2">from the very core</p>
+        <h2 id="bittua-text" class="text-5xl sm:text-7xl font-sketch font-bold text-stone-900 tracking-tight leading-tight sketch-wobble">
+          This is for u bittua
+        </h2>
+        <div class="w-32 h-1 bg-stone-700 mx-auto mt-4 rounded-full"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SCREEN 5: GRAND BOUQUET FINALE (flower.txt)
+         ========================================================== -->
+    <section id="screen-5-bouquet" class="screen-panel text-center py-6">
+      
+      <!-- Flower Scene Main Card -->
+      <main class="scene-flower" aria-label="A hand-drawn boy shyly offering a bouquet of tulips">
+        <div class="sparkle sparkle-one">✳</div>
+        <div class="sparkle sparkle-two">✧</div>
+        <div class="tiny-heart heart-one">♡</div>
+        <div class="tiny-heart heart-two">♥</div>
+
+        <div class="caption">
+          <span class="eyebrow">a tiny bit of courage</span>
+          <h1>these are for you.</h1>
+          <p class="subtitle">I picked the prettiest ones. 🌷</p>
+        </div>
+
+        <svg class="boy" viewBox="0 0 360 570" role="img">
+          <title>Shy doodle boy with tulips</title>
+          <!-- ground -->
+          <path class="ground" d="M75 535 Q175 526 282 536 M105 542 Q175 537 255 543" />
+
+          <!-- legs and shoes -->
+          <g class="legs sketch">
+            <path d="M133 365 Q126 420 133 478 L133 507 Q151 517 168 507 L174 386Z" fill="#e8e0d4" />
+            <path d="M181 382 Q189 432 184 480 L187 507 Q207 516 223 505 L216 378Z" fill="#e8e0d4" />
+            <path d="M133 480 Q151 488 169 479 M184 482 Q204 489 221 479" fill="none" />
+            <path d="M132 500 Q111 502 105 518 Q102 530 119 533 L167 533 Q177 531 170 515 L165 505" fill="#f8f4ec" />
+            <path d="M187 505 Q181 518 182 526 Q185 534 201 534 L238 532 Q251 530 242 517 Q236 507 220 502" fill="#f8f4ec" />
+            <path d="M109 520 Q136 525 169 520 M187 522 Q214 527 243 520 M128 512 l24 4 m-20 3 l24 4 M200 512 l23 4 m-19 3 l24 4" fill="none" stroke-width="1.5" />
+          </g>
+
+          <!-- arms kept behind the back at first -->
+          <g class="arms-hidden sketch">
+            <path d="M133 220 Q104 247 119 286 Q135 307 159 286 L181 263" fill="none" stroke="#252522" stroke-width="17" stroke-linecap="round" />
+            <path d="M222 220 Q251 247 236 286 Q220 307 196 286 L179 263" fill="none" stroke="#252522" stroke-width="17" stroke-linecap="round" />
+            <path d="M133 220 Q104 247 119 286 Q135 307 159 286 L181 263 M222 220 Q251 247 236 286 Q220 307 196 286 L179 263" fill="none" stroke="#f5eee3" stroke-width="12" stroke-linecap="round" />
+            <path d="M153 285 q12 -8 18 3 M192 288 q10 -8 16 0" fill="none" stroke-width="2" />
+          </g>
+
+          <!-- sweater body -->
+          <g class="body sketch">
+            <path d="M139 200 Q153 188 169 192 L193 192 Q213 189 227 204 L247 292 Q249 311 232 317 L221 321 L226 385 Q178 399 128 384 L136 319 L118 312 Q107 306 113 287Z" fill="#f7f0e6" />
+            <path d="M143 207 Q126 247 124 291 M218 208 Q234 250 238 292" fill="none" stroke="#b9afa2" stroke-width="1.5" />
+            <path d="M136 319 Q177 331 226 319 M130 374 Q176 389 224 374" fill="none" stroke="#b9afa2" stroke-width="1.5" />
+            <path d="M139 379 l-1 8 m8 -7 l-1 9 m8 -8 l-1 9 m8 -8 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 8" fill="none" stroke="#b9afa2" stroke-width="1.5" />
+            <path d="M157 197 Q158 222 179 223 Q201 222 204 197" fill="#f2e6d7" />
+            <path d="M157 198 Q179 211 204 198" fill="none" stroke="#b9afa2" stroke-width="2" />
+          </g>
+
+          <!-- neck and head -->
+          <g class="head-boy sketch">
+            <path d="M163 174 L161 203 Q179 218 198 201 L194 174Z" fill="#e8b99e" />
+            <path d="M118 108 Q117 52 176 48 Q235 51 237 111 L229 153 Q219 184 181 190 Q144 186 128 154Z" fill="#efc4a9" />
+            <!-- ears -->
+            <path d="M121 119 Q105 107 108 131 Q111 148 128 143 M230 119 Q246 107 243 131 Q240 148 224 143" fill="#efc4a9" />
+            <!-- messy hair -->
+            <path d="M119 115 Q101 83 126 59 Q132 31 158 42 Q174 17 193 39 Q222 28 230 61 Q250 78 235 112 L224 91 L214 103 L203 78 L188 99 L180 69 L163 91 L155 75 L140 104 L132 94Z" fill="#302d2a" />
+            <path d="M121 80 Q138 53 151 48 M150 65 Q166 35 179 41 M187 54 Q207 40 220 67 M207 75 l17 -10 M135 88 l-7 15" fill="none" stroke="#6e6258" stroke-width="2.2" stroke-linecap="round" />
+            <!-- face -->
+            <path class="eyes" d="M145 126 Q154 119 162 126 M190 126 Q199 119 207 126" fill="none" stroke-width="3.2" stroke-linecap="round" />
+            <path d="M174 137 q4 3 8 0" fill="none" stroke="#c58f7d" stroke-width="1.7" stroke-linecap="round" />
+            <path class="smile" d="M163 151 Q178 163 194 150" fill="none" stroke-width="2.5" stroke-linecap="round" />
+            <ellipse class="blush" cx="143" cy="145" rx="12" ry="5" fill="#e99a94" opacity=".55" />
+            <ellipse class="blush" cx="211" cy="145" rx="12" ry="5" fill="#e99a94" opacity=".55" />
+          </g>
+
+          <!-- hands and bouquet offered forward -->
+          <g class="offer sketch">
+            <path d="M132 224 Q113 244 129 275 L157 302 L176 283 L159 250 Q151 229 143 222Z" fill="#f7f0e6" />
+            <path d="M224 224 Q244 244 228 275 L202 302 L183 283 L199 250 Q207 229 215 222Z" fill="#f7f0e6" />
+            <path d="M132 224 Q113 244 129 275 L157 302 M224 224 Q244 244 228 275 L202 302" fill="none" stroke="#b9afa2" stroke-width="1.4" />
+            <!-- stems -->
+            <g class="tulips">
+              <path d="M151 278 Q145 232 132 173 M163 278 Q165 224 164 157 M177 278 Q180 222 190 170 M188 278 Q205 229 220 187 M171 278 Q181 236 176 187" class="stem" />
+              <path d="M149 248 Q126 238 126 219 Q146 222 149 248 M183 247 Q205 233 207 215 Q188 221 183 247 M164 237 Q145 221 148 205 Q165 215 164 237 M194 252 Q217 250 224 234 Q203 235 194 252" class="leaf" />
+              <!-- tulip heads -->
+              <g class="flower flower-pink"><path d="M118 184 Q112 165 125 153 Q129 166 135 158 Q145 166 142 184 Q132 195 118 184Z"/><path d="M125 155 Q126 171 130 184" class="detail"/></g>
+              <g class="flower flower-yellow"><path d="M150 164 Q143 144 157 132 Q160 146 167 137 Q179 148 173 166 Q163 176 150 164Z"/><path d="M158 135 Q159 150 163 166" class="detail"/></g>
+              <g class="flower flower-red"><path d="M178 178 Q170 157 184 145 Q188 160 195 151 Q206 162 201 180 Q190 190 178 178Z"/><path d="M185 148 Q187 163 190 180" class="detail"/></g>
+              <g class="flower flower-pink2"><path d="M207 195 Q201 177 213 166 Q218 180 225 172 Q235 183 229 199 Q219 207 207 195Z"/><path d="M214 169 Q215 184 219 199" class="detail"/></g>
+              <g class="flower flower-yellow2"><path d="M139 211 Q132 194 144 183 Q148 196 154 189 Q165 199 160 215 Q150 224 139 211Z"/><path d="M145 186 Q147 200 150 214" class="detail"/></g>
+            </g>
+            <!-- wrap -->
+            <path class="wrap" d="M126 220 Q172 232 224 210 L202 286 L177 322 L147 286Z" />
+            <path class="wrap-line" d="M126 220 Q163 252 177 322 M224 210 Q198 254 177 322 M144 286 Q175 299 202 286" />
+            <!-- ribbon -->
+            <path class="ribbon" d="M174 286 Q151 268 146 285 Q145 297 173 291 Q151 307 163 312 Q175 309 178 293 Q191 313 202 302 Q209 291 181 289 Q208 278 196 271 Q185 269 178 286Z" />
+            <path class="ribbon-line" d="M176 291 L164 329 M181 291 L194 325" />
+            <!-- hands -->
+            <path class="hand" d="M151 274 Q143 271 140 280 Q139 290 150 295 L165 300 Q173 299 173 290 L168 279Z" />
+            <path class="hand" d="M201 273 Q209 270 212 279 Q213 289 202 294 L188 300 Q180 299 180 290 L185 279Z" />
+            <path class="finger" d="M147 281 q8 5 17 6 M148 287 q8 5 16 5 M205 280 q-8 5 -16 7 M204 287 q-8 5 -15 5" />
+          </g>
+        </svg>
+
+        <div class="bottom-note">made with all of Priyanshu's courage <span>♡</span></div>
+      </main>
+
+      <!-- The Grand Loving Confession -->
+      <div class="max-w-md mx-auto my-6 p-6 bg-white border-2 border-stone-800 rounded-2xl shadow-[4px_4px_0px_#000]">
+        <h2 class="font-sketch text-4xl sm:text-5xl font-bold text-rose-600 mb-2">
+          Priyanshu loves you, Ria. ❤️
+        </h2>
+        <p class="font-sketch text-xl sm:text-2xl text-stone-700 leading-snug">
+          Always has, always will. Keep this smile safe forever, bittua.
+        </p>
+
+        <button id="btn-restart" class="mt-4 px-5 py-2 text-xs font-mono uppercase tracking-widest bg-stone-100 hover:bg-stone-200 border-2 border-stone-800 rounded-full font-bold shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition">
+          ↺ Relive this story from the start
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================
+       WEB AUDIO SYNTHESIZER (Gentle Chimes)
+       ========================================================== */
+    let audioCtx = null;
+    let isMusicOn = false;
+    let musicInterval = null;
+
+    const chimeNotes = [261.63, 329.63, 392.00, 523.25, 659.25];
+
+    function playChime(freq = 440, duration = 1.2) {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.06, audioCtx.currentTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    const soundToggle = document.getElementById('sound-toggle');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundLabel = document.getElementById('sound-label');
+
+    soundToggle.addEventListener('click', () => {
+      if (!isMusicOn) {
+        isMusicOn = true;
+        soundIcon.textContent = '🎶';
+        soundLabel.textContent = 'Music: On';
+        let step = 0;
+        musicInterval = setInterval(() => {
+          const note = chimeNotes[step % chimeNotes.length];
+          playChime(note, 1.8);
+          step++;
+        }, 900);
+      } else {
+        isMusicOn = false;
+        clearInterval(musicInterval);
+        soundIcon.textContent = '🎵';
+        soundLabel.textContent = 'Music: Off';
+      }
+    });
+
+    /* ==========================================================
+       SCREEN NAVIGATION STATE MACHINE
+       ========================================================== */
+    const screens = {
+      s1: document.getElementById('screen-1'),
+      loader: document.getElementById('screen-loader'),
+      s2: document.getElementById('screen-2'),
+      s3: document.getElementById('screen-3'),
+      s4Intro: document.getElementById('screen-4-intro'),
+      s5Bouquet: document.getElementById('screen-5-bouquet')
+    };
+
+    const loaderStatus = document.getElementById('loader-status');
+    const loaderBar = document.getElementById('loader-bar');
+
+    function showScreen(targetScreen) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      targetScreen.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function runLoader(seconds, statusText, nextCallback) {
+      showScreen(screens.loader);
+      loaderStatus.textContent = statusText;
+      loaderBar.style.width = '0%';
+
+      let elapsed = 0;
+      const intervalMs = 100;
+      const totalSteps = (seconds * 1000) / intervalMs;
+
+      const progressInterval = setInterval(() => {
+        elapsed++;
+        const percent = Math.min((elapsed / totalSteps) * 100, 100);
+        loaderBar.style.width = `${percent}%`;
+
+        if (elapsed % 10 === 0) {
+          playChime(chimeNotes[Math.floor(Math.random() * chimeNotes.length)], 0.5);
+        }
+
+        if (elapsed >= totalSteps) {
+          clearInterval(progressInterval);
+          setTimeout(() => {
+            nextCallback();
+          }, 300);
+        }
+      }, intervalMs);
+    }
+
+    /* ==========================================================
+       FLOW STEP 1: CANVAS PAINTING ANIMATION -> 5s LOADER
+       ========================================================== */
+    const canvasCheckbox = document.getElementById('canvas-checkbox');
+    const btnEnterHeart = document.getElementById('btn-enter-heart');
+    const easelInteractive = document.getElementById('easel-interactive');
+    const easelHint = document.getElementById('easel-hint');
+
+    function triggerCanvasPaintingAndProceed() {
+      // 1. Toggle canvas check to show full painting brush stroke animation
+      canvasCheckbox.checked = true;
+      playChime(329.63, 2);
+      easelHint.textContent = "✨ Priyanshu is painting the morning sky for Ria...";
+      btnEnterHeart.style.pointerEvents = 'none';
+      btnEnterHeart.style.opacity = '0.7';
+
+      // 2. Let the painting animation run fully (~3 seconds)
+      setTimeout(() => {
+        // 3. Trigger loader for exactly 5 seconds
+        runLoader(5, "Opening the doors to his heart... ⏳", () => {
+          showScreen(screens.s2);
+        });
+      }, 3000);
+    }
+
+    btnEnterHeart.addEventListener('click', triggerCanvasPaintingAndProceed);
+    easelInteractive.addEventListener('click', () => {
+      if (!canvasCheckbox.checked) {
+        triggerCanvasPaintingAndProceed();
+      }
+    });
+
+    /* ==========================================================
+       FLOW STEP 2: LET'S SEE -> TV NOT FOUND -> 6s LOADER
+       ========================================================== */
+    const btnLetsSee = document.getElementById('btn-lets-see');
+    const tvContainer = document.getElementById('tv-container');
+    const tvExplanation = document.getElementById('tv-explanation');
+    const unveilBtnWrap = document.getElementById('unveil-btn-wrap');
+    const btnUnveilDeep = document.getElementById('btn-unveil-deep');
+
+    btnLetsSee.addEventListener('click', () => {
+      playChime(392.00, 1.2);
+      btnLetsSee.style.pointerEvents = 'none';
+      btnLetsSee.style.opacity = '0.6';
+
+      // Reveal the Retro CRT TV
+      tvContainer.classList.remove('hidden');
+      tvContainer.classList.add('flex');
+
+      // Typewriter message
+      const textToType = "...and vice versa, Priyanshu also doesn't hate you at all. In fact, hate could never exist in his story for you.";
+      tvExplanation.textContent = "";
+      let i = 0;
+      const typeInterval = setInterval(() => {
+        if (i < textToType.length) {
+          tvExplanation.textContent += textToType.charAt(i);
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          unveilBtnWrap.classList.remove('hidden');
+          playChime(523.25, 1.5);
+        }
+      }, 35);
+    });
+
+    btnUnveilDeep.addEventListener('click', () => {
+      playChime(440, 1.2);
+      // Run loader for 5-7 seconds (6s selected)
+      runLoader(6, "Diving deep into the feelings... 💭", () => {
+        showScreen(screens.s3);
+      });
+    });
+
+    /* ==========================================================
+       FLOW STEP 3: DEEP FEELINGS -> "CLICK THIS FOR ONE LAST THING" -> 5s LOADER
+       ========================================================== */
+    const inputBtnSubmit = document.getElementById('input-btn-submit');
+    const riaCustomInput = document.getElementById('ria-custom-input');
+    const btnOneLastThing = document.getElementById('btn-one-last-thing');
+
+    inputBtnSubmit.addEventListener('click', () => {
+      playChime(659.25, 1.5);
+      inputBtnSubmit.style.background = "#22c55e";
+      setTimeout(() => {
+        inputBtnSubmit.style.background = "#e9b50b";
+      }, 1000);
+    });
+
+    btnOneLastThing.addEventListener('click', () => {
+      playChime(523.25, 1.5);
+      // Run loader for 5 seconds
+      runLoader(5, "Preparing something special just for you... 🌷", () => {
+        // Step 4: Show "This is for u bittua" sketched screen
+        showScreen(screens.s4Intro);
+        playChime(392, 2);
+
+        // Pause for ~2.5s on this text, then fade through brief blank pause to the bouquet
+        setTimeout(() => {
+          // Brief blank screen pause (~1.2s)
+          screens.s4Intro.classList.remove('active');
+          document.body.style.transition = 'opacity 0.6s ease';
+          
+          setTimeout(() => {
+            showScreen(screens.s5Bouquet);
+            playChime(659.25, 2.5);
+          }, 1200);
+        }, 2500);
+      });
+    });
+
+    /* ==========================================================
+       FLOW RESTART
+       ========================================================== */
+    document.getElementById('btn-restart').addEventListener('click', () => {
+      canvasCheckbox.checked = false;
+      btnEnterHeart.style.pointerEvents = 'auto';
+      btnEnterHeart.style.opacity = '1';
+      easelHint.textContent = "(Tap the button or easel above to paint the view)";
+      btnLetsSee.style.pointerEvents = 'auto';
+      btnLetsSee.style.opacity = '1';
+      tvContainer.classList.add('hidden');
+      tvContainer.classList.remove('flex');
+      unveilBtnWrap.classList.add('hidden');
+      showScreen(screens.s1);
+    });
+  </script>
+</body>
+</html>
