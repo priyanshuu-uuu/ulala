@@ -31,7 +31,7 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: #f4ede2;
+      background: #000000;
       color: var(--ink);
       font-family: 'DM Sans', sans-serif;
       overflow-x: hidden;
@@ -40,6 +40,15 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      transition: background-color 1s ease;
+    }
+
+    body.warm-paper {
+      background-color: #f4ede2;
+    }
+
+    body.dark-world {
+      background-color: #1a0f12;
     }
 
     .paper-grain-bg {
@@ -64,10 +73,10 @@
     .screen-panel {
       display: none;
       opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(14px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
       width: 100%;
-      max-width: 760px;
+      max-width: 780px;
       margin: auto;
       z-index: 10;
       position: relative;
@@ -82,7 +91,218 @@
     }
 
     /* ==========================================================
-       COMPONENT 1: CANVAS EASEL TOGGLE (canvas button.txt)
+       COMPONENT: 3D WORLD (world.txt)
+       ========================================================== */
+    .world-viewport {
+      width: 320px;
+      height: 320px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem auto;
+      perspective: 1000px;
+    }
+
+    #cont {
+      scale: 0.78;
+      z-index: 10;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: transparent;
+      perspective: 10000px;
+      transform-style: preserve-3d;
+      animation: spinWorld 8s linear infinite;
+    }
+
+    .point {
+      position: absolute;
+      width: 45px;
+      height: 45px;
+      margin: -22px 0 0 -22px;
+      border-radius: 20%;
+      background: #5a90ff;
+      box-shadow: 0 0 1px -0.3px #ffffff53;
+      z-index: 10;
+      opacity: 0.85;
+    }
+
+    .world-base-sphere {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #2a3d66 0%, #0d1627 85%);
+      box-shadow: 0 0 35px rgba(90, 144, 255, 0.4), inset -10px -10px 25px rgba(0,0,0,0.8);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes spinWorld {
+      0% { transform: rotateZ(20deg) rotateY(0deg); }
+      100% { transform: rotateZ(20deg) rotateY(360deg); }
+    }
+
+    /* Latitude rings */
+    .point:nth-child(2) { transform: rotateX(-60deg) rotateY(0deg) translateZ(125px); }
+    .point:nth-child(3) { transform: rotateX(-60deg) rotateY(60deg) translateZ(125px); }
+    .point:nth-child(4) { transform: rotateX(-60deg) rotateY(120deg) translateZ(125px); }
+    .point:nth-child(5) { transform: rotateX(-60deg) rotateY(180deg) translateZ(125px); }
+    .point:nth-child(6) { transform: rotateX(-60deg) rotateY(240deg) translateZ(125px); }
+    .point:nth-child(7) { transform: rotateX(-60deg) rotateY(300deg) translateZ(125px); }
+
+    .point:nth-child(8) { transform: rotateX(-30deg) rotateY(30deg) translateZ(125px); }
+    .point:nth-child(9) { transform: rotateX(-30deg) rotateY(90deg) translateZ(125px); }
+    .point:nth-child(10) { transform: rotateX(-30deg) rotateY(150deg) translateZ(125px); }
+    .point:nth-child(11) { transform: rotateX(-30deg) rotateY(210deg) translateZ(125px); }
+    .point:nth-child(12) { transform: rotateX(-30deg) rotateY(270deg) translateZ(125px); }
+    .point:nth-child(13) { transform: rotateX(-30deg) rotateY(330deg) translateZ(125px); }
+
+    .point:nth-child(14) { transform: rotateX(0deg) rotateY(0deg) translateZ(125px); }
+    .point:nth-child(15) { transform: rotateX(0deg) rotateY(45deg) translateZ(125px); }
+    .point:nth-child(16) { transform: rotateX(0deg) rotateY(90deg) translateZ(125px); }
+    .point:nth-child(17) { transform: rotateX(0deg) rotateY(135deg) translateZ(125px); }
+    .point:nth-child(18) { transform: rotateX(0deg) rotateY(180deg) translateZ(125px); }
+    .point:nth-child(19) { transform: rotateX(0deg) rotateY(225deg) translateZ(125px); }
+    .point:nth-child(20) { transform: rotateX(0deg) rotateY(270deg) translateZ(125px); }
+    .point:nth-child(21) { transform: rotateX(0deg) rotateY(315deg) translateZ(125px); }
+
+    .point:nth-child(22) { transform: rotateX(30deg) rotateY(30deg) translateZ(125px); }
+    .point:nth-child(23) { transform: rotateX(30deg) rotateY(90deg) translateZ(125px); }
+    .point:nth-child(24) { transform: rotateX(30deg) rotateY(150deg) translateZ(125px); }
+    .point:nth-child(25) { transform: rotateX(30deg) rotateY(210deg) translateZ(125px); }
+    .point:nth-child(26) { transform: rotateX(30deg) rotateY(270deg) translateZ(125px); }
+    .point:nth-child(27) { transform: rotateX(30deg) rotateY(330deg) translateZ(125px); }
+
+    .point:nth-child(28) { transform: rotateX(60deg) rotateY(0deg) translateZ(125px); }
+    .point:nth-child(29) { transform: rotateX(60deg) rotateY(60deg) translateZ(125px); }
+    .point:nth-child(30) { transform: rotateX(60deg) rotateY(120deg) translateZ(125px); }
+    .point:nth-child(31) { transform: rotateX(60deg) rotateY(180deg) translateZ(125px); }
+    .point:nth-child(32) { transform: rotateX(60deg) rotateY(240deg) translateZ(125px); }
+    .point:nth-child(33) { transform: rotateX(60deg) rotateY(300deg) translateZ(125px); }
+
+    .continent {
+      position: absolute;
+      width: 75px;
+      height: 75px;
+      background: radial-gradient(rgba(102, 187, 106, 0.95) 55%, transparent 60%);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      transform-style: preserve-3d;
+    }
+
+    .c1 { clip-path: polygon(20% 0%, 90% 15%, 70% 95%, 10% 70%); transform: rotateX(10deg) rotateY(20deg) translateZ(127px); }
+    .c2 { clip-path: polygon(15% 10%, 95% 20%, 80% 85%, 5% 70%); transform: rotateX(-20deg) rotateY(60deg) translateZ(127px); }
+    .c3 { clip-path: polygon(30% 0%, 85% 15%, 90% 80%, 15% 95%); transform: rotateX(40deg) rotateY(-30deg) translateZ(127px); }
+    .c4 { clip-path: polygon(25% 5%, 100% 25%, 75% 90%, 5% 70%); transform: rotateX(-10deg) rotateY(150deg) translateZ(127px); }
+    .c5 { clip-path: polygon(10% 25%, 90% 5%, 85% 70%, 30% 95%); transform: rotateX(25deg) rotateY(-100deg) translateZ(127px); }
+    .c6 { clip-path: polygon(20% 10%, 80% 0%, 95% 70%, 25% 95%); transform: rotateX(35deg) rotateY(140deg) translateZ(127px); }
+    .c7 { clip-path: polygon(15% 0%, 95% 20%, 70% 100%, 5% 80%); transform: rotateX(-30deg) rotateY(-60deg) translateZ(127px); }
+    .c8 { clip-path: polygon(25% 0%, 85% 15%, 100% 75%, 15% 95%); transform: rotateX(-45deg) rotateY(120deg) translateZ(127px); }
+
+    /* ==========================================================
+       COMPONENT: MENDRUWI FROG (frog.txt)
+       ========================================================== */
+    .frog-scene {
+      position: relative;
+      width: min(100%, 420px);
+      height: 330px;
+      display: grid;
+      place-items: center;
+      margin: 0.5rem auto 1rem;
+    }
+
+    .frog {
+      width: min(100%, 320px);
+      height: auto;
+      position: relative;
+      z-index: 2;
+      overflow: visible;
+      animation: frogBob 3.2s ease-in-out infinite;
+    }
+
+    .ground-shadow {
+      position: absolute;
+      width: 220px;
+      height: 22px;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(97, 112, 68, 0.18);
+      filter: blur(5px);
+      animation: shadowPulse 3.2s ease-in-out infinite;
+    }
+
+    .frog-line { transform-origin: 50% 80%; }
+    .arms { transform-origin: 50% 50%; animation: armsHug 8.5s ease-in-out infinite; }
+    .body-group { transform-origin: 50% 90%; animation: tinySway 4.6s ease-in-out infinite; }
+    .head-group { transform-origin: 50% 78%; animation: shyTilt 8.5s ease-in-out infinite; }
+    .eyes { animation: eyeLook 8.5s steps(1, end) infinite; }
+    .pupils { transform-origin: center; animation: pupilPeek 8.5s ease-in-out infinite; }
+    .blink-line { opacity: 0; animation: blink 5.4s infinite; }
+    .smile { opacity: 1; animation: smileHide 8.5s infinite; }
+    .kiss-mouth { opacity: 0; transform-origin: 210px 222px; animation: pucker 8.5s infinite; }
+    .blush { transform-origin: center; animation: blushUp 8.5s infinite; }
+    .feet { transform-origin: center; animation: toeWiggle 3.2s ease-in-out infinite; }
+    
+    .kiss-trail { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+    .kiss {
+      position: absolute;
+      left: 51%;
+      top: 43%;
+      font-size: 25px;
+      opacity: 0;
+      filter: drop-shadow(0 3px 2px rgba(183, 104, 111, 0.2));
+      animation: kissFly 8.5s ease-out infinite;
+    }
+    .kiss-a { --x: 90px; --y: -44px; --r: 16deg; animation-delay: 0s; }
+    .kiss-b { --x: 130px; --y: -85px; --r: 28deg; animation-delay: 0.25s; font-size: 20px; }
+    .kiss-c { --x: 60px; --y: -110px; --r: -18deg; animation-delay: 0.5s; font-size: 18px; }
+    .trail-heart {
+      position: absolute; left: 66%; top: 25%; color: #e58b94; font-size: 28px;
+      opacity: 0; animation: heartPop 8.5s ease-out infinite;
+    }
+
+    @keyframes frogBob { 0%, 100% { transform: translateY(0) rotate(-0.5deg); } 50% { transform: translateY(-7px) rotate(0.5deg); } }
+    @keyframes shadowPulse { 0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.9; } 50% { transform: translateX(-50%) scaleX(0.85); opacity: 0.6; } }
+    @keyframes tinySway { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-1deg); } }
+    @keyframes shyTilt {
+      0%, 18%, 100% { transform: rotate(0); }
+      25%, 38% { transform: rotate(-4deg) translateY(2px); }
+      45%, 67% { transform: rotate(2deg); }
+      73%, 89% { transform: rotate(0); }
+    }
+    @keyframes armsHug {
+      0%, 12%, 100% { transform: translateY(0) scale(1); }
+      18%, 38% { transform: translateY(-4px) scale(1.03); }
+      43%, 77% { transform: translateY(1px) scale(0.97); }
+      84% { transform: translateY(0) scale(1); }
+    }
+    @keyframes eyeLook { 0%, 17%, 100% { transform: translateY(0); } 20%, 37% { transform: translateY(3px); } 42%, 72% { transform: translateY(-1px); } }
+    @keyframes pupilPeek { 0%, 15%, 100% { transform: translateX(0); } 20%, 37% { transform: translateX(-3px); } 42%, 72% { transform: translateX(3px); } }
+    @keyframes blink { 0%, 42%, 45%, 79%, 82%, 100% { opacity: 0; } 43%, 44%, 80%, 81% { opacity: 1; } }
+    @keyframes smileHide { 0%, 38%, 100% { opacity: 1; } 43%, 70% { opacity: 0; } }
+    @keyframes pucker { 0%, 38%, 73%, 100% { opacity: 0; transform: scale(0.65); } 43%, 69% { opacity: 1; transform: scale(1); } }
+    @keyframes blushUp { 0%, 15%, 100% { opacity: 0.72; transform: scale(0.94); } 22%, 70% { opacity: 1; transform: scale(1.12); } }
+    @keyframes toeWiggle { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(1.2deg); } }
+    @keyframes kissFly {
+      0%, 36% { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0); }
+      41% { opacity: 1; }
+      53% { opacity: 1; transform: translate(var(--x), var(--y)) scale(1.08) rotate(var(--r)); }
+      67%, 100% { opacity: 0; transform: translate(calc(var(--x) + 16px), calc(var(--y) - 20px)) scale(0.7) rotate(var(--r)); }
+    }
+    @keyframes heartPop {
+      0%, 40% { opacity: 0; transform: scale(0.4) rotate(-15deg); }
+      49%, 62% { opacity: 0.95; transform: scale(1.1) rotate(9deg); }
+      75%, 100% { opacity: 0; transform: translateY(-18px) scale(0.75) rotate(15deg); }
+    }
+
+    /* ==========================================================
+       COMPONENT: CANVAS EASEL TOGGLE (canvas button.txt)
        ========================================================== */
     .bg-easel-container {
       width: min(92vw, 420px);
@@ -110,9 +330,7 @@
       height: 160px;
     }
 
-    .theme-switch input {
-      display: none;
-    }
+    .theme-switch input { display: none; }
 
     .easel-frame {
       position: relative;
@@ -457,7 +675,7 @@
     }
 
     /* ==========================================================
-       COMPONENT 2: THE SKETCH BUTTON (button.txt)
+       COMPONENT: SKETCH BUTTON (button.txt)
        ========================================================== */
     .button-sketch-wrapper {
       position: relative;
@@ -478,7 +696,7 @@
       font-family: 'Caveat', cursive, monospace;
       font-size: 1.45rem;
       font-weight: 700;
-      padding: 0.85em 1.8em;
+      padding: 0.8em 1.8em;
       border-width: 0px;
       border-radius: 2rem;
       box-shadow: #33333366 4px 4px 0 1px;
@@ -486,6 +704,12 @@
       color: #1f1b18;
       background-color: #fcf8f2;
       position: relative;
+    }
+
+    .button-dark-variant {
+      background-color: #272023;
+      color: #fce7f3;
+      box-shadow: #000000aa 4px 4px 0 1px;
     }
 
     .highlight {
@@ -510,19 +734,13 @@
       100% { filter: url(#handDrawnNoise); }
     }
 
-    .button-cosm {
-      fill: #33333366;
-      transition: 0.3s ease-out;
-      scale: 0.45;
-      position: absolute;
-      left: 10px;
-      pointer-events: none;
-    }
-
     .button:hover {
       rotate: -2deg;
       animation: hover 2.5s infinite ease-in-out;
       background-color: #fffaf0;
+    }
+    .button-dark-variant:hover {
+      background-color: #3b2830;
     }
 
     .button:hover .highlight {
@@ -570,7 +788,7 @@
     }
 
     /* ==========================================================
-       COMPONENT 3: RETRO CRT TV NOT FOUND (Not found.txt)
+       COMPONENT: RETRO CRT TV NOT FOUND (Not found.txt)
        ========================================================== */
     .main_wrapper {
       position: relative;
@@ -873,7 +1091,7 @@
     }
 
     /* ==========================================================
-       COMPONENT 4: DOODLE WALKING LOADER (load.txt)
+       COMPONENT: DOODLE WALKING LOADER (load.txt)
        ========================================================== */
     .loader-wrapper {
       display: flex;
@@ -960,8 +1178,20 @@
       to { transform: translateY(-50px) translate(-100px); opacity: 0; }
     }
 
+    /* Inverted White Doodle for Dark Mode */
+    .loader.loader-white svg path {
+      stroke: #fdfbf7 !important;
+    }
+    .loader.loader-white .bod svg path[fill="#191e2e"] {
+      fill: #fdfbf7 !important;
+    }
+    .loader.loader-white #gnd path {
+      fill: #fdfbf7 !important;
+      stroke: #fdfbf7 !important;
+    }
+
     /* ==========================================================
-       COMPONENT 5: NEO-BRUTALIST 3D INPUT (input.txt)
+       COMPONENT: NEO-BRUTALIST 3D INPUT (input.txt)
        ========================================================== */
     .input__container {
       position: relative;
@@ -979,7 +1209,7 @@
       transform: rotateX(8deg) rotateY(-8deg);
       perspective: 1000px;
       box-shadow: 8px 8px 0 #000;
-      margin: 1.5rem auto;
+      margin: 1.2rem auto;
     }
 
     .input__container:hover {
@@ -1051,7 +1281,7 @@
     }
 
     .input__container::before {
-      content: "FOR RIA";
+      content: attr(data-badge);
       position: absolute;
       top: -14px;
       left: 20px;
@@ -1065,8 +1295,20 @@
       border: 2px solid #000;
     }
 
+    .shake-error {
+      animation: shakeInput 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      border-color: #ef4444 !important;
+    }
+
+    @keyframes shakeInput {
+      10%, 90% { transform: translate3d(-2px, 0, 0) rotateX(6deg) rotateY(-6deg); }
+      20%, 80% { transform: translate3d(4px, 0, 0) rotateX(6deg) rotateY(-6deg); }
+      30%, 50%, 70% { transform: translate3d(-6px, 0, 0) rotateX(6deg) rotateY(-6deg); }
+      40%, 60% { transform: translate3d(6px, 0, 0) rotateX(6deg) rotateY(-6deg); }
+    }
+
     /* ==========================================================
-       COMPONENT 6: BOUQUET DOODLE BOY (flower.txt)
+       COMPONENT: BOUQUET DOODLE BOY (flower.txt)
        ========================================================== */
     .scene-flower {
       position: relative;
@@ -1168,16 +1410,6 @@
       50% { transform: rotate(0.8deg); }
     }
 
-    /* Handwritten Underline SVG stroke */
-    .drawn-line {
-      stroke-dasharray: 400;
-      stroke-dashoffset: 400;
-      animation: drawLine 2s forwards ease-in-out 0.5s;
-    }
-    @keyframes drawLine {
-      to { stroke-dashoffset: 0; }
-    }
-
     /* Sketched Note Cards */
     .sketch-card {
       background: #fffdf9;
@@ -1240,9 +1472,255 @@
   <main class="w-full flex flex-col items-center justify-center p-4 min-h-screen">
 
     <!-- ==========================================================
+         SCREEN 0: INTRO BLACK SCREEN & LOADER ("ruko yar thoda")
+         ========================================================== -->
+    <section id="screen-intro-black" class="screen-panel active text-center py-12">
+      <div class="loader-wrapper">
+        <div class="loader loader-white">
+          <!-- Left Leg -->
+          <svg class="legl" version="1.1" xmlns="http://www.w3.org/2000/svg" width="20.69332" height="68.19944" viewBox="0,0,20.69332,68.19944">
+            <g transform="translate(-201.44063,-235.75466)">
+              <g stroke-miterlimit="10">
+                <path d="M218.11971,301.20087c-2.20708,1.73229 -4.41416,0 -4.41416,0l-1.43017,-1.1437c-1.42954,-1.40829 -3.04351,-2.54728 -4.56954,-3.87927c-0.95183,-0.8308 -2.29837,-1.49883 -2.7652,-2.55433c-0.42378,-0.95815 0.14432,-2.02654 0.29355,-3.03399c0.41251,-2.78499 1.82164,-5.43386 2.41472,-8.22683c1.25895,-4.44509 2.73863,-8.98683 3.15318,-13.54796c0.22615,-2.4883 -0.21672,-5.0155 -0.00278,-7.50605c0.30636,-3.56649 1.24602,-7.10406 1.59992,-10.6738c0.29105,-2.93579 -0.00785,-5.9806 -0.00785,-8.93046c0,0 0,-2.44982 3.12129,-2.44982c3.12129,0 3.12129,2.44982 3.12129,2.44982c0,3.06839 0.28868,6.22201 -0.00786,9.27779c-0.34637,3.56935 -1.30115,7.10906 -1.59992,10.6738c-0.2103,2.50918 0.22586,5.05326 -0.00278,7.56284c-0.43159,4.7371 -1.94029,9.46317 -3.24651,14.07835c-0.47439,2.23403 -1.29927,4.31705 -2.05805,6.47156c-0.18628,0.52896 -0.1402,1.0974 -0.327,1.62624c-0.09463,0.26791 -0.64731,0.47816 -0.50641,0.73323c0.19122,0.34617 0.86423,0.3445 1.2346,0.58502c1.88637,1.22503 3.50777,2.79494 5.03,4.28305l0.96971,0.73991c0,0 2.20708,1.73229 0,3.46457z" fill="none" stroke="#ffffff" stroke-width="7"></path>
+              </g>
+            </g>
+          </svg>
+
+          <!-- Right Leg -->
+          <svg class="legr" version="1.1" xmlns="http://www.w3.org/2000/svg" width="41.02537" height="64.85502" viewBox="0,0,41.02537,64.85502">
+            <g transform="translate(-241.54137,-218.44347)">
+              <g stroke-miterlimit="10">
+                <path d="M279.06674,279.42662c-2.27967,1.98991 -6.08116,0.58804 -6.08116,0.58804l-2.47264,-0.92915c-2.58799,-1.18826 -5.31176,-2.08831 -7.99917,-3.18902c-1.67622,-0.68654 -3.82471,-1.16116 -4.93147,-2.13229c-1.00468,-0.88156 -0.69132,-2.00318 -0.92827,-3.00935c-0.65501,-2.78142 0.12275,-5.56236 -0.287,-8.37565c-0.2181,-4.51941 -0.17458,-9.16283 -1.60696,-13.68334c-0.78143,-2.46614 -2.50162,-4.88125 -3.30086,-7.34796c-1.14452,-3.53236 -1.40387,-7.12078 -2.48433,-10.66266c-0.88858,-2.91287 -2.63779,-5.85389 -3.93351,-8.74177c0,0 -1.07608,-2.39835 3.22395,-2.81415c4.30003,-0.41581 2.41605,1.98254 2.41605,1.98254c1.34779,3.00392 3.13072,6.05282 4.06444,9.0839c1.09065,3.54049 1.33011,7.13302 2.48433,10.66266c0.81245,2.48448 2.5308,4.917 3.31813,7.40431c1.48619,4.69506 1.48366,9.52281 1.71137,14.21503c0.32776,2.25028 0.10631,4.39942 0.00736,6.60975c-0.02429,0.54266 0.28888,1.09302 0.26382,1.63563c-0.01269,0.27488 -0.68173,0.55435 -0.37558,0.78529c0.41549,0.31342 1.34191,0.22213 1.95781,0.40826c3.13684,0.94799 6.06014,2.26892 8.81088,3.52298l1.66093,0.59519c0,0 6.76155,1.40187 4.48187,3.39177z" fill="none" stroke="#ffffff" stroke-width="7"></path>
+              </g>
+            </g>
+          </svg>
+
+          <!-- Body -->
+          <div class="bod">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="144.10576" height="144.91623" viewBox="0,0,144.10576,144.91623">
+              <g transform="translate(-164.41679,-112.94712)">
+                <g stroke-miterlimit="10">
+                  <path d="M166.9168,184.02633c0,-36.49454 35.0206,-66.07921 72.05288,-66.07921c37.03228,0 67.05288,29.58467 67.05288,66.07921c0,6.94489 -1.08716,13.63956 -3.10292,19.92772c-2.71464,8.46831 -7.1134,16.19939 -12.809,22.81158c-2.31017,2.68194 -7.54471,12.91599 -7.54471,12.91599c0,0 -5.46714,-1.18309 -8.44434,0.6266c-3.86867,2.35159 -10.95356,10.86714 -10.95356,10.86714c0,0 -6.96906,-3.20396 -9.87477,-2.58085c-2.64748,0.56773 -6.72538,5.77072 -6.72538,5.77072c0,0 -5.5023,-4.25969 -7.5982,-4.25969c-3.08622,0 -9.09924,3.48259 -9.09924,3.48259c0,0 -6.0782,-5.11244 -9.00348,-5.91884c-4.26461,-1.17561 -12.23343,0.75049 -12.23343,0.75049c0,0 -5.18164,-8.26065 -7.60688,-9.90388c-3.50443,-2.37445 -8.8271,-3.95414 -8.8271,-3.95414c0,0 -5.33472,-8.81718 -7.27019,-11.40895c-4.81099,-6.44239 -13.46422,-9.83437 -15.65729,-17.76175c-1.53558,-5.55073 -2.35527,-21.36472 -2.35527,-21.36472z" fill="#fdfbf7" stroke="#ffffff" stroke-width="5" stroke-linecap="butt"></path>
+                </g>
+              </g>
+            </svg>
+            <!-- Head -->
+            <svg class="head" version="1.1" xmlns="http://www.w3.org/2000/svg" width="115.68559" height="88.29441" viewBox="0,0,115.68559,88.29441">
+              <g transform="translate(-191.87889,-75.62023)">
+                <g stroke-miterlimit="10">
+                  <path d="M195.12889,128.77752c0,-26.96048 21.33334,-48.81626 47.64934,-48.81626c26.316,0 47.64935,21.85578 47.64935,48.81626c0,0.60102 -9.22352,20.49284 -9.22352,20.49284l-7.75885,0.35623l-7.59417,6.15039l-8.64295,-1.74822l-11.70703,6.06119l-6.38599,-4.79382l-6.45999,2.36133l-7.01451,-7.38888l-8.11916,1.29382l-6.19237,-6.07265l-7.6263,-1.37795l-4.19835,-7.87062l-4.24236,-4.16907c0,0 -0.13314,-2.0999 -0.13314,-3.29458z" fill="none" stroke="#cbd5e1" stroke-width="6" stroke-linecap="butt"></path>
+                  <path d="M276.02738,115.72434c-0.66448,-4.64715 2.56411,-8.95308 7.21127,-9.61756c4.64715,-0.66448 8.95309,2.56411 9.61757,7.21126c0.46467,3.24972 -1.94776,8.02206 -5.96624,9.09336c-2.11289,-1.73012 -5.08673,-5.03426 -5.08673,-5.03426c0,0 -4.12095,1.16329 -4.60481,1.54229c-0.16433,-0.04891 -0.62732,-0.38126 -0.72803,-0.61269c-0.30602,-0.70328 -0.36302,-2.02286 -0.44303,-2.58239z" fill="#000000" stroke="none" stroke-width="0.5"></path>
+                  <path d="M242.49281,125.6424c0,-4.69442 3.80558,-8.5 8.5,-8.5c4.69442,0 8.5,3.80558 8.5,8.5c0,4.69442 -3.80558,8.5 -8.5,8.5c-4.69442,0 -8.5,-3.80558 -8.5,-8.5z" fill="#000000" stroke="none" stroke-width="0.5"></path>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Ground Line -->
+          <svg id="gnd" version="1.1" xmlns="http://www.w3.org/2000/svg" width="475" height="530" viewBox="0,0,163.40011,85.20095">
+            <g transform="translate(-176.25,-207.64957)">
+              <g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-miterlimit="10">
+                <path d="M295.5,273.1829c0,0 -57.38915,6.69521 -76.94095,-9.01465c-13.65063,-10.50609 15.70098,-20.69467 -2.5451,-19.94465c-30.31027,2.05753 -38.51396,-26.84135 -38.51396,-26.84135c0,0 6.50084,13.30023 18.93224,19.17888c9.53286,4.50796 26.23632,-1.02541 32.09529,4.95137c3.62417,3.69704 2.8012,6.33005 0.66517,8.49452c-3.79415,3.84467 -11.7312,6.21103 -6.24682,10.43645c22.01082,16.95812 72.55412,12.73944 72.55412,12.73944z" fill="#ffffff"></path>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="mt-4">
+          <p class="font-sketch text-3xl sm:text-4xl text-neutral-200 font-bold tracking-wide sketch-wobble">
+            ruko yar thoda... ✨
+          </p>
+          <div class="w-48 mx-auto mt-4 h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+            <div id="intro-progress-bar" class="h-full bg-neutral-200 w-0 transition-all duration-300 ease-linear"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SCREEN 0.5: 3D WORLD REVOLVES AROUND YOU (world.txt)
+         ========================================================== -->
+    <section id="screen-world" class="screen-panel text-center py-10">
+      
+      <span class="inline-block px-3 py-1 rounded-full border border-rose-300/30 bg-rose-950/40 text-rose-300 text-xs uppercase tracking-widest font-mono mb-2">
+        Cosmic Truth ✦
+      </span>
+
+      <!-- 3D WORLD COMPONENT -->
+      <div class="world-viewport">
+        <div class="world-base-sphere"></div>
+        <div id="cont">
+          <!-- 32 Points for longitude/latitude -->
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+          <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
+
+          <!-- Continents -->
+          <div class="continent c1"></div>
+          <div class="continent c2"></div>
+          <div class="continent c3"></div>
+          <div class="continent c4"></div>
+          <div class="continent c5"></div>
+          <div class="continent c6"></div>
+          <div class="continent c7"></div>
+          <div class="continent c8"></div>
+        </div>
+      </div>
+
+      <!-- Sketched Text -->
+      <h2 class="text-3xl sm:text-5xl font-sketch font-bold text-rose-100 tracking-tight leading-tight my-4 sketch-wobble">
+        "Yk my world revolves around you only."
+      </h2>
+
+      <!-- Button Component -->
+      <div class="button-sketch-wrapper mt-2">
+        <button id="btn-world-next" class="button button-dark-variant">
+          <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+            <g transform="translate(-171.52826,-126.11624)">
+              <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+              </g>
+            </g>
+          </svg>
+          to aage badhe? click kro 💫
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================
+         SCREEN 0.75: PASSWORD GATEKEEPER (Mendhak / Frog)
+         ========================================================== -->
+    <section id="screen-password" class="screen-panel text-center py-6">
+      
+      <!-- Frog Scene Component (frog.txt) -->
+      <div class="frog-scene">
+        <div class="ground-shadow"></div>
+        <svg class="frog" viewBox="0 0 420 420" role="img">
+          <defs>
+            <radialGradient id="frogGreen" cx="35%" cy="25%" r="85%">
+              <stop offset="0%" stop-color="#c7ed9a"/>
+              <stop offset="58%" stop-color="#8fce68"/>
+              <stop offset="100%" stop-color="#65a94d"/>
+            </radialGradient>
+            <radialGradient id="bellyGreen" cx="40%" cy="25%" r="80%">
+              <stop offset="0%" stop-color="#f0f5b9"/>
+              <stop offset="100%" stop-color="#d4e79a"/>
+            </radialGradient>
+            <radialGradient id="cheekPink" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="#f29aa0" stop-opacity=".82"/>
+              <stop offset="100%" stop-color="#f29aa0" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- sketchy ground -->
+          <g class="frog-line" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M76 355 Q116 369 157 359 M269 360 Q313 371 350 355" fill="none" stroke="#8caa6c" stroke-width="2.4" opacity=".65"/>
+            <g class="feet">
+              <path d="M124 324 Q91 327 77 350 Q70 363 88 366 Q110 369 143 352 L163 340Z" fill="#7fbd5c" stroke="#426d43" stroke-width="3"/>
+              <path d="M286 326 Q322 327 343 350 Q352 363 334 367 Q311 369 277 351 L259 339Z" fill="#7fbd5c" stroke="#426d43" stroke-width="3"/>
+            </g>
+
+            <!-- body -->
+            <g class="body-group">
+              <path d="M117 238 Q108 270 119 321 Q126 357 210 360 Q294 357 301 321 Q312 270 303 238Z" fill="url(#frogGreen)" stroke="#426d43" stroke-width="3.6"/>
+              <path d="M146 282 Q148 328 210 333 Q272 328 274 282 Q259 263 210 263 Q161 263 146 282Z" fill="url(#bellyGreen)" stroke="#5d8e4e" stroke-width="2.5"/>
+            </g>
+
+            <!-- arms -->
+            <g class="arms">
+              <path d="M127 254 Q91 270 103 303 Q111 325 143 313 L162 288Z" fill="#91ce69" stroke="#426d43" stroke-width="3.2"/>
+              <path d="M293 254 Q329 270 317 303 Q309 325 277 313 L258 288Z" fill="#91ce69" stroke="#426d43" stroke-width="3.2"/>
+            </g>
+
+            <!-- head -->
+            <g class="head-group">
+              <path d="M83 183 Q80 117 130 98 Q145 65 177 87 Q194 76 210 82 Q226 76 243 87 Q275 65 290 98 Q340 117 337 183 Q334 260 274 282 Q245 295 210 294 Q175 295 146 282 Q86 260 83 183Z" fill="url(#frogGreen)" stroke="#426d43" stroke-width="3.8"/>
+              <!-- eye bumps -->
+              <g class="eye-bumps">
+                <path d="M115 143 Q109 103 145 98 Q177 97 181 143Z" fill="#8fce68" stroke="#426d43" stroke-width="3.2"/>
+                <path d="M239 143 Q243 97 275 98 Q311 103 305 143Z" fill="#8fce68" stroke="#426d43" stroke-width="3.2"/>
+              </g>
+              <!-- eyes -->
+              <g class="eyes">
+                <ellipse class="eye-white left-white" cx="148" cy="133" rx="22" ry="27" fill="#fff9e9" stroke="#426d43" stroke-width="2.3"/>
+                <ellipse class="eye-white right-white" cx="272" cy="133" rx="22" ry="27" fill="#fff9e9" stroke="#426d43" stroke-width="2.3"/>
+                <g class="pupils">
+                  <ellipse cx="153" cy="139" rx="10" ry="14" fill="#293d32"/>
+                  <ellipse cx="267" cy="139" rx="10" ry="14" fill="#293d32"/>
+                  <ellipse cx="156" cy="133" rx="3.4" ry="4.2" fill="#fffdf4"/>
+                  <ellipse cx="270" cy="133" rx="3.4" ry="4.2" fill="#fffdf4"/>
+                </g>
+                <path class="blink-line" d="M127 135 Q148 151 169 135 M251 135 Q272 151 293 135" fill="none" stroke="#426d43" stroke-width="5" stroke-linecap="round"/>
+              </g>
+              <!-- blush -->
+              <g class="blush">
+                <ellipse cx="119" cy="208" rx="31" ry="19" fill="url(#cheekPink)"/>
+                <ellipse cx="301" cy="208" rx="31" ry="19" fill="url(#cheekPink)"/>
+              </g>
+              <!-- smile and kiss -->
+              <path class="smile" d="M177 215 Q210 242 243 215" fill="none" stroke="#426d43" stroke-width="4" stroke-linecap="round"/>
+              <g class="kiss-mouth">
+                <path d="M190 218 Q198 206 210 216 Q222 206 230 218 Q224 236 210 237 Q196 236 190 218Z" fill="#e9868d" stroke="#75494a" stroke-width="2.4" stroke-linejoin="round"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        <!-- Kiss Trail -->
+        <div class="kiss-trail" aria-hidden="true">
+          <span class="kiss kiss-a">💋</span>
+          <span class="kiss kiss-b">💋</span>
+          <span class="kiss kiss-c">💋</span>
+          <span class="trail-heart">♡</span>
+        </div>
+      </div>
+
+      <!-- Sketched Question -->
+      <div class="max-w-md mx-auto mb-2">
+        <h3 class="font-sketch text-2xl sm:text-4xl font-bold text-stone-900 leading-snug sketch-wobble">
+          andr aane se pehle ye btao:
+        </h3>
+        <p class="font-sketch text-xl sm:text-2xl text-rose-600 font-semibold mt-1">
+          "what is phir for You betey?" 🐸
+        </p>
+      </div>
+
+      <!-- Neo-brutalist Input (input.txt) for Password -->
+      <div class="w-full">
+        <div class="input__container" id="pass-input-box" data-badge="PASSWORD">
+          <div class="shadow__input"></div>
+          <button id="btn-pass-submit" class="input__button__shadow" title="Submit Answer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+          </button>
+          <input
+            type="text"
+            id="pass-input"
+            class="input__search"
+            placeholder="Type your answer here..."
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <p id="pass-error-msg" class="font-sketch text-lg text-rose-600 mt-2 min-h-[28px]">
+        <!-- Error hint shown dynamically -->
+      </p>
+
+    </section>
+
+    <!-- ==========================================================
          SCREEN 1: THE INVITATION & CANVAS EASEL
          ========================================================== -->
-    <section id="screen-1" class="screen-panel active text-center py-10">
+    <section id="screen-1" class="screen-panel text-center py-10">
       
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-stone-400 bg-white/60 text-stone-600 text-xs uppercase tracking-widest font-mono mb-4">
         <span>✎ Handcrafted with Care</span>
@@ -1419,89 +1897,89 @@
               <g transform="translate(-171.52826,-126.11624)">
                 <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
                   <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
-                </g>
               </g>
-            </svg>
-            LET'S SEE... 🔍
-          </button>
+            </g>
+          </svg>
+          LET'S SEE... 🔍
+        </button>
+      </div>
+
+      <!-- TV RESULT REVEAL CONTAINER -->
+      <div id="tv-container" class="hidden flex-col items-center mt-6 transition-all">
+        
+        <!-- RETRO CRT TV (Not found.txt) -->
+        <div class="main_wrapper">
+          <div class="text_404">
+            <div class="text_4041">4</div>
+            <div class="text_4042">0</div>
+            <div class="text_4043">4</div>
+          </div>
+
+          <div class="main_tv">
+            <div class="antenna">
+              <div class="antenna_shadow"></div>
+              <div class="a1"></div>
+              <div class="a1d"></div>
+              <div class="a2"></div>
+              <div class="a2d"></div>
+            </div>
+
+            <div class="tv">
+              <div class="display_div">
+                <div class="screen_out1">
+                  <div class="screenM">
+                    <span class="notfound_text">NOT FOUND</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="buttons_div">
+                <div class="b1"></div>
+                <div class="b2"></div>
+                <div class="speakers">
+                  <div class="g1"><div class="g11"></div><div class="g12"></div><div class="g13"></div></div>
+                  <div class="g"></div>
+                  <div class="g"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom_tv">
+              <div class="base1"></div>
+              <div class="base2"></div>
+              <div class="base3"></div>
+            </div>
+          </div>
         </div>
 
-        <!-- TV RESULT REVEAL CONTAINER -->
-        <div id="tv-container" class="hidden flex-col items-center mt-6 transition-all">
-          
-          <!-- RETRO CRT TV (Not found.txt) -->
-          <div class="main_wrapper">
-            <div class="text_404">
-              <div class="text_4041">4</div>
-              <div class="text_4042">0</div>
-              <div class="text_4043">4</div>
-            </div>
-
-            <div class="main_tv">
-              <div class="antenna">
-                <div class="antenna_shadow"></div>
-                <div class="a1"></div>
-                <div class="a1d"></div>
-                <div class="a2"></div>
-                <div class="a2d"></div>
-              </div>
-
-              <div class="tv">
-                <div class="display_div">
-                  <div class="screen_out1">
-                    <div class="screenM">
-                      <span class="notfound_text">NOT FOUND</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="buttons_div">
-                  <div class="b1"></div>
-                  <div class="b2"></div>
-                  <div class="speakers">
-                    <div class="g1"><div class="g11"></div><div class="g12"></div><div class="g13"></div></div>
-                    <div class="g"></div>
-                    <div class="g"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bottom_tv">
-                <div class="base1"></div>
-                <div class="base2"></div>
-                <div class="base3"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sketched Typewritten Text Message -->
-          <div class="mt-8 p-6 bg-amber-50/70 border-2 border-stone-800 rounded-2xl max-w-lg mx-auto shadow-[3px_3px_0px_#000]">
-            <h3 class="font-sketch text-3xl font-bold text-stone-900 mb-2">
-              0% Hate Found...
-            </h3>
-            <p id="tv-explanation" class="font-sketch text-2xl text-stone-700 leading-snug mb-3">
-              <!-- Animated typewriter text injected via JS -->
-            </p>
-            <div id="unveil-btn-wrap" class="hidden mt-6">
-              <!-- Unveil What Lies Deep Under Priyanshu Heart Button -->
-              <div class="button-sketch-wrapper">
-                <button id="btn-unveil-deep" class="button">
-                  <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
-                    <g transform="translate(-171.52826,-126.11624)">
-                      <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
-                        <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
-                      </g>
+        <!-- Sketched Typewritten Text Message -->
+        <div class="mt-8 p-6 bg-amber-50/70 border-2 border-stone-800 rounded-2xl max-w-lg mx-auto shadow-[3px_3px_0px_#000]">
+          <h3 class="font-sketch text-3xl font-bold text-stone-900 mb-2">
+            0% Hate Found...
+          </h3>
+          <p id="tv-explanation" class="font-sketch text-2xl text-stone-700 leading-snug mb-3">
+            <!-- Animated typewriter text injected via JS -->
+          </p>
+          <div id="unveil-btn-wrap" class="hidden mt-6">
+            <!-- Unveil What Lies Deep Under Priyanshu Heart Button -->
+            <div class="button-sketch-wrapper">
+              <button id="btn-unveil-deep" class="button">
+                <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+                  <g transform="translate(-171.52826,-126.11624)">
+                    <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                      <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
                     </g>
-                  </svg>
-                  Unveil what lies deep under Priyanshu's heart Click here
-                </button>
-              </div>
+                  </g>
+                </svg>
+                Unveil what lies deep under Priyanshu's heart ✨
+              </button>
             </div>
           </div>
-
         </div>
 
       </div>
+
+    </div>
 
     </section>
 
@@ -1524,7 +2002,7 @@
 
       <!-- NEO-BRUTALIST 3D INPUT (input.txt) -->
       <div class="w-full my-2">
-        <div class="input__container">
+        <div class="input__container" data-badge="FOR RIA">
           <div class="shadow__input"></div>
           <button id="input-btn-submit" class="input__button__shadow" title="Send a heartbeat">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -1545,7 +2023,7 @@
       <!-- 3 Sketched Note Cards with Doodles -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full my-6 text-left">
         <div class="sketch-card p-5 bg-[#fffef9]">
-          <span class="text-2xl"></span>
+          <span class="text-2xl">🌱</span>
           <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Comfort</h4>
           <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
             Talking to you brings a sense of calm that words can barely capture. It's home in its purest form.
@@ -1553,7 +2031,7 @@
         </div>
 
         <div class="sketch-card p-5 bg-[#fffaf5]">
-          <span class="text-2xl"></span>
+          <span class="text-2xl">☀️</span>
           <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Laughter</h4>
           <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
             Your smile has this effortless magic. No matter the storm, one little word from you lights the room.
@@ -1561,8 +2039,8 @@
         </div>
 
         <div class="sketch-card p-5 bg-[#fefaf8]">
-          <span class="text-2xl"></span>
-          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">Uhmmm..</h4>
+          <span class="text-2xl">💌</span>
+          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Respect</h4>
           <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
             Pure admiration, genuine care, and wishing the highest happiness for you with every passing sunrise.
           </p>
@@ -1644,7 +2122,7 @@
             <path d="M139 200 Q153 188 169 192 L193 192 Q213 189 227 204 L247 292 Q249 311 232 317 L221 321 L226 385 Q178 399 128 384 L136 319 L118 312 Q107 306 113 287Z" fill="#f7f0e6" />
             <path d="M143 207 Q126 247 124 291 M218 208 Q234 250 238 292" fill="none" stroke="#b9afa2" stroke-width="1.5" />
             <path d="M136 319 Q177 331 226 319 M130 374 Q176 389 224 374" fill="none" stroke="#b9afa2" stroke-width="1.5" />
-            <path d="M139 379 l-1 8 m8 -7 l-1 9 m8 -8 l-1 9 m8 -8 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 8" fill="none" stroke="#b9afa2" stroke-width="1.5" />
+            <path d="M139 379 l-1 8 m8 -7 l-1 9 m8 -8 l-1 9 m8 -8 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 8" fill="none" stroke="#b9afa2" stroke-width="1.5" />
             <path d="M157 197 Q158 222 179 223 Q201 222 204 197" fill="#f2e6d7" />
             <path d="M157 198 Q179 211 204 198" fill="none" stroke="#b9afa2" stroke-width="2" />
           </g>
@@ -1779,6 +2257,9 @@
        SCREEN NAVIGATION STATE MACHINE
        ========================================================== */
     const screens = {
+      introBlack: document.getElementById('screen-intro-black'),
+      world: document.getElementById('screen-world'),
+      password: document.getElementById('screen-password'),
       s1: document.getElementById('screen-1'),
       loader: document.getElementById('screen-loader'),
       s2: document.getElementById('screen-2'),
@@ -1790,14 +2271,15 @@
     const loaderStatus = document.getElementById('loader-status');
     const loaderBar = document.getElementById('loader-bar');
 
-    function showScreen(targetScreen) {
+    function showScreen(targetScreen, themeClass = 'warm-paper') {
       Object.values(screens).forEach(s => s.classList.remove('active'));
+      document.body.className = themeClass + ' selection:bg-amber-200 selection:text-black';
       targetScreen.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function runLoader(seconds, statusText, nextCallback) {
-      showScreen(screens.loader);
+    function runLoader(seconds, statusText, nextCallback, theme = 'warm-paper') {
+      showScreen(screens.loader, theme);
       loaderStatus.textContent = statusText;
       loaderBar.style.width = '0%';
 
@@ -1824,6 +2306,77 @@
     }
 
     /* ==========================================================
+       STEP 0: INTRO BLACK SCREEN (4.5s) -> 3D WORLD
+       ========================================================== */
+    window.addEventListener('load', () => {
+      const introBar = document.getElementById('intro-progress-bar');
+      let introElapsed = 0;
+      const introSteps = 45; // 4.5 seconds
+
+      const introInterval = setInterval(() => {
+        introElapsed++;
+        const pct = Math.min((introElapsed / introSteps) * 100, 100);
+        introBar.style.width = `${pct}%`;
+
+        if (introElapsed >= introSteps) {
+          clearInterval(introInterval);
+          setTimeout(() => {
+            showScreen(screens.world, 'dark-world');
+            playChime(329.63, 1.5);
+          }, 300);
+        }
+      }, 100);
+    });
+
+    /* ==========================================================
+       STEP 0.5: WORLD -> "TO AAGE BADHE? CLICK KRO" -> 3.5s LOADER -> MENDHAK
+       ========================================================== */
+    const btnWorldNext = document.getElementById('btn-world-next');
+    btnWorldNext.addEventListener('click', () => {
+      playChime(392, 1.2);
+      runLoader(3.5, "Reaching her universe... 🌍✨", () => {
+        showScreen(screens.password, 'warm-paper');
+        playChime(440, 1.2);
+      });
+    });
+
+    /* ==========================================================
+       STEP 0.75: MENDHAK PASSWORD VALIDATION (BHIR / Bhir)
+       ========================================================== */
+    const passInput = document.getElementById('pass-input');
+    const btnPassSubmit = document.getElementById('btn-pass-submit');
+    const passInputBox = document.getElementById('pass-input-box');
+    const passErrorMsg = document.getElementById('pass-error-msg');
+
+    function checkPassword() {
+      const val = passInput.value.trim().toLowerCase();
+      if (val === 'bhir') {
+        passErrorMsg.textContent = "Sahi pakde ho bittua! Entering now... 🐸💚";
+        passErrorMsg.className = "font-sketch text-2xl text-emerald-600 mt-2 font-bold";
+        playChime(659.25, 1.5);
+        btnPassSubmit.style.background = "#22c55e";
+
+        setTimeout(() => {
+          runLoader(4, "Opening the secret gateway... 🌸", () => {
+            showScreen(screens.s1, 'warm-paper');
+          });
+        }, 1200);
+      } else {
+        playChime(196, 0.6);
+        passInputBox.classList.remove('shake-error');
+        void passInputBox.offsetWidth; // trigger reflow
+        passInputBox.classList.add('shake-error');
+        passErrorMsg.textContent = "Galat answer betey! Yaad karo aap 'phir' ko kya bolti ho 😂";
+        passErrorMsg.className = "font-sketch text-xl text-rose-600 mt-2 font-bold";
+      }
+    }
+
+    btnPassSubmit.addEventListener('click', checkPassword);
+    passInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    /* ==========================================================
        FLOW STEP 1: CANVAS PAINTING ANIMATION -> 5s LOADER
        ========================================================== */
     const canvasCheckbox = document.getElementById('canvas-checkbox');
@@ -1832,16 +2385,13 @@
     const easelHint = document.getElementById('easel-hint');
 
     function triggerCanvasPaintingAndProceed() {
-      // 1. Toggle canvas check to show full painting brush stroke animation
       canvasCheckbox.checked = true;
       playChime(329.63, 2);
       easelHint.textContent = "✨ Priyanshu is painting the morning sky for Ria...";
       btnEnterHeart.style.pointerEvents = 'none';
       btnEnterHeart.style.opacity = '0.7';
 
-      // 2. Let the painting animation run fully (~3 seconds)
       setTimeout(() => {
-        // 3. Trigger loader for exactly 5 seconds
         runLoader(5, "Opening the doors to his heart... ⏳", () => {
           showScreen(screens.s2);
         });
@@ -1869,12 +2419,10 @@
       btnLetsSee.style.pointerEvents = 'none';
       btnLetsSee.style.opacity = '0.6';
 
-      // Reveal the Retro CRT TV
       tvContainer.classList.remove('hidden');
       tvContainer.classList.add('flex');
 
-      // Typewriter message
-      const textToType = "...and vice versa, Priyanshu also doesn't hate you at all. In fact, hate could never exist in his story for you.";
+      const textToType = "...and vice versa, Priyanshu also doesn't hate you at all. In fact, hate could never exist in his story for you. But you know what???";
       tvExplanation.textContent = "";
       let i = 0;
       const typeInterval = setInterval(() => {
@@ -1891,8 +2439,7 @@
 
     btnUnveilDeep.addEventListener('click', () => {
       playChime(440, 1.2);
-      // Run loader for 5-7 seconds (6s selected)
-      runLoader(6, "Diving deep into the feelings... 💭", () => {
+      runLoader(6, "Diving deep into his feelings... 💭", () => {
         showScreen(screens.s3);
       });
     });
@@ -1914,15 +2461,11 @@
 
     btnOneLastThing.addEventListener('click', () => {
       playChime(523.25, 1.5);
-      // Run loader for 5 seconds
       runLoader(5, "Preparing something special just for you... 🌷", () => {
-        // Step 4: Show "This is for u bittua" sketched screen
         showScreen(screens.s4Intro);
         playChime(392, 2);
 
-        // Pause for ~2.5s on this text, then fade through brief blank pause to the bouquet
         setTimeout(() => {
-          // Brief blank screen pause (~1.2s)
           screens.s4Intro.classList.remove('active');
           document.body.style.transition = 'opacity 0.6s ease';
           
@@ -1947,7 +2490,9 @@
       tvContainer.classList.add('hidden');
       tvContainer.classList.remove('flex');
       unveilBtnWrap.classList.add('hidden');
-      showScreen(screens.s1);
+      passInput.value = '';
+      passErrorMsg.textContent = '';
+      showScreen(screens.world, 'dark-world');
     });
   </script>
 </body>
