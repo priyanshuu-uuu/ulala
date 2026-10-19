@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ni batane wla thik haina?</title>
+  <title> oye mai ni btaara okna?</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1453,11 +1453,14 @@
   <!-- Ambient Paper Background Grain -->
   <div class="paper-grain-bg" aria-hidden="true"></div>
 
+  <!-- Background Music Audio Element -->
+  <audio id="bg-audio" src="rehbara.m4a" preload="auto" loop></audio>
+
   <!-- Soft Ambient Audio Toggle Button -->
   <div class="fixed top-4 right-4 z-50">
     <button id="sound-toggle" class="bg-white/80 hover:bg-white text-stone-700 px-3.5 py-1.5 rounded-full border-2 border-stone-800 text-xs font-bold shadow-[2px_2px_0px_#000] flex items-center gap-1.5 transition active:translate-x-0.5 active:translate-y-0.5">
       <span id="sound-icon">🎵</span>
-      <span id="sound-label">Music: Off</span>
+      <span id="sound-label">Music: Playing</span>
     </button>
   </div>
 
@@ -1610,7 +1613,7 @@
               </g>
             </g>
           </svg>
-          to aage badhe? click kro
+          to aage badhe? click kro 
         </button>
       </div>
 
@@ -1707,7 +1710,7 @@
       <!-- Sketched Question -->
       <div class="max-w-md mx-auto mb-2">
         <h3 class="font-sketch text-2xl sm:text-4xl font-bold text-stone-900 leading-snug sketch-wobble">
-          andr aane se pehle ye btao mendruwiiiiii bandruwiiiiiiiii😝😵‍💫🫪 :
+          andr aane se pehle ye btao mendaruwiiiiiiii bndruwiiiiiiiiii 😝🫪:
         </h3>
         <p class="font-sketch text-xl sm:text-2xl text-rose-600 font-semibold mt-1">
           "what is "phir" for You betey?" 🐸
@@ -1906,11 +1909,11 @@
         </span>
 
         <h2 class="text-3xl sm:text-5xl font-sketch font-bold text-stone-900 mt-4 mb-3 sketch-wobble">
-          "Do you have any hate for Priyanshu?????"
+          "Do you have any hate for Priyanshu??????"
         </h2>
 
         <p class="font-sketch text-xl text-stone-600 mb-6">
-          Let’s ask the nostalgic retro scanner to check Ria’s heart...
+          Let’s ask the nostalgic retro scanner to check Ria’s dimaag...
         </p>
 
         <!-- THE SKETCH BUTTON ("LET'S SEE...") -->
@@ -1994,7 +1997,7 @@
                     </g>
                   </g>
                 </svg>
-                Unveil what lies deep under Priyanshu's heart ✨
+                Unveil what lies deep under Priyanshu's heart 
               </button>
             </div>
           </div>
@@ -2093,7 +2096,7 @@
       <div class="my-auto py-12">
         <p class="eyebrow mb-2">from the very core</p>
         <h2 id="bittua-text" class="text-5xl sm:text-7xl font-sketch font-bold text-stone-900 tracking-tight leading-tight sketch-wobble">
-          This is for u bittuaaaaaaaaaaaaaaa
+          This is for u bittuaaaaaaaaaaaaaaaa
         </h2>
         <div class="w-32 h-1 bg-stone-700 mx-auto mt-4 rounded-full"></div>
       </div>
@@ -2205,11 +2208,11 @@
           Priyanshu loves you, Ria. ❤️
         </h2>
         <p class="font-sketch text-xl sm:text-2xl text-stone-700 leading-snug">
-         Always has, always will, in every lifetime and every little forever. May the world be gentle with that smile, bittua, for it carries a kind of heaven even the stars could never imitate. Keep it safe, keep it shining, and never let this world dim the loveliest thing it ever taught my eyes to admire
+          Always has, always will, in every lifetime and every little forever. May the world be gentle with that smile, bittua, for it carries a kind of heaven even the stars could never imitate. Keep it safe, keep it shining, and never let this world dim the loveliest thing it ever taught my eyes to admire
         </p>
 
         <button id="btn-restart" class="mt-4 px-5 py-2 text-xs font-mono uppercase tracking-widest bg-stone-100 hover:bg-stone-200 border-2 border-stone-800 rounded-full font-bold shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition">
-          ↺ Relive this story from the start...uhhhm???
+          ↺ Relive this story from the start..???uhmmmm???
         </button>
       </div>
 
@@ -2219,13 +2222,65 @@
 
   <script>
     /* ==========================================================
-       WEB AUDIO SYNTHESIZER (Gentle Chimes)
+       BACKGROUND SONG & WEB AUDIO CONTROLS
        ========================================================== */
-    let audioCtx = null;
-    let isMusicOn = false;
-    let musicInterval = null;
+    const bgAudio = document.getElementById('bg-audio');
+    const soundToggle = document.getElementById('sound-toggle');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundLabel = document.getElementById('sound-label');
 
+    let audioCtx = null;
     const chimeNotes = [261.63, 329.63, 392.00, 523.25, 659.25];
+
+    function updateAudioUI(isPlaying) {
+      if (isPlaying) {
+        soundIcon.textContent = '🎶';
+        soundLabel.textContent = 'Music: Playing';
+      } else {
+        soundIcon.textContent = '🎵';
+        soundLabel.textContent = 'Music: Paused';
+      }
+    }
+
+    // Attempt autoplay immediately, with smooth fallback to first user interaction
+    function startMusic() {
+      if (!bgAudio) return;
+      bgAudio.volume = 0.85;
+      const playPromise = bgAudio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            updateAudioUI(true);
+          })
+          .catch(() => {
+            // Browser autoplay restrictions require an initial interaction
+            updateAudioUI(false);
+            const enableAudioOnGesture = () => {
+              bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+              window.removeEventListener('click', enableAudioOnGesture);
+              window.removeEventListener('touchstart', enableAudioOnGesture);
+              window.removeEventListener('keydown', enableAudioOnGesture);
+            };
+            window.addEventListener('click', enableAudioOnGesture, { once: true });
+            window.addEventListener('touchstart', enableAudioOnGesture, { once: true });
+            window.addEventListener('keydown', enableAudioOnGesture, { once: true });
+          });
+      }
+    }
+
+    soundToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (bgAudio.paused) {
+        bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+      } else {
+        bgAudio.pause();
+        updateAudioUI(false);
+      }
+    });
+
+    // Start playback right on page load
+    window.addEventListener('DOMContentLoaded', startMusic);
+    window.addEventListener('load', startMusic);
 
     function playChime(freq = 440, duration = 1.2) {
       if (!audioCtx) {
@@ -2252,29 +2307,6 @@
         console.error(e);
       }
     }
-
-    const soundToggle = document.getElementById('sound-toggle');
-    const soundIcon = document.getElementById('sound-icon');
-    const soundLabel = document.getElementById('sound-label');
-
-    soundToggle.addEventListener('click', () => {
-      if (!isMusicOn) {
-        isMusicOn = true;
-        soundIcon.textContent = '🎶';
-        soundLabel.textContent = 'Music: On';
-        let step = 0;
-        musicInterval = setInterval(() => {
-          const note = chimeNotes[step % chimeNotes.length];
-          playChime(note, 1.8);
-          step++;
-        }, 850);
-      } else {
-        isMusicOn = false;
-        clearInterval(musicInterval);
-        soundIcon.textContent = '🎵';
-        soundLabel.textContent = 'Music: Off';
-      }
-    });
 
     /**
      * Helper to let any hand-drawn button complete its full active wobble,
