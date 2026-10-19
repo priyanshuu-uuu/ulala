@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Ria — With Love from Priyanshu</title>
+  <title>Ni batane wla thik haina?</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,6 +67,18 @@
 
     .font-romantic {
       font-family: 'Playfair Display', serif;
+    }
+
+    /* Programmatic button triggered active state for full animation display */
+    .button.is-triggered {
+      filter: url(#handDrawnNoiset) !important;
+      transform: translate(1px, 2px) rotate(-3deg) scale(0.97) !important;
+      box-shadow: inset #333333f1 4px 4px 0 1px !important;
+    }
+    .button.is-triggered .highlight {
+      stroke-dashoffset: 0 !important;
+      animation: highlight 5s infinite, col 0.5s forwards !important;
+      stroke: #bc4e26aa !important;
     }
 
     /* Screen transition states */
@@ -338,7 +350,7 @@
       height: 100%;
       background: linear-gradient(135deg, #f8fafc, #e2e8f0);
       border: 4px solid #78350f;
-      border-radius: 8px;
+      border-radius: 10px;
       box-shadow:
         0 15px 30px rgba(0, 0, 0, 0.3),
         inset 0 0 0 8px #fdfbf7,
@@ -346,7 +358,7 @@
         inset 0 0 0 10px #d6d3d1;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.5s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.5s ease;
     }
 
     .easel-frame::before {
@@ -445,7 +457,7 @@
       width: 0%;
       overflow: hidden;
       z-index: 2;
-      transition: width 1.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+      transition: width 2.4s cubic-bezier(0.34, 1.15, 0.64, 1);
     }
 
     .theme-switch input:checked ~ .easel-frame .painting-mask {
@@ -585,11 +597,11 @@
       width: 32px;
       height: 150px;
       z-index: 10;
-      transition: transform 1.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+      transition: transform 2.4s cubic-bezier(0.34, 1.15, 0.64, 1);
     }
 
     .theme-switch input:checked ~ .easel-frame .brush-tracker {
-      transform: translateX(210px);
+      transform: translateX(215px);
     }
 
     .paintbrush {
@@ -601,16 +613,16 @@
     }
 
     .theme-switch input:checked ~ .easel-frame .brush-tracker .paintbrush {
-      animation: paint-stroke 1.8s ease-in-out;
+      animation: paint-stroke 2.4s ease-in-out;
       transform: rotate(15deg);
     }
 
     @keyframes paint-stroke {
       0% { transform: rotate(0deg) translateY(0); }
-      20% { transform: rotate(-20deg) translateY(-12px); }
-      40% { transform: rotate(15deg) translateY(12px); }
-      60% { transform: rotate(-15deg) translateY(-8px); }
-      80% { transform: rotate(18deg) translateY(8px); }
+      20% { transform: rotate(-20deg) translateY(-14px); }
+      40% { transform: rotate(15deg) translateY(14px); }
+      60% { transform: rotate(-15deg) translateY(-9px); }
+      80% { transform: rotate(18deg) translateY(9px); }
       100% { transform: rotate(15deg) translateY(0); }
     }
 
@@ -913,6 +925,17 @@
       border: 2px solid #1d0e01;
       box-shadow: inset 0.2em 0.2em #e69635, 0 10px 25px rgba(0, 0, 0, 0.2);
       position: relative;
+      transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    .tv.tv-turn-on {
+      animation: tvWarmup 0.7s ease-out forwards;
+    }
+
+    @keyframes tvWarmup {
+      0% { transform: scale(0.85); opacity: 0.4; filter: brightness(2) contrast(1.5); }
+      50% { transform: scale(1.03); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; filter: none; }
     }
 
     .display_div {
@@ -1587,7 +1610,7 @@
               </g>
             </g>
           </svg>
-          to aage badhe? click kro 
+          to aage badhe? click kro
         </button>
       </div>
 
@@ -1684,7 +1707,7 @@
       <!-- Sketched Question -->
       <div class="max-w-md mx-auto mb-2">
         <h3 class="font-sketch text-2xl sm:text-4xl font-bold text-stone-900 leading-snug sketch-wobble">
-          andr aane se pehle ye btao mendaruwi bandruwi 😜🐸:
+          andr aane se pehle ye btao mendruwiiiiii bandruwiiiiiiiii😝😵‍💫🫪 :
         </h3>
         <p class="font-sketch text-xl sm:text-2xl text-rose-600 font-semibold mt-1">
           "what is "phir" for You betey?" 🐸
@@ -1883,11 +1906,11 @@
         </span>
 
         <h2 class="text-3xl sm:text-5xl font-sketch font-bold text-stone-900 mt-4 mb-3 sketch-wobble">
-          "Do you have any hate for Priyanshu?"
+          "Do you have any hate for Priyanshu?????"
         </h2>
 
         <p class="font-sketch text-xl text-stone-600 mb-6">
-          Let’s ask the nostalgic retro scanner to check Ria’s dimaag...
+          Let’s ask the nostalgic retro scanner to check Ria’s heart...
         </p>
 
         <!-- THE SKETCH BUTTON ("LET'S SEE...") -->
@@ -2040,7 +2063,7 @@
 
         <div class="sketch-card p-5 bg-[#fefaf8]">
           <span class="text-2xl"></span>
-          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">uhmmmmm...</h4>
+          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">uhmmmmm</h4>
           <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
             Pure admiration, genuine care, and wishing the highest happiness for you with every passing sunrise.
           </p>
@@ -2057,7 +2080,7 @@
               </g>
             </g>
           </svg>
-          Click this for one last thing 💌
+          Click this for one last thing 
         </button>
       </div>
 
@@ -2070,7 +2093,7 @@
       <div class="my-auto py-12">
         <p class="eyebrow mb-2">from the very core</p>
         <h2 id="bittua-text" class="text-5xl sm:text-7xl font-sketch font-bold text-stone-900 tracking-tight leading-tight sketch-wobble">
-          This is for u bittua
+          This is for u bittuaaaaaaaaaaaaaaa
         </h2>
         <div class="w-32 h-1 bg-stone-700 mx-auto mt-4 rounded-full"></div>
       </div>
@@ -2173,7 +2196,7 @@
           </g>
         </svg>
 
-        <div class="bottom-note">made with all of Priyanshu's courage nd heart <span>♡</span></div>
+        <div class="bottom-note">made with all of Priyanshu's courage <span>♡</span></div>
       </main>
 
       <!-- The Grand Loving Confession -->
@@ -2182,11 +2205,11 @@
           Priyanshu loves you, Ria. ❤️
         </h2>
         <p class="font-sketch text-xl sm:text-2xl text-stone-700 leading-snug">
-          Always has, always will, in every lifetime and every little forever. May the world be gentle with that smile, bittua, for it carries a kind of heaven even the stars could never imitate. Keep it safe, keep it shining, and never let this world dim the loveliest thing it ever taught my eyes to admire. ♡
+         Always has, always will, in every lifetime and every little forever. May the world be gentle with that smile, bittua, for it carries a kind of heaven even the stars could never imitate. Keep it safe, keep it shining, and never let this world dim the loveliest thing it ever taught my eyes to admire
         </p>
 
         <button id="btn-restart" class="mt-4 px-5 py-2 text-xs font-mono uppercase tracking-widest bg-stone-100 hover:bg-stone-200 border-2 border-stone-800 rounded-full font-bold shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition">
-          ↺ Relive this story from the start
+          ↺ Relive this story from the start...uhhhm???
         </button>
       </div>
 
@@ -2244,7 +2267,7 @@
           const note = chimeNotes[step % chimeNotes.length];
           playChime(note, 1.8);
           step++;
-        }, 900);
+        }, 850);
       } else {
         isMusicOn = false;
         clearInterval(musicInterval);
@@ -2252,6 +2275,21 @@
         soundLabel.textContent = 'Music: Off';
       }
     });
+
+    /**
+     * Helper to let any hand-drawn button complete its full active wobble,
+     * highlighter swipe, and indentation sound before proceeding.
+     */
+    function animateButtonPress(btnElement, duration = 850) {
+      return new Promise((resolve) => {
+        btnElement.classList.add('is-triggered');
+        playChime(523.25, 0.7);
+        setTimeout(() => {
+          btnElement.classList.remove('is-triggered');
+          resolve();
+        }, duration);
+      });
+    }
 
     /* ==========================================================
        SCREEN NAVIGATION STATE MACHINE
@@ -2292,7 +2330,7 @@
         const percent = Math.min((elapsed / totalSteps) * 100, 100);
         loaderBar.style.width = `${percent}%`;
 
-        if (elapsed % 10 === 0) {
+        if (elapsed % 12 === 0) {
           playChime(chimeNotes[Math.floor(Math.random() * chimeNotes.length)], 0.5);
         }
 
@@ -2300,18 +2338,18 @@
           clearInterval(progressInterval);
           setTimeout(() => {
             nextCallback();
-          }, 300);
+          }, 400);
         }
       }, intervalMs);
     }
 
     /* ==========================================================
-       STEP 0: INTRO BLACK SCREEN (4.5s) -> 3D WORLD
+       STEP 0: INTRO BLACK SCREEN (5.2s) -> 3D WORLD
        ========================================================== */
     window.addEventListener('load', () => {
       const introBar = document.getElementById('intro-progress-bar');
       let introElapsed = 0;
-      const introSteps = 45; // 4.5 seconds
+      const introSteps = 52; // 5.2 seconds for full calming experience
 
       const introInterval = setInterval(() => {
         introElapsed++;
@@ -2322,21 +2360,23 @@
           clearInterval(introInterval);
           setTimeout(() => {
             showScreen(screens.world, 'dark-world');
-            playChime(329.63, 1.5);
-          }, 300);
+            playChime(329.63, 1.8);
+          }, 500);
         }
       }, 100);
     });
 
     /* ==========================================================
-       STEP 0.5: WORLD -> "TO AAGE BADHE? CLICK KRO" -> 3.5s LOADER -> MENDHAK
+       STEP 0.5: WORLD -> "TO AAGE BADHE? CLICK KRO" (Full Button Wobble -> 5.5s LOADER -> MENDHAK)
        ========================================================== */
     const btnWorldNext = document.getElementById('btn-world-next');
-    btnWorldNext.addEventListener('click', () => {
-      playChime(392, 1.2);
-      runLoader(3.5, "Reaching her universe... 🌍✨", () => {
+    btnWorldNext.addEventListener('click', async () => {
+      btnWorldNext.style.pointerEvents = 'none';
+      await animateButtonPress(btnWorldNext, 900);
+
+      runLoader(5.5, "Reaching her universe... 🌍✨", () => {
         showScreen(screens.password, 'warm-paper');
-        playChime(440, 1.2);
+        playChime(440, 1.5);
       });
     });
 
@@ -2348,19 +2388,22 @@
     const passInputBox = document.getElementById('pass-input-box');
     const passErrorMsg = document.getElementById('pass-error-msg');
 
-    function checkPassword() {
+    async function checkPassword() {
       const val = passInput.value.trim().toLowerCase();
       if (val === 'bhir') {
-        passErrorMsg.textContent = "Sahi pakde ho bittua! Entering now... 🐸💚";
+        passErrorMsg.textContent = "Sahi pakde ho bittua! Mendruwi sends kisses... 🐸💚";
         passErrorMsg.className = "font-sketch text-2xl text-emerald-600 mt-2 font-bold";
-        playChime(659.25, 1.5);
+        playChime(659.25, 2.0);
         btnPassSubmit.style.background = "#22c55e";
+        btnPassSubmit.style.transform = "scale(1.1) rotate(5deg)";
+        passInput.style.borderColor = "#22c55e";
 
+        // Give Ria 2.2 seconds to view the celebration and kiss trail
         setTimeout(() => {
-          runLoader(4, "Opening the secret gateway... 🌸", () => {
+          runLoader(5, "Opening the secret gateway to his heart... 🌸", () => {
             showScreen(screens.s1, 'warm-paper');
           });
-        }, 1200);
+        }, 2200);
       } else {
         playChime(196, 0.6);
         passInputBox.classList.remove('shake-error');
@@ -2377,25 +2420,28 @@
     });
 
     /* ==========================================================
-       FLOW STEP 1: CANVAS PAINTING ANIMATION -> 5s LOADER
+       FLOW STEP 1: CANVAS PAINTING ANIMATION -> 6s LOADER
        ========================================================== */
     const canvasCheckbox = document.getElementById('canvas-checkbox');
     const btnEnterHeart = document.getElementById('btn-enter-heart');
     const easelInteractive = document.getElementById('easel-interactive');
     const easelHint = document.getElementById('easel-hint');
 
-    function triggerCanvasPaintingAndProceed() {
-      canvasCheckbox.checked = true;
-      playChime(329.63, 2);
-      easelHint.textContent = "✨ Priyanshu is painting the morning sky for Ria...";
+    async function triggerCanvasPaintingAndProceed() {
+      if (canvasCheckbox.checked) return;
       btnEnterHeart.style.pointerEvents = 'none';
-      btnEnterHeart.style.opacity = '0.7';
 
+      await animateButtonPress(btnEnterHeart, 850);
+      canvasCheckbox.checked = true;
+      playChime(329.63, 2.5);
+      easelHint.textContent = "✨ Priyanshu is painting the morning sky for Ria...";
+
+      // Allow 3.8s for the full brush glide, magic spark drop, sun elevation, reflection, and flying birds
       setTimeout(() => {
-        runLoader(5, "Opening the doors to his heart... ⏳", () => {
+        runLoader(6, "Opening the doors to his heart... ⏳", () => {
           showScreen(screens.s2);
         });
-      }, 3000);
+      }, 3800);
     }
 
     btnEnterHeart.addEventListener('click', triggerCanvasPaintingAndProceed);
@@ -2406,7 +2452,7 @@
     });
 
     /* ==========================================================
-       FLOW STEP 2: LET'S SEE -> TV NOT FOUND -> 6s LOADER
+       FLOW STEP 2: LET'S SEE -> TV NOT FOUND -> 6.5s LOADER
        ========================================================== */
     const btnLetsSee = document.getElementById('btn-lets-see');
     const tvContainer = document.getElementById('tv-container');
@@ -2414,14 +2460,18 @@
     const unveilBtnWrap = document.getElementById('unveil-btn-wrap');
     const btnUnveilDeep = document.getElementById('btn-unveil-deep');
 
-    btnLetsSee.addEventListener('click', () => {
-      playChime(392.00, 1.2);
+    btnLetsSee.addEventListener('click', async () => {
       btnLetsSee.style.pointerEvents = 'none';
-      btnLetsSee.style.opacity = '0.6';
+      await animateButtonPress(btnLetsSee, 900);
 
       tvContainer.classList.remove('hidden');
       tvContainer.classList.add('flex');
+      const tvElement = document.querySelector('.main_tv .tv');
+      if (tvElement) tvElement.classList.add('tv-turn-on');
 
+      playChime(392.00, 1.4);
+
+      // Typing message with comfortable readability
       const textToType = "...and vice versa, Priyanshu also doesn't hate you at all. In fact, hate could never exist in his story for you. But you know what???";
       tvExplanation.textContent = "";
       let i = 0;
@@ -2431,21 +2481,25 @@
           i++;
         } else {
           clearInterval(typeInterval);
-          unveilBtnWrap.classList.remove('hidden');
-          playChime(523.25, 1.5);
+          setTimeout(() => {
+            unveilBtnWrap.classList.remove('hidden');
+            playChime(523.25, 1.8);
+          }, 600);
         }
-      }, 35);
+      }, 42);
     });
 
-    btnUnveilDeep.addEventListener('click', () => {
-      playChime(440, 1.2);
-      runLoader(6, "Diving deep into his feelings... 💭", () => {
+    btnUnveilDeep.addEventListener('click', async () => {
+      btnUnveilDeep.style.pointerEvents = 'none';
+      await animateButtonPress(btnUnveilDeep, 900);
+
+      runLoader(6.5, "Diving deep into his feelings... 💭", () => {
         showScreen(screens.s3);
       });
     });
 
     /* ==========================================================
-       FLOW STEP 3: DEEP FEELINGS -> "CLICK THIS FOR ONE LAST THING" -> 5s LOADER
+       FLOW STEP 3: DEEP FEELINGS -> "CLICK THIS FOR ONE LAST THING" -> 5.5s LOADER
        ========================================================== */
     const inputBtnSubmit = document.getElementById('input-btn-submit');
     const riaCustomInput = document.getElementById('ria-custom-input');
@@ -2454,26 +2508,34 @@
     inputBtnSubmit.addEventListener('click', () => {
       playChime(659.25, 1.5);
       inputBtnSubmit.style.background = "#22c55e";
+      inputBtnSubmit.style.transform = "scale(1.08)";
       setTimeout(() => {
         inputBtnSubmit.style.background = "#e9b50b";
-      }, 1000);
+        inputBtnSubmit.style.transform = "";
+      }, 900);
     });
 
-    btnOneLastThing.addEventListener('click', () => {
-      playChime(523.25, 1.5);
-      runLoader(5, "Preparing something special just for you... 🌷", () => {
-        showScreen(screens.s4Intro);
-        playChime(392, 2);
+    btnOneLastThing.addEventListener('click', async () => {
+      btnOneLastThing.style.pointerEvents = 'none';
+      await animateButtonPress(btnOneLastThing, 950);
 
+      runLoader(5.5, "Preparing something special just for you... 🌷", () => {
+        // Screen 4 Intro: "This is for u bittua"
+        showScreen(screens.s4Intro);
+        playChime(392, 2.5);
+
+        // Let the sketched text linger for 3.2s
         setTimeout(() => {
           screens.s4Intro.classList.remove('active');
-          document.body.style.transition = 'opacity 0.6s ease';
-          
+          document.body.className = 'selection:bg-amber-200 selection:text-black';
+          document.body.style.backgroundColor = '#000000';
+
+          // 1.4s of quiet blank pause before blooming
           setTimeout(() => {
-            showScreen(screens.s5Bouquet);
-            playChime(659.25, 2.5);
-          }, 1200);
-        }, 2500);
+            showScreen(screens.s5Bouquet, 'warm-paper');
+            playChime(659.25, 3.0);
+          }, 1400);
+        }, 3200);
       });
     });
 
@@ -2490,6 +2552,9 @@
       tvContainer.classList.add('hidden');
       tvContainer.classList.remove('flex');
       unveilBtnWrap.classList.add('hidden');
+      btnUnveilDeep.style.pointerEvents = 'auto';
+      btnOneLastThing.style.pointerEvents = 'auto';
+      btnWorldNext.style.pointerEvents = 'auto';
       passInput.value = '';
       passErrorMsg.textContent = '';
       showScreen(screens.world, 'dark-world');
