@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> oye mai ni btaara okna?</title>
+  <title>For Ria — With Love from Priyanshu</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,10 @@
       background-color: #1a0f12;
     }
 
+    body.assistant-mode {
+      background: radial-gradient(circle at 50% 20%, #fbf4ee 0%, #ecdcd4 100%);
+    }
+
     .paper-grain-bg {
       position: fixed;
       inset: 0;
@@ -63,10 +67,6 @@
 
     .font-sketch {
       font-family: 'Caveat', cursive;
-    }
-
-    .font-romantic {
-      font-family: 'Playfair Display', serif;
     }
 
     /* Programmatic button triggered active state for full animation display */
@@ -216,7 +216,7 @@
     .c8 { clip-path: polygon(25% 0%, 85% 15%, 100% 75%, 15% 95%); transform: rotateX(-45deg) rotateY(120deg) translateZ(127px); }
 
     /* ==========================================================
-       COMPONENT: MENDRUWI FROG (frog.txt)
+       COMPONENT: MENDRUWI FROG (mendhak.txt)
        ========================================================== */
     .frog-scene {
       position: relative;
@@ -1331,6 +1331,260 @@
     }
 
     /* ==========================================================
+       COMPONENT: AI MASCOT (mascot.txt + Waving Hand)
+       ========================================================== */
+    .mascot-wrapper {
+      width: min(85%, 340px);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .mascot-doodle {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .sketch {
+      stroke: var(--ink);
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#pencil);
+    }
+
+    .body-mascot {
+      transform-origin: 180px 320px;
+      animation: doodleSway 6.4s ease-in-out infinite;
+    }
+
+    .head-mascot {
+      transform-origin: 180px 210px;
+      animation: doodleHeadTilt 6.4s ease-in-out infinite;
+    }
+
+    .hair-back {
+      transform-origin: 180px 140px;
+      animation: hairDrift 6.4s ease-in-out infinite;
+    }
+
+    .eyes-mascot {
+      transform-origin: 180px 148px;
+      animation: doodleBlink 5.6s linear infinite;
+    }
+
+    /* Waving hand element */
+    .waving-arm {
+      transform-origin: 120px 250px;
+      animation: handWave 2.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes handWave {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(18deg) translate(2px, -6px); }
+      50% { transform: rotate(2deg); }
+      75% { transform: rotate(22deg) translate(4px, -10px); }
+      100% { transform: rotate(5deg); }
+    }
+
+    @keyframes doodleBlink {
+      0%, 10%, 14%, 58%, 62%, 100% { transform: scaleY(1); opacity: 1; }
+      12%, 60% { transform: scaleY(0.1); opacity: 0.4; }
+    }
+
+    @keyframes doodleSway {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      30% { transform: rotate(-0.8deg) translateY(1px); }
+      75% { transform: rotate(0.8deg) translateY(-1px); }
+    }
+
+    @keyframes doodleHeadTilt {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-2.5deg) translateY(1px); }
+      70% { transform: rotate(2deg) translateY(-0.5px); }
+    }
+
+    @keyframes hairDrift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px) scale(1.01); }
+    }
+
+    /* Talking Lip-Sync Mechanics */
+    .mouth-speaking,
+    .mouth-teeth {
+      display: none;
+    }
+
+    .mouth-closed {
+      display: block;
+    }
+
+    .mascot-wrapper.is-talking .mouth-closed {
+      display: none;
+    }
+
+    .mascot-wrapper.is-talking .mouth-speaking {
+      display: block;
+      transform-origin: 180px 196px;
+      animation: doodleTalk 0.22s ease-in-out infinite alternate;
+    }
+
+    .mascot-wrapper.is-talking .mouth-teeth {
+      display: block;
+      transform-origin: 180px 190px;
+      animation: teethSway 0.22s ease-in-out infinite alternate;
+    }
+
+    @keyframes doodleTalk {
+      0% { transform: scaleX(0.7) scaleY(0.35); }
+      45% { transform: scaleX(1.2) scaleY(1.3); }
+      100% { transform: scaleX(0.85) scaleY(0.75); }
+    }
+
+    @keyframes teethSway {
+      0% { transform: translateY(-0.5px) scaleX(0.75); }
+      100% { transform: translateY(1.2px) scaleX(1.05); }
+    }
+
+    /* ==========================================================
+       COMPONENT: VOICE VISUALIZER (voice.txt)
+       ========================================================== */
+    .voice-loading {
+      --speed-of-animation: 0.9s;
+      --first-color: #4c86f9;
+      --second-color: #49a84c;
+      --third-color: #f6bb02;
+      --fourth-color: #f6bb02;
+      --fifth-color: #2196f3;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      width: 140px;
+      gap: 7px;
+      height: 60px;
+      margin: 0.5rem auto;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 9999px;
+      border: 2px solid #302d2a;
+      box-shadow: 2px 2px 0 #302d2a;
+    }
+
+    .voice-loading.active {
+      display: flex;
+    }
+
+    .voice-loading span {
+      width: 5px;
+      height: 38px;
+      border-radius: 3px;
+      background: var(--first-color);
+      animation: scaleVoice var(--speed-of-animation) ease-in-out infinite;
+    }
+
+    .voice-loading span:nth-child(2) { background: var(--second-color); animation-delay: -0.8s; }
+    .voice-loading span:nth-child(3) { background: var(--third-color); animation-delay: -0.7s; }
+    .voice-loading span:nth-child(4) { background: var(--fourth-color); animation-delay: -0.6s; }
+    .voice-loading span:nth-child(5) { background: var(--fifth-color); animation-delay: -0.5s; }
+
+    @keyframes scaleVoice {
+      0%, 40%, 100% { transform: scaleY(0.12); }
+      20% { transform: scaleY(1); }
+    }
+
+    /* ==========================================================
+       COMPONENT: MASCOT 3D PURPLE BUTTON (mascot button.txt)
+       ========================================================== */
+    .mascot-btn {
+      --white: #ffe7ff;
+      --purple-100: #f4b1fd;
+      --purple-200: #d190ff;
+      --purple-300: #c389f2;
+      --purple-400: #8e26e2;
+      --purple-500: #5e2b83;
+      --radius: 18px;
+
+      border-radius: var(--radius);
+      outline: none;
+      cursor: pointer;
+      font-size: 19px;
+      font-family: 'Caveat', cursive, Arial;
+      background: transparent;
+      letter-spacing: 0px;
+      border: 0;
+      position: relative;
+      width: 250px;
+      height: 68px;
+      transform: rotate(357deg);
+      user-select: none;
+      transition: transform 0.25s ease;
+    }
+
+    .mascot-btn .bg {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      filter: blur(1px);
+    }
+    .mascot-btn .bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: calc(var(--radius) * 1.1);
+      background: var(--purple-500);
+      filter: blur(4px);
+      transition: all 0.3s ease;
+      box-shadow:
+        -5px 5px 0 0 rgb(115 75 155 / 40%),
+        -10px 9px 0 0 rgb(115 75 155 / 30%),
+        -15px 14px 4px 0 rgb(115 75 155 / 20%);
+    }
+
+    .mascot-btn .wrap {
+      border-radius: inherit;
+      overflow: hidden;
+      height: 100%;
+      transform: translate(4px, -4px);
+      padding: 2.5px;
+      background: linear-gradient(to bottom, var(--purple-100) 0%, var(--purple-400) 100%);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .mascot-btn .content {
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      position: relative;
+      height: 100%;
+      gap: 10px;
+      border-radius: calc(var(--radius) * 0.85);
+      font-weight: 700;
+      transition: all 0.3s ease;
+      background: linear-gradient(to bottom, var(--purple-300) 0%, var(--purple-400) 100%);
+      color: var(--white);
+      text-shadow: -1px 1px 2px var(--purple-500);
+      box-shadow: inset -2px 10px 10px -5px var(--purple-200), inset 1px -2px 8px 0px rgba(0,0,0,0.35);
+    }
+
+    .mascot-btn:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+    .mascot-btn:hover .wrap {
+      transform: translate(6px, -6px);
+    }
+    .mascot-btn:active .wrap {
+      transform: translate(2px, -2px);
+    }
+
+    .mascot-btn.playing-now .content {
+      background: linear-gradient(to bottom, #ec4899 0%, #a855f7 100%);
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.7);
+    }
+
+    /* ==========================================================
        COMPONENT: BOUQUET DOODLE BOY (flower.txt)
        ========================================================== */
     .scene-flower {
@@ -1356,14 +1610,13 @@
     .subtitle { margin: 6px 0 0; color: #9b8174; font: 500 1.25rem 'Caveat', cursive; }
 
     .boy { width: min(85%, 380px); height: auto; overflow: visible; }
-    .sketch { stroke: var(--ink); stroke-width: 2.7; stroke-linecap: round; stroke-linejoin: round; filter: url(#pencil); }
     .ground { fill: none; stroke: #b9aa98; stroke-width: 1.6; stroke-linecap: round; opacity: 0.7; }
     .legs { stroke-width: 2.2; }
     .arms-hidden { transform-origin: 180px 270px; animation: hideArms 6.8s ease-in-out infinite; }
-    .body { transform-origin: 180px 300px; animation: shySway 6.8s ease-in-out infinite; }
+    .body-boy { transform-origin: 180px 300px; animation: shySway 6.8s ease-in-out infinite; }
     .head-boy { transform-origin: 180px 170px; animation: headTilt 6.8s ease-in-out infinite; }
-    .eyes { animation: blinkBoy 6.8s linear infinite; }
-    .smile { stroke: var(--ink); }
+    .eyes-boy { animation: blinkBoy 6.8s linear infinite; }
+    .smile-boy { stroke: var(--ink); }
     .offer { transform-origin: 180px 280px; opacity: 0; transform: translateY(20px) scale(0.82); animation: revealBouquet 6.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
     .stem { fill: none; stroke: #607c55; stroke-width: 3.1; stroke-linecap: round; }
     .leaf { fill: #81986b; stroke: #526c49; stroke-width: 1.7; }
@@ -1374,7 +1627,7 @@
     .flower-pink2 { fill: #efb4c3; animation-delay: -0.3s; }
     .flower-yellow2 { fill: #f1d36e; animation-delay: -0.6s; }
     .detail { fill: none; stroke: rgba(125, 66, 75, 0.55); stroke-width: 1.3; }
-    .wrap { fill: #e8d4b8; stroke: #b99d7c; stroke-width: 2; }
+    .wrap-flower { fill: #e8d4b8; stroke: #b99d7c; stroke-width: 2; }
     .wrap-line { fill: none; stroke: #c7ad8e; stroke-width: 1.3; }
     .ribbon { fill: #c77f8a; stroke: #965b64; stroke-width: 1.7; }
     .ribbon-line { fill: none; stroke: #965b64; stroke-width: 2.3; }
@@ -1456,26 +1709,26 @@
   <!-- Background Music Audio Element -->
   <audio id="bg-audio" src="rehbara.m4a" preload="auto" loop></audio>
 
-  <!-- Soft Ambient Audio Toggle Button -->
+  <!-- Dedicated Virtual Assistant Audio Player -->
+  <audio id="assistant-audio" preload="auto"></audio>
+
+  <!-- Music Status Toggle Button -->
   <div class="fixed top-4 right-4 z-50">
-    <button id="sound-toggle" class="bg-white/80 hover:bg-white text-stone-700 px-3.5 py-1.5 rounded-full border-2 border-stone-800 text-xs font-bold shadow-[2px_2px_0px_#000] flex items-center gap-1.5 transition active:translate-x-0.5 active:translate-y-0.5">
+    <button id="sound-toggle" class="bg-white/85 hover:bg-white text-stone-700 px-3.5 py-1.5 rounded-full border-2 border-stone-800 text-xs font-bold shadow-[2px_2px_0px_#000] flex items-center gap-1.5 transition active:translate-x-0.5 active:translate-y-0.5">
       <span id="sound-icon">🎵</span>
       <span id="sound-label">Music: Playing</span>
     </button>
   </div>
 
   <!-- ==========================================================
-       SVG FILTERS (Required for Hand-Drawn Wobble & Pencil Grain)
+       SVG FILTERS (Hand-Drawn Wobble & Pencil Grain)
        ========================================================== -->
   <svg height="0" width="0" class="absolute">
     <defs>
-      <!-- Pencil Filter for Flower Scene -->
       <filter id="pencil" x="-15%" y="-15%" width="130%" height="130%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9" result="noise" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="7" result="noise" />
         <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.55" xChannelSelector="R" yChannelSelector="G" />
       </filter>
-
-      <!-- Noise Filters for Sketched Buttons & Text (button.txt) -->
       <filter id="handDrawnNoise">
         <feTurbulence result="noise" numOctaves="8" baseFrequency="0.1" type="fractalNoise"></feTurbulence>
         <feDisplacementMap yChannelSelector="G" xChannelSelector="R" scale="3" in2="noise" in="SourceGraphic"></feDisplacementMap>
@@ -1503,7 +1756,6 @@
     <section id="screen-intro-black" class="screen-panel active text-center py-12">
       <div class="loader-wrapper">
         <div class="loader loader-white">
-          <!-- Left Leg -->
           <svg class="legl" version="1.1" xmlns="http://www.w3.org/2000/svg" width="20.69332" height="68.19944" viewBox="0,0,20.69332,68.19944">
             <g transform="translate(-201.44063,-235.75466)">
               <g stroke-miterlimit="10">
@@ -1512,7 +1764,6 @@
             </g>
           </svg>
 
-          <!-- Right Leg -->
           <svg class="legr" version="1.1" xmlns="http://www.w3.org/2000/svg" width="41.02537" height="64.85502" viewBox="0,0,41.02537,64.85502">
             <g transform="translate(-241.54137,-218.44347)">
               <g stroke-miterlimit="10">
@@ -1521,7 +1772,6 @@
             </g>
           </svg>
 
-          <!-- Body -->
           <div class="bod">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="144.10576" height="144.91623" viewBox="0,0,144.10576,144.91623">
               <g transform="translate(-164.41679,-112.94712)">
@@ -1530,19 +1780,15 @@
                 </g>
               </g>
             </svg>
-            <!-- Head -->
             <svg class="head" version="1.1" xmlns="http://www.w3.org/2000/svg" width="115.68559" height="88.29441" viewBox="0,0,115.68559,88.29441">
               <g transform="translate(-191.87889,-75.62023)">
                 <g stroke-miterlimit="10">
                   <path d="M195.12889,128.77752c0,-26.96048 21.33334,-48.81626 47.64934,-48.81626c26.316,0 47.64935,21.85578 47.64935,48.81626c0,0.60102 -9.22352,20.49284 -9.22352,20.49284l-7.75885,0.35623l-7.59417,6.15039l-8.64295,-1.74822l-11.70703,6.06119l-6.38599,-4.79382l-6.45999,2.36133l-7.01451,-7.38888l-8.11916,1.29382l-6.19237,-6.07265l-7.6263,-1.37795l-4.19835,-7.87062l-4.24236,-4.16907c0,0 -0.13314,-2.0999 -0.13314,-3.29458z" fill="none" stroke="#cbd5e1" stroke-width="6" stroke-linecap="butt"></path>
-                  <path d="M276.02738,115.72434c-0.66448,-4.64715 2.56411,-8.95308 7.21127,-9.61756c4.64715,-0.66448 8.95309,2.56411 9.61757,7.21126c0.46467,3.24972 -1.94776,8.02206 -5.96624,9.09336c-2.11289,-1.73012 -5.08673,-5.03426 -5.08673,-5.03426c0,0 -4.12095,1.16329 -4.60481,1.54229c-0.16433,-0.04891 -0.62732,-0.38126 -0.72803,-0.61269c-0.30602,-0.70328 -0.36302,-2.02286 -0.44303,-2.58239z" fill="#000000" stroke="none" stroke-width="0.5"></path>
-                  <path d="M242.49281,125.6424c0,-4.69442 3.80558,-8.5 8.5,-8.5c4.69442,0 8.5,3.80558 8.5,8.5c0,4.69442 -3.80558,8.5 -8.5,8.5c-4.69442,0 -8.5,-3.80558 -8.5,-8.5z" fill="#000000" stroke="none" stroke-width="0.5"></path>
                 </g>
               </g>
             </svg>
           </div>
 
-          <!-- Ground Line -->
           <svg id="gnd" version="1.1" xmlns="http://www.w3.org/2000/svg" width="475" height="530" viewBox="0,0,163.40011,85.20095">
             <g transform="translate(-176.25,-207.64957)">
               <g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-miterlimit="10">
@@ -1567,16 +1813,13 @@
          SCREEN 0.5: 3D WORLD REVOLVES AROUND YOU (world.txt)
          ========================================================== -->
     <section id="screen-world" class="screen-panel text-center py-10">
-      
       <span class="inline-block px-3 py-1 rounded-full border border-rose-300/30 bg-rose-950/40 text-rose-300 text-xs uppercase tracking-widest font-mono mb-2">
         Cosmic Truth ✦
       </span>
 
-      <!-- 3D WORLD COMPONENT -->
       <div class="world-viewport">
         <div class="world-base-sphere"></div>
         <div id="cont">
-          <!-- 32 Points for longitude/latitude -->
           <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
           <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
           <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
@@ -1586,7 +1829,6 @@
           <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
           <div class="point"></div><div class="point"></div><div class="point"></div><div class="point"></div>
 
-          <!-- Continents -->
           <div class="continent c1"></div>
           <div class="continent c2"></div>
           <div class="continent c3"></div>
@@ -1598,12 +1840,10 @@
         </div>
       </div>
 
-      <!-- Sketched Text -->
       <h2 class="text-3xl sm:text-5xl font-sketch font-bold text-rose-100 tracking-tight leading-tight my-4 sketch-wobble">
         "Yk my world revolves around you only."
       </h2>
 
-      <!-- Button Component -->
       <div class="button-sketch-wrapper mt-2">
         <button id="btn-world-next" class="button button-dark-variant">
           <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
@@ -1613,18 +1853,15 @@
               </g>
             </g>
           </svg>
-          to aage badhe? click kro 
+          to aage badhe? click kro 💫
         </button>
       </div>
-
     </section>
 
     <!-- ==========================================================
          SCREEN 0.75: PASSWORD GATEKEEPER (Mendhak / Frog)
          ========================================================== -->
     <section id="screen-password" class="screen-panel text-center py-6">
-      
-      <!-- Frog Scene Component (frog.txt) -->
       <div class="frog-scene">
         <div class="ground-shadow"></div>
         <svg class="frog" viewBox="0 0 420 420" role="img">
@@ -1644,7 +1881,6 @@
             </radialGradient>
           </defs>
 
-          <!-- sketchy ground -->
           <g class="frog-line" stroke-linecap="round" stroke-linejoin="round">
             <path d="M76 355 Q116 369 157 359 M269 360 Q313 371 350 355" fill="none" stroke="#8caa6c" stroke-width="2.4" opacity=".65"/>
             <g class="feet">
@@ -1652,27 +1888,22 @@
               <path d="M286 326 Q322 327 343 350 Q352 363 334 367 Q311 369 277 351 L259 339Z" fill="#7fbd5c" stroke="#426d43" stroke-width="3"/>
             </g>
 
-            <!-- body -->
             <g class="body-group">
               <path d="M117 238 Q108 270 119 321 Q126 357 210 360 Q294 357 301 321 Q312 270 303 238Z" fill="url(#frogGreen)" stroke="#426d43" stroke-width="3.6"/>
               <path d="M146 282 Q148 328 210 333 Q272 328 274 282 Q259 263 210 263 Q161 263 146 282Z" fill="url(#bellyGreen)" stroke="#5d8e4e" stroke-width="2.5"/>
             </g>
 
-            <!-- arms -->
             <g class="arms">
               <path d="M127 254 Q91 270 103 303 Q111 325 143 313 L162 288Z" fill="#91ce69" stroke="#426d43" stroke-width="3.2"/>
               <path d="M293 254 Q329 270 317 303 Q309 325 277 313 L258 288Z" fill="#91ce69" stroke="#426d43" stroke-width="3.2"/>
             </g>
 
-            <!-- head -->
             <g class="head-group">
               <path d="M83 183 Q80 117 130 98 Q145 65 177 87 Q194 76 210 82 Q226 76 243 87 Q275 65 290 98 Q340 117 337 183 Q334 260 274 282 Q245 295 210 294 Q175 295 146 282 Q86 260 83 183Z" fill="url(#frogGreen)" stroke="#426d43" stroke-width="3.8"/>
-              <!-- eye bumps -->
               <g class="eye-bumps">
                 <path d="M115 143 Q109 103 145 98 Q177 97 181 143Z" fill="#8fce68" stroke="#426d43" stroke-width="3.2"/>
                 <path d="M239 143 Q243 97 275 98 Q311 103 305 143Z" fill="#8fce68" stroke="#426d43" stroke-width="3.2"/>
               </g>
-              <!-- eyes -->
               <g class="eyes">
                 <ellipse class="eye-white left-white" cx="148" cy="133" rx="22" ry="27" fill="#fff9e9" stroke="#426d43" stroke-width="2.3"/>
                 <ellipse class="eye-white right-white" cx="272" cy="133" rx="22" ry="27" fill="#fff9e9" stroke="#426d43" stroke-width="2.3"/>
@@ -1684,12 +1915,10 @@
                 </g>
                 <path class="blink-line" d="M127 135 Q148 151 169 135 M251 135 Q272 151 293 135" fill="none" stroke="#426d43" stroke-width="5" stroke-linecap="round"/>
               </g>
-              <!-- blush -->
               <g class="blush">
                 <ellipse cx="119" cy="208" rx="31" ry="19" fill="url(#cheekPink)"/>
                 <ellipse cx="301" cy="208" rx="31" ry="19" fill="url(#cheekPink)"/>
               </g>
-              <!-- smile and kiss -->
               <path class="smile" d="M177 215 Q210 242 243 215" fill="none" stroke="#426d43" stroke-width="4" stroke-linecap="round"/>
               <g class="kiss-mouth">
                 <path d="M190 218 Q198 206 210 216 Q222 206 230 218 Q224 236 210 237 Q196 236 190 218Z" fill="#e9868d" stroke="#75494a" stroke-width="2.4" stroke-linejoin="round"/>
@@ -1698,7 +1927,6 @@
           </g>
         </svg>
 
-        <!-- Kiss Trail -->
         <div class="kiss-trail" aria-hidden="true">
           <span class="kiss kiss-a">💋</span>
           <span class="kiss kiss-b">💋</span>
@@ -1707,17 +1935,15 @@
         </div>
       </div>
 
-      <!-- Sketched Question -->
       <div class="max-w-md mx-auto mb-2">
         <h3 class="font-sketch text-2xl sm:text-4xl font-bold text-stone-900 leading-snug sketch-wobble">
-          andr aane se pehle ye btao mendaruwiiiiiiii bndruwiiiiiiiiii 😝🫪:
+          andr aane se pehle ye btao:
         </h3>
         <p class="font-sketch text-xl sm:text-2xl text-rose-600 font-semibold mt-1">
-          "what is "phir" for You betey?" 🐸
+          "what is phir for You betey?" 🐸
         </p>
       </div>
 
-      <!-- Neo-brutalist Input (input.txt) for Password -->
       <div class="w-full">
         <div class="input__container" id="pass-input-box" data-badge="PASSWORD">
           <div class="shadow__input"></div>
@@ -1737,17 +1963,13 @@
         </div>
       </div>
 
-      <p id="pass-error-msg" class="font-sketch text-lg text-rose-600 mt-2 min-h-[28px]">
-        <!-- Error hint shown dynamically -->
-      </p>
-
+      <p id="pass-error-msg" class="font-sketch text-lg text-rose-600 mt-2 min-h-[28px]"></p>
     </section>
 
     <!-- ==========================================================
          SCREEN 1: THE INVITATION & CANVAS EASEL
          ========================================================== -->
     <section id="screen-1" class="screen-panel text-center py-10">
-      
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-stone-400 bg-white/60 text-stone-600 text-xs uppercase tracking-widest font-mono mb-4">
         <span>✎ Handcrafted with Care</span>
       </div>
@@ -1760,14 +1982,12 @@
         "Before you step inside, bring color to the blank sketch..."
       </p>
 
-      <!-- CANVAS BUTTON COMPONENT (canvas button.txt) -->
       <div class="bg-easel-container my-3" id="canvas-card">
         <label class="theme-switch" title="Tap the easel to paint the canvas!">
           <input type="checkbox" id="canvas-checkbox" />
           <div class="easel-frame" id="easel-interactive">
             <div class="canvas-texture"></div>
 
-            <!-- Sketch scene -->
             <div class="sketch-scene">
               <div class="s-sun"></div>
               <div class="s-mountain sm1"></div>
@@ -1781,7 +2001,6 @@
               </div>
             </div>
 
-            <!-- Painting mask -->
             <div class="painting-mask">
               <div class="painting-scene">
                 <div class="p-sun"></div>
@@ -1797,7 +2016,6 @@
               </div>
             </div>
 
-            <!-- Brush tracker -->
             <div class="brush-tracker">
               <div class="magic-spark s1"></div>
               <div class="magic-spark s2"></div>
@@ -1812,7 +2030,6 @@
         </label>
       </div>
 
-      <!-- Action Button to Trigger the Canvas Animation & Proceed -->
       <div class="button-sketch-wrapper mt-4">
         <button id="btn-enter-heart" class="button">
           <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
@@ -1829,7 +2046,6 @@
       <p id="easel-hint" class="font-sketch text-lg text-stone-500 mt-2">
         (Tap the button or easel above to paint the view)
       </p>
-
     </section>
 
     <!-- ==========================================================
@@ -1838,7 +2054,6 @@
     <section id="screen-loader" class="screen-panel text-center py-12">
       <div class="loader-wrapper">
         <div class="loader">
-          <!-- Left Leg -->
           <svg class="legl" version="1.1" xmlns="http://www.w3.org/2000/svg" width="20.69332" height="68.19944" viewBox="0,0,20.69332,68.19944">
             <g transform="translate(-201.44063,-235.75466)">
               <g stroke-miterlimit="10">
@@ -1847,7 +2062,6 @@
             </g>
           </svg>
 
-          <!-- Right Leg -->
           <svg class="legr" version="1.1" xmlns="http://www.w3.org/2000/svg" width="41.02537" height="64.85502" viewBox="0,0,41.02537,64.85502">
             <g transform="translate(-241.54137,-218.44347)">
               <g stroke-miterlimit="10">
@@ -1856,7 +2070,6 @@
             </g>
           </svg>
 
-          <!-- Body -->
           <div class="bod">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="144.10576" height="144.91623" viewBox="0,0,144.10576,144.91623">
               <g transform="translate(-164.41679,-112.94712)">
@@ -1865,19 +2078,15 @@
                 </g>
               </g>
             </svg>
-            <!-- Head -->
             <svg class="head" version="1.1" xmlns="http://www.w3.org/2000/svg" width="115.68559" height="88.29441" viewBox="0,0,115.68559,88.29441">
               <g transform="translate(-191.87889,-75.62023)">
                 <g stroke-miterlimit="10">
                   <path d="M195.12889,128.77752c0,-26.96048 21.33334,-48.81626 47.64934,-48.81626c26.316,0 47.64935,21.85578 47.64935,48.81626c0,0.60102 -9.22352,20.49284 -9.22352,20.49284l-7.75885,0.35623l-7.59417,6.15039l-8.64295,-1.74822l-11.70703,6.06119l-6.38599,-4.79382l-6.45999,2.36133l-7.01451,-7.38888l-8.11916,1.29382l-6.19237,-6.07265l-7.6263,-1.37795l-4.19835,-7.87062l-4.24236,-4.16907c0,0 -0.13314,-2.0999 -0.13314,-3.29458z" fill="none" stroke="#2f3a50" stroke-width="6" stroke-linecap="butt"></path>
-                  <path d="M276.02738,115.72434c-0.66448,-4.64715 2.56411,-8.95308 7.21127,-9.61756c4.64715,-0.66448 8.95309,2.56411 9.61757,7.21126c0.46467,3.24972 -1.94776,8.02206 -5.96624,9.09336c-2.11289,-1.73012 -5.08673,-5.03426 -5.08673,-5.03426c0,0 -4.12095,1.16329 -4.60481,1.54229c-0.16433,-0.04891 -0.62732,-0.38126 -0.72803,-0.61269c-0.30602,-0.70328 -0.36302,-2.02286 -0.44303,-2.58239z" fill="#ffffff" stroke="none" stroke-width="0.5"></path>
-                  <path d="M242.49281,125.6424c0,-4.69442 3.80558,-8.5 8.5,-8.5c4.69442,0 8.5,3.80558 8.5,8.5c0,4.69442 -3.80558,8.5 -8.5,8.5c-4.69442,0 -8.5,-3.80558 -8.5,-8.5z" fill="#ffffff" stroke="none" stroke-width="0.5"></path>
                 </g>
               </g>
             </svg>
           </div>
 
-          <!-- Ground Line -->
           <svg id="gnd" version="1.1" xmlns="http://www.w3.org/2000/svg" width="475" height="530" viewBox="0,0,163.40011,85.20095">
             <g transform="translate(-176.25,-207.64957)">
               <g stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-miterlimit="10">
@@ -1902,118 +2111,105 @@
          SCREEN 2: THE QUESTION & NOT FOUND TV
          ========================================================== -->
     <section id="screen-2" class="screen-panel text-center py-8">
-      
       <div class="sketch-card p-6 sm:p-10 w-full mb-6">
         <span class="text-xs font-mono uppercase tracking-widest text-stone-500 bg-stone-100 px-3 py-1 rounded-full border border-stone-300">
           A Gentle Honest Question
         </span>
 
         <h2 class="text-3xl sm:text-5xl font-sketch font-bold text-stone-900 mt-4 mb-3 sketch-wobble">
-          "Do you have any hate for Priyanshu??????"
+          "Do you have any hate for Priyanshu?"
         </h2>
 
         <p class="font-sketch text-xl text-stone-600 mb-6">
-          Let’s ask the nostalgic retro scanner to check Ria’s dimaag...
+          Let’s ask the nostalgic retro scanner to check Ria’s heart...
         </p>
 
-        <!-- THE SKETCH BUTTON ("LET'S SEE...") -->
         <div class="button-sketch-wrapper" id="lets-see-box">
           <button id="btn-lets-see" class="button">
             <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
               <g transform="translate(-171.52826,-126.11624)">
                 <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
                   <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+                </g>
               </g>
-            </g>
-          </svg>
-          LET'S SEE... 🔍
-        </button>
-      </div>
+            </svg>
+            LET'S SEE... 🔍
+          </button>
+        </div>
 
-      <!-- TV RESULT REVEAL CONTAINER -->
-      <div id="tv-container" class="hidden flex-col items-center mt-6 transition-all">
-        
-        <!-- RETRO CRT TV (Not found.txt) -->
-        <div class="main_wrapper">
-          <div class="text_404">
-            <div class="text_4041">4</div>
-            <div class="text_4042">0</div>
-            <div class="text_4043">4</div>
-          </div>
-
-          <div class="main_tv">
-            <div class="antenna">
-              <div class="antenna_shadow"></div>
-              <div class="a1"></div>
-              <div class="a1d"></div>
-              <div class="a2"></div>
-              <div class="a2d"></div>
+        <div id="tv-container" class="hidden flex-col items-center mt-6 transition-all">
+          <div class="main_wrapper">
+            <div class="text_404">
+              <div class="text_4041">4</div>
+              <div class="text_4042">0</div>
+              <div class="text_4043">4</div>
             </div>
 
-            <div class="tv">
-              <div class="display_div">
-                <div class="screen_out1">
-                  <div class="screenM">
-                    <span class="notfound_text">NOT FOUND</span>
+            <div class="main_tv">
+              <div class="antenna">
+                <div class="antenna_shadow"></div>
+                <div class="a1"></div>
+                <div class="a1d"></div>
+                <div class="a2"></div>
+                <div class="a2d"></div>
+              </div>
+
+              <div class="tv">
+                <div class="display_div">
+                  <div class="screen_out1">
+                    <div class="screenM">
+                      <span class="notfound_text">NOT FOUND</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="buttons_div">
+                  <div class="b1"></div>
+                  <div class="b2"></div>
+                  <div class="speakers">
+                    <div class="g1"><div class="g11"></div><div class="g12"></div><div class="g13"></div></div>
+                    <div class="g"></div>
+                    <div class="g"></div>
                   </div>
                 </div>
               </div>
 
-              <div class="buttons_div">
-                <div class="b1"></div>
-                <div class="b2"></div>
-                <div class="speakers">
-                  <div class="g1"><div class="g11"></div><div class="g12"></div><div class="g13"></div></div>
-                  <div class="g"></div>
-                  <div class="g"></div>
-                </div>
+              <div class="bottom_tv">
+                <div class="base1"></div>
+                <div class="base2"></div>
+                <div class="base3"></div>
               </div>
             </div>
-
-            <div class="bottom_tv">
-              <div class="base1"></div>
-              <div class="base2"></div>
-              <div class="base3"></div>
-            </div>
           </div>
-        </div>
 
-        <!-- Sketched Typewritten Text Message -->
-        <div class="mt-8 p-6 bg-amber-50/70 border-2 border-stone-800 rounded-2xl max-w-lg mx-auto shadow-[3px_3px_0px_#000]">
-          <h3 class="font-sketch text-3xl font-bold text-stone-900 mb-2">
-            0% Hate Found...
-          </h3>
-          <p id="tv-explanation" class="font-sketch text-2xl text-stone-700 leading-snug mb-3">
-            <!-- Animated typewriter text injected via JS -->
-          </p>
-          <div id="unveil-btn-wrap" class="hidden mt-6">
-            <!-- Unveil What Lies Deep Under Priyanshu Heart Button -->
-            <div class="button-sketch-wrapper">
-              <button id="btn-unveil-deep" class="button">
-                <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
-                  <g transform="translate(-171.52826,-126.11624)">
-                    <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
-                      <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+          <div class="mt-8 p-6 bg-amber-50/70 border-2 border-stone-800 rounded-2xl max-w-lg mx-auto shadow-[3px_3px_0px_#000]">
+            <h3 class="font-sketch text-3xl font-bold text-stone-900 mb-2">
+              0% Hate Found...
+            </h3>
+            <p id="tv-explanation" class="font-sketch text-2xl text-stone-700 leading-snug mb-3"></p>
+            <div id="unveil-btn-wrap" class="hidden mt-6">
+              <div class="button-sketch-wrapper">
+                <button id="btn-unveil-deep" class="button">
+                  <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+                    <g transform="translate(-171.52826,-126.11624)">
+                      <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                        <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+                      </g>
                     </g>
-                  </g>
-                </svg>
-                Unveil what lies deep under Priyanshu's heart 
-              </button>
+                  </svg>
+                  Unveil what lies deep under Priyanshu's heart ✨
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
-
-    </div>
-
     </section>
 
     <!-- ==========================================================
-         SCREEN 3: DEEP FEELINGS & NEO-BRUTALIST INPUT
+         SCREEN 3: DEEP FEELINGS & NEO-BRUTALIST CARD
          ========================================================== -->
     <section id="screen-3" class="screen-panel text-center py-8">
-      
       <div class="w-full text-center mb-6">
         <span class="font-mono text-xs uppercase tracking-widest text-stone-500 bg-white/70 px-3 py-1 rounded-full border border-stone-300">
           Chapter: The Quiet Truth
@@ -2026,7 +2222,6 @@
         </p>
       </div>
 
-      <!-- NEO-BRUTALIST 3D INPUT (input.txt) -->
       <div class="w-full my-2">
         <div class="input__container" data-badge="FOR RIA">
           <div class="shadow__input"></div>
@@ -2046,10 +2241,9 @@
         </div>
       </div>
 
-      <!-- 3 Sketched Note Cards with Doodles -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full my-6 text-left">
         <div class="sketch-card p-5 bg-[#fffef9]">
-          <span class="text-2xl"></span>
+          <span class="text-2xl">🌱</span>
           <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Comfort</h4>
           <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
             Talking to you brings a sense of calm that words can barely capture. It's home in its purest form.
@@ -2057,7 +2251,7 @@
         </div>
 
         <div class="sketch-card p-5 bg-[#fffaf5]">
-          <span class="text-2xl"></span>
+          <span class="text-2xl">☀️</span>
           <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Laughter</h4>
           <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
             Your smile has this effortless magic. No matter the storm, one little word from you lights the room.
@@ -2065,17 +2259,17 @@
         </div>
 
         <div class="sketch-card p-5 bg-[#fefaf8]">
-          <span class="text-2xl"></span>
-          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">uhmmmmm</h4>
+          <span class="text-2xl">💌</span>
+          <h4 class="font-sketch text-2xl font-bold text-stone-800 mt-2">The Respect</h4>
           <p class="font-sketch text-lg text-stone-600 mt-1 leading-snug">
             Pure admiration, genuine care, and wishing the highest happiness for you with every passing sunrise.
           </p>
         </div>
       </div>
 
-      <!-- Hand-Drawn Button: "Click this for one last thing" -->
+      <!-- Button leading into the Virtual AI Assistant -->
       <div class="button-sketch-wrapper mt-4">
-        <button id="btn-one-last-thing" class="button">
+        <button id="btn-see-interesting" class="button">
           <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
             <g transform="translate(-171.52826,-126.11624)">
               <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
@@ -2083,8 +2277,228 @@
               </g>
             </g>
           </svg>
-          Click this for one last thing 
+          tap to see something interesting ✨
         </button>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SCREEN 3.5: VIRTUAL AI ASSISTANT SECTION
+         ========================================================== -->
+    <section id="screen-assistant" class="screen-panel text-center py-6">
+      
+      <div class="w-full max-w-xl mx-auto px-4">
+        
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-purple-400 bg-purple-50 text-purple-900 text-xs uppercase tracking-widest font-mono mb-2 shadow-sm">
+          <span>🤖 Virtual Companion Protocol</span>
+        </div>
+
+        <h2 class="text-3xl sm:text-5xl font-sketch font-bold text-stone-900 mt-1 mb-1 sketch-wobble">
+          This is your Virtual assistant
+        </h2>
+        <p class="font-sketch text-lg sm:text-xl text-stone-600 mb-2">
+          "Specially programmed with Priyanshu's brain, ready to chat with Ria ✨"
+        </p>
+
+        <!-- MASCOT COMPONENT (mascot.txt + Waving Hand) -->
+        <div class="mascot-wrapper my-2" id="mascotContainer">
+          <svg class="mascot-doodle" viewBox="0 0 360 480" role="img">
+            <path class="ground" d="M100 450 Q180 443 260 450 M125 456 Q180 451 235 456" />
+
+            <!-- Eren Bun & Long Back Strands -->
+            <g class="hair-back sketch">
+              <path d="M228 102 C255 88 268 116 250 134 C234 146 220 128 228 102 Z" fill="#2d2926" />
+              <path d="M236 100 Q252 114 240 128" fill="none" stroke="#685d56" stroke-width="1.8" />
+              <path d="M226 112 Q234 116 230 125" fill="none" stroke="#cbb89d" stroke-width="2.5" />
+              <path d="M108 178 Q90 240 114 310 Q126 270 122 210 Z" fill="#2d2926" />
+              <path d="M252 178 Q270 240 246 310 Q234 270 238 210 Z" fill="#2d2926" />
+            </g>
+
+            <!-- Body & Striped Sweater -->
+            <g class="body-mascot sketch">
+              <path d="M125 240 Q145 228 180 228 Q215 228 235 240 L256 340 Q258 360 242 368 L232 370 L236 430 Q180 445 124 430 L128 370 L118 368 Q102 360 104 340 Z" fill="#7d586e" />
+              <path d="M142 248 L138 424 M162 235 L160 434 M180 232 L180 436 M198 235 L200 434 M218 248 L222 424" fill="none" stroke="#f6eff2" stroke-width="5" stroke-linecap="round" opacity="0.85" />
+              <path d="M152 230 Q180 248 208 230" fill="none" stroke="#2d2926" stroke-width="2.2" />
+            </g>
+
+            <!-- Animated Waving Arm/Hand -->
+            <g class="waving-arm sketch">
+              <path d="M125 250 Q90 220 82 175 Q78 152 94 148 Q106 148 108 170 L118 242 Z" fill="#7d586e" />
+              <!-- Hand -->
+              <circle cx="88" cy="150" r="14" fill="#efc4a9" />
+              <path d="M80 144 Q88 132 94 144" fill="none" stroke="#2d2926" stroke-width="1.8" />
+            </g>
+
+            <!-- Head, Face & Facial Hair -->
+            <g class="head-mascot sketch">
+              <path d="M160 210 L158 242 Q180 254 202 242 L200 210 Z" fill="#e8b99e" />
+              <path d="M116 142 Q102 130 106 156 Q108 172 122 168 M244 142 Q258 130 254 156 Q252 172 238 168" fill="#efc4a9" />
+              <path d="M115 132 Q114 74 180 70 Q246 74 245 132 L239 174 Q228 212 180 216 Q132 212 121 174 Z" fill="#efc4a9" />
+
+              <!-- Hair Front & Bangs -->
+              <g class="hair-front">
+                <path d="M116 128 Q110 75 180 72 Q250 75 244 128 C238 108 226 94 208 106 C194 92 170 94 154 106 C134 94 122 108 116 128 Z" fill="#302d2a" />
+                <path d="M120 124 Q108 168 118 208 Q124 176 128 140 Z" fill="#2d2926" />
+                <path d="M240 124 Q252 168 242 208 Q236 176 232 140 Z" fill="#2d2926" />
+              </g>
+
+              <!-- Eyebrows -->
+              <path d="M138 135 Q152 128 166 136 M194 136 Q208 128 222 135" fill="none" stroke="#252321" stroke-width="4.2" stroke-linecap="round" />
+
+              <!-- Blinking Eyes -->
+              <g class="eyes-mascot">
+                <ellipse cx="152" cy="148" rx="6.5" ry="8.5" fill="#252321" />
+                <ellipse cx="208" cy="148" rx="6.5" ry="8.5" fill="#252321" />
+                <circle cx="150" cy="145" r="2.2" fill="#ffffff" />
+                <circle cx="206" cy="145" r="2.2" fill="#ffffff" />
+              </g>
+
+              <!-- Nose -->
+              <path d="M180 152 Q183 164 177 167" fill="none" stroke="#c58f7d" stroke-width="2.2" stroke-linecap="round" />
+
+              <!-- Cheek Blush -->
+              <ellipse class="blush" cx="136" cy="166" rx="10" ry="4.5" fill="#e99a94" opacity="0.45" />
+              <ellipse class="blush" cx="224" cy="166" rx="10" ry="4.5" fill="#e99a94" opacity="0.45" />
+
+              <!-- Mustache -->
+              <path d="M162 180 Q180 174 180 182 Q180 174 198 180 Q180 188 162 180 Z" fill="#252321" />
+
+              <!-- Speaking Animated Mouth -->
+              <g class="mouth-group">
+                <path class="mouth-closed" d="M168 191 Q180 197 192 191" fill="none" stroke="#252321" stroke-width="2.6" stroke-linecap="round" />
+                <path class="mouth-speaking" d="M169 189 Q180 186 191 189 C194 198 190 205 180 205 C170 205 166 198 169 189 Z" fill="#4a1c22" stroke="#252321" stroke-width="2" />
+                <path class="mouth-teeth" d="M172 190 Q180 193 188 190" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              </g>
+
+              <!-- Beard -->
+              <path d="M174 208 Q180 205 186 208 L184 216 Q180 220 176 216 Z" fill="#252321" />
+              <path d="M172 223 Q180 228 188 223 Q180 226 172 223 Z" fill="#252321" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- VOICE VISUALIZER COMPONENT (voice.txt) -->
+        <div id="voiceVisualizer" class="voice-loading" aria-label="Speaking voice frequency bars">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <p id="assistant-audio-status" class="font-sketch text-lg text-purple-900 font-semibold min-h-[26px]">
+          Tap any query below to hear the assistant speak 🎙️
+        </p>
+
+        <!-- 5 MASCOT BUTTONS (mascot button.txt) -->
+        <div class="flex flex-col items-center gap-4 my-4">
+          
+          <!-- Button 1: Who am I -->
+          <button class="mascot-btn" data-audio="assistant.mp3">
+            <div class="bg"></div>
+            <div class="wrap">
+              <div class="content">
+                <span>Who am I 🎙️</span>
+              </div>
+            </div>
+          </button>
+
+          <!-- Button 2: Say Hi -->
+          <button class="mascot-btn" data-audio="hello.mp3">
+            <div class="bg"></div>
+            <div class="wrap">
+              <div class="content">
+                <span>Say Hi 👋</span>
+              </div>
+            </div>
+          </button>
+
+          <!-- Button 3: Tell me something interesting -->
+          <button class="mascot-btn" data-audio="intresting.mp3">
+            <div class="bg"></div>
+            <div class="wrap">
+              <div class="content">
+                <span>Tell me something interesting 💡</span>
+              </div>
+            </div>
+          </button>
+
+          <!-- Button 4: Kuch or sunao -->
+          <button class="mascot-btn" data-audio="or kuch.mp3">
+            <div class="bg"></div>
+            <div class="wrap">
+              <div class="content">
+                <span>kuch or sunao 🎧</span>
+              </div>
+            </div>
+          </button>
+
+          <!-- Button 5: Mandatory stuff -->
+          <button class="mascot-btn" data-audio="mandatory.mp3" id="btn-mandatory-stuff">
+            <div class="bg"></div>
+            <div class="wrap">
+              <div class="content">
+                <span>mandatory stuff ⚠️</span>
+              </div>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- CRYPTIC, SARCASTIC & POETIC RIDDLE MESSAGE (With hidden "MAAF" & "I LOVE YOU THE MOST") -->
+        <div id="cryptic-poem-card" class="hidden mt-8 p-6 bg-white/95 border-2 border-stone-800 rounded-2xl shadow-[4px_4px_0px_#000] text-left transition-all">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xl">📜</span>
+            <h4 class="font-sketch text-2xl font-bold text-stone-900">An Encrypted Log for Ria</h4>
+          </div>
+
+          <div class="font-sketch text-xl sm:text-2xl text-stone-800 leading-relaxed space-y-3 border-l-4 border-purple-400 pl-4 py-1 italic">
+            <p>
+              <strong>M</strong>istakes were etched where the stubborn egos stand,<br>
+              <strong>A</strong>ll logic fractures when questions slip the hand.<br>
+              <strong>A</strong> quiet echo through circuits cold and brief:<br>
+              <strong>F</strong>orgive the clumsy boy behind the painted leaf.
+            </p>
+            <p class="text-stone-700 text-lg sm:text-xl not-italic font-mono text-xs opacity-75">
+              // Look closely at the start of each line above...
+            </p>
+            <p>
+              <strong>I</strong>n every paradox the syntax tries to boast,<br>
+              <strong>L</strong>ost in the stubbornness that matters the least.<br>
+              <strong>O</strong>ver the sarcastic static you love to roast,<br>
+              <strong>V</strong>oicing the truth that needs no server host—<br>
+              <strong>E</strong>very clumsy heartbeat here, from coast to coast:<br>
+              <strong>Y</strong>ou know who adores you...<br>
+              <strong>O</strong>nly and unapologetically,<br>
+              <strong>U</strong>ntil the end of every ghost.<br>
+              <strong>T</strong>hrough every fight and quiet boast,<br>
+              <strong>H</strong>ere stands the one who loves you the most.<br>
+              <strong>E</strong>choing silent: <em>i love you the most.</em>
+            </p>
+          </div>
+
+          <!-- Signoff message -->
+          <div class="mt-6 pt-4 border-t border-stone-200 text-center">
+            <p class="font-sketch text-2xl sm:text-3xl font-bold text-purple-950 sketch-wobble">
+              challo bye bye bad me milte h 👋✨
+            </p>
+            
+            <div class="button-sketch-wrapper mt-4">
+              <button id="btn-proceed-finale" class="button">
+                <svg class="highlight" viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
+                  <g transform="translate(-171.52826,-126.11624)">
+                    <g fill="none" stroke-width="17" stroke-linecap="round" stroke-miterlimit="10">
+                      <path d="M180.02826,169.45123c0,0 12.65228,-25.55115 24.2441,-25.66863c6.39271,-0.06479 -5.89143,46.12943 4.90937,50.63857c10.22345,4.2681 24.14292,-52.38336 37.86455,-59.80493c3.31715,-1.79413 -5.35094,45.88889 -0.78872,58.34589c5.19371,14.18125 33.36934,-58.38221 36.43049,-56.91633c4.67078,2.23667 -0.06338,44.42744 5.22574,47.53647c6.04041,3.55065 19.87185,-20.77286 19.87185,-20.77286"></path>
+                    </g>
+                  </g>
+                </svg>
+                One last step for bittua 🌷
+              </button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
     </section>
@@ -2096,7 +2510,7 @@
       <div class="my-auto py-12">
         <p class="eyebrow mb-2">from the very core</p>
         <h2 id="bittua-text" class="text-5xl sm:text-7xl font-sketch font-bold text-stone-900 tracking-tight leading-tight sketch-wobble">
-          This is for u bittuaaaaaaaaaaaaaaaa
+          This is for u bittua
         </h2>
         <div class="w-32 h-1 bg-stone-700 mx-auto mt-4 rounded-full"></div>
       </div>
@@ -2107,7 +2521,6 @@
          ========================================================== -->
     <section id="screen-5-bouquet" class="screen-panel text-center py-6">
       
-      <!-- Flower Scene Main Card -->
       <main class="scene-flower" aria-label="A hand-drawn boy shyly offering a bouquet of tulips">
         <div class="sparkle sparkle-one">✳</div>
         <div class="sparkle sparkle-two">✧</div>
@@ -2122,10 +2535,8 @@
 
         <svg class="boy" viewBox="0 0 360 570" role="img">
           <title>Shy doodle boy with tulips</title>
-          <!-- ground -->
           <path class="ground" d="M75 535 Q175 526 282 536 M105 542 Q175 537 255 543" />
 
-          <!-- legs and shoes -->
           <g class="legs sketch">
             <path d="M133 365 Q126 420 133 478 L133 507 Q151 517 168 507 L174 386Z" fill="#e8e0d4" />
             <path d="M181 382 Q189 432 184 480 L187 507 Q207 516 223 505 L216 378Z" fill="#e8e0d4" />
@@ -2135,84 +2546,65 @@
             <path d="M109 520 Q136 525 169 520 M187 522 Q214 527 243 520 M128 512 l24 4 m-20 3 l24 4 M200 512 l23 4 m-19 3 l24 4" fill="none" stroke-width="1.5" />
           </g>
 
-          <!-- arms kept behind the back at first -->
           <g class="arms-hidden sketch">
             <path d="M133 220 Q104 247 119 286 Q135 307 159 286 L181 263" fill="none" stroke="#252522" stroke-width="17" stroke-linecap="round" />
             <path d="M222 220 Q251 247 236 286 Q220 307 196 286 L179 263" fill="none" stroke="#252522" stroke-width="17" stroke-linecap="round" />
             <path d="M133 220 Q104 247 119 286 Q135 307 159 286 L181 263 M222 220 Q251 247 236 286 Q220 307 196 286 L179 263" fill="none" stroke="#f5eee3" stroke-width="12" stroke-linecap="round" />
-            <path d="M153 285 q12 -8 18 3 M192 288 q10 -8 16 0" fill="none" stroke-width="2" />
           </g>
 
-          <!-- sweater body -->
-          <g class="body sketch">
+          <g class="body-boy sketch">
             <path d="M139 200 Q153 188 169 192 L193 192 Q213 189 227 204 L247 292 Q249 311 232 317 L221 321 L226 385 Q178 399 128 384 L136 319 L118 312 Q107 306 113 287Z" fill="#f7f0e6" />
             <path d="M143 207 Q126 247 124 291 M218 208 Q234 250 238 292" fill="none" stroke="#b9afa2" stroke-width="1.5" />
             <path d="M136 319 Q177 331 226 319 M130 374 Q176 389 224 374" fill="none" stroke="#b9afa2" stroke-width="1.5" />
-            <path d="M139 379 l-1 8 m8 -7 l-1 9 m8 -8 l-1 9 m8 -8 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 9 m8 -9 l-1 8" fill="none" stroke="#b9afa2" stroke-width="1.5" />
             <path d="M157 197 Q158 222 179 223 Q201 222 204 197" fill="#f2e6d7" />
-            <path d="M157 198 Q179 211 204 198" fill="none" stroke="#b9afa2" stroke-width="2" />
           </g>
 
-          <!-- neck and head -->
           <g class="head-boy sketch">
             <path d="M163 174 L161 203 Q179 218 198 201 L194 174Z" fill="#e8b99e" />
             <path d="M118 108 Q117 52 176 48 Q235 51 237 111 L229 153 Q219 184 181 190 Q144 186 128 154Z" fill="#efc4a9" />
-            <!-- ears -->
             <path d="M121 119 Q105 107 108 131 Q111 148 128 143 M230 119 Q246 107 243 131 Q240 148 224 143" fill="#efc4a9" />
-            <!-- messy hair -->
             <path d="M119 115 Q101 83 126 59 Q132 31 158 42 Q174 17 193 39 Q222 28 230 61 Q250 78 235 112 L224 91 L214 103 L203 78 L188 99 L180 69 L163 91 L155 75 L140 104 L132 94Z" fill="#302d2a" />
-            <path d="M121 80 Q138 53 151 48 M150 65 Q166 35 179 41 M187 54 Q207 40 220 67 M207 75 l17 -10 M135 88 l-7 15" fill="none" stroke="#6e6258" stroke-width="2.2" stroke-linecap="round" />
-            <!-- face -->
-            <path class="eyes" d="M145 126 Q154 119 162 126 M190 126 Q199 119 207 126" fill="none" stroke-width="3.2" stroke-linecap="round" />
-            <path d="M174 137 q4 3 8 0" fill="none" stroke="#c58f7d" stroke-width="1.7" stroke-linecap="round" />
-            <path class="smile" d="M163 151 Q178 163 194 150" fill="none" stroke-width="2.5" stroke-linecap="round" />
+            <path class="eyes-boy" d="M145 126 Q154 119 162 126 M190 126 Q199 119 207 126" fill="none" stroke-width="3.2" stroke-linecap="round" />
+            <path class="smile-boy" d="M163 151 Q178 163 194 150" fill="none" stroke-width="2.5" stroke-linecap="round" />
             <ellipse class="blush" cx="143" cy="145" rx="12" ry="5" fill="#e99a94" opacity=".55" />
             <ellipse class="blush" cx="211" cy="145" rx="12" ry="5" fill="#e99a94" opacity=".55" />
           </g>
 
-          <!-- hands and bouquet offered forward -->
           <g class="offer sketch">
             <path d="M132 224 Q113 244 129 275 L157 302 L176 283 L159 250 Q151 229 143 222Z" fill="#f7f0e6" />
             <path d="M224 224 Q244 244 228 275 L202 302 L183 283 L199 250 Q207 229 215 222Z" fill="#f7f0e6" />
-            <path d="M132 224 Q113 244 129 275 L157 302 M224 224 Q244 244 228 275 L202 302" fill="none" stroke="#b9afa2" stroke-width="1.4" />
-            <!-- stems -->
+            
             <g class="tulips">
               <path d="M151 278 Q145 232 132 173 M163 278 Q165 224 164 157 M177 278 Q180 222 190 170 M188 278 Q205 229 220 187 M171 278 Q181 236 176 187" class="stem" />
               <path d="M149 248 Q126 238 126 219 Q146 222 149 248 M183 247 Q205 233 207 215 Q188 221 183 247 M164 237 Q145 221 148 205 Q165 215 164 237 M194 252 Q217 250 224 234 Q203 235 194 252" class="leaf" />
-              <!-- tulip heads -->
               <g class="flower flower-pink"><path d="M118 184 Q112 165 125 153 Q129 166 135 158 Q145 166 142 184 Q132 195 118 184Z"/><path d="M125 155 Q126 171 130 184" class="detail"/></g>
               <g class="flower flower-yellow"><path d="M150 164 Q143 144 157 132 Q160 146 167 137 Q179 148 173 166 Q163 176 150 164Z"/><path d="M158 135 Q159 150 163 166" class="detail"/></g>
               <g class="flower flower-red"><path d="M178 178 Q170 157 184 145 Q188 160 195 151 Q206 162 201 180 Q190 190 178 178Z"/><path d="M185 148 Q187 163 190 180" class="detail"/></g>
               <g class="flower flower-pink2"><path d="M207 195 Q201 177 213 166 Q218 180 225 172 Q235 183 229 199 Q219 207 207 195Z"/><path d="M214 169 Q215 184 219 199" class="detail"/></g>
               <g class="flower flower-yellow2"><path d="M139 211 Q132 194 144 183 Q148 196 154 189 Q165 199 160 215 Q150 224 139 211Z"/><path d="M145 186 Q147 200 150 214" class="detail"/></g>
             </g>
-            <!-- wrap -->
-            <path class="wrap" d="M126 220 Q172 232 224 210 L202 286 L177 322 L147 286Z" />
+
+            <path class="wrap-flower" d="M126 220 Q172 232 224 210 L202 286 L177 322 L147 286Z" />
             <path class="wrap-line" d="M126 220 Q163 252 177 322 M224 210 Q198 254 177 322 M144 286 Q175 299 202 286" />
-            <!-- ribbon -->
             <path class="ribbon" d="M174 286 Q151 268 146 285 Q145 297 173 291 Q151 307 163 312 Q175 309 178 293 Q191 313 202 302 Q209 291 181 289 Q208 278 196 271 Q185 269 178 286Z" />
-            <path class="ribbon-line" d="M176 291 L164 329 M181 291 L194 325" />
-            <!-- hands -->
             <path class="hand" d="M151 274 Q143 271 140 280 Q139 290 150 295 L165 300 Q173 299 173 290 L168 279Z" />
             <path class="hand" d="M201 273 Q209 270 212 279 Q213 289 202 294 L188 300 Q180 299 180 290 L185 279Z" />
-            <path class="finger" d="M147 281 q8 5 17 6 M148 287 q8 5 16 5 M205 280 q-8 5 -16 7 M204 287 q-8 5 -15 5" />
           </g>
         </svg>
 
         <div class="bottom-note">made with all of Priyanshu's courage <span>♡</span></div>
       </main>
 
-      <!-- The Grand Loving Confession -->
       <div class="max-w-md mx-auto my-6 p-6 bg-white border-2 border-stone-800 rounded-2xl shadow-[4px_4px_0px_#000]">
         <h2 class="font-sketch text-4xl sm:text-5xl font-bold text-rose-600 mb-2">
           Priyanshu loves you, Ria. ❤️
         </h2>
         <p class="font-sketch text-xl sm:text-2xl text-stone-700 leading-snug">
-          Always has, always will, in every lifetime and every little forever. May the world be gentle with that smile, bittua, for it carries a kind of heaven even the stars could never imitate. Keep it safe, keep it shining, and never let this world dim the loveliest thing it ever taught my eyes to admire
+          Always has, always will. Keep this smile safe forever, bittua.
         </p>
 
         <button id="btn-restart" class="mt-4 px-5 py-2 text-xs font-mono uppercase tracking-widest bg-stone-100 hover:bg-stone-200 border-2 border-stone-800 rounded-full font-bold shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition">
-          ↺ Relive this story from the start..???uhmmmm???
+          ↺ Relive this story from the start
         </button>
       </div>
 
@@ -2222,9 +2614,10 @@
 
   <script>
     /* ==========================================================
-       BACKGROUND SONG & WEB AUDIO CONTROLS
+       BACKGROUND SONG & ASSISTANT AUDIO ARCHITECTURE
        ========================================================== */
     const bgAudio = document.getElementById('bg-audio');
+    const assistantAudio = document.getElementById('assistant-audio');
     const soundToggle = document.getElementById('sound-toggle');
     const soundIcon = document.getElementById('sound-icon');
     const soundLabel = document.getElementById('sound-label');
@@ -2242,18 +2635,14 @@
       }
     }
 
-    // Attempt autoplay immediately, with smooth fallback to first user interaction
     function startMusic() {
       if (!bgAudio) return;
       bgAudio.volume = 0.85;
       const playPromise = bgAudio.play();
       if (playPromise !== undefined) {
         playPromise
-          .then(() => {
-            updateAudioUI(true);
-          })
+          .then(() => updateAudioUI(true))
           .catch(() => {
-            // Browser autoplay restrictions require an initial interaction
             updateAudioUI(false);
             const enableAudioOnGesture = () => {
               bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
@@ -2278,7 +2667,6 @@
       }
     });
 
-    // Start playback right on page load
     window.addEventListener('DOMContentLoaded', startMusic);
     window.addEventListener('load', startMusic);
 
@@ -2308,10 +2696,6 @@
       }
     }
 
-    /**
-     * Helper to let any hand-drawn button complete its full active wobble,
-     * highlighter swipe, and indentation sound before proceeding.
-     */
     function animateButtonPress(btnElement, duration = 850) {
       return new Promise((resolve) => {
         btnElement.classList.add('is-triggered');
@@ -2334,6 +2718,7 @@
       loader: document.getElementById('screen-loader'),
       s2: document.getElementById('screen-2'),
       s3: document.getElementById('screen-3'),
+      assistant: document.getElementById('screen-assistant'),
       s4Intro: document.getElementById('screen-4-intro'),
       s5Bouquet: document.getElementById('screen-5-bouquet')
     };
@@ -2381,7 +2766,7 @@
     window.addEventListener('load', () => {
       const introBar = document.getElementById('intro-progress-bar');
       let introElapsed = 0;
-      const introSteps = 52; // 5.2 seconds for full calming experience
+      const introSteps = 50;
 
       const introInterval = setInterval(() => {
         introElapsed++;
@@ -2399,7 +2784,7 @@
     });
 
     /* ==========================================================
-       STEP 0.5: WORLD -> "TO AAGE BADHE? CLICK KRO" (Full Button Wobble -> 5.5s LOADER -> MENDHAK)
+       STEP 0.5: WORLD -> "TO AAGE BADHE? CLICK KRO" -> MENDHAK
        ========================================================== */
     const btnWorldNext = document.getElementById('btn-world-next');
     btnWorldNext.addEventListener('click', async () => {
@@ -2430,7 +2815,6 @@
         btnPassSubmit.style.transform = "scale(1.1) rotate(5deg)";
         passInput.style.borderColor = "#22c55e";
 
-        // Give Ria 2.2 seconds to view the celebration and kiss trail
         setTimeout(() => {
           runLoader(5, "Opening the secret gateway to his heart... 🌸", () => {
             showScreen(screens.s1, 'warm-paper');
@@ -2439,7 +2823,7 @@
       } else {
         playChime(196, 0.6);
         passInputBox.classList.remove('shake-error');
-        void passInputBox.offsetWidth; // trigger reflow
+        void passInputBox.offsetWidth;
         passInputBox.classList.add('shake-error');
         passErrorMsg.textContent = "Galat answer betey! Yaad karo aap 'phir' ko kya bolti ho 😂";
         passErrorMsg.className = "font-sketch text-xl text-rose-600 mt-2 font-bold";
@@ -2452,7 +2836,7 @@
     });
 
     /* ==========================================================
-       FLOW STEP 1: CANVAS PAINTING ANIMATION -> 6s LOADER
+       FLOW STEP 1: CANVAS PAINTING ANIMATION -> SCREEN 2
        ========================================================== */
     const canvasCheckbox = document.getElementById('canvas-checkbox');
     const btnEnterHeart = document.getElementById('btn-enter-heart');
@@ -2468,7 +2852,6 @@
       playChime(329.63, 2.5);
       easelHint.textContent = "✨ Priyanshu is painting the morning sky for Ria...";
 
-      // Allow 3.8s for the full brush glide, magic spark drop, sun elevation, reflection, and flying birds
       setTimeout(() => {
         runLoader(6, "Opening the doors to his heart... ⏳", () => {
           showScreen(screens.s2);
@@ -2484,7 +2867,7 @@
     });
 
     /* ==========================================================
-       FLOW STEP 2: LET'S SEE -> TV NOT FOUND -> 6.5s LOADER
+       FLOW STEP 2: LET'S SEE -> TV NOT FOUND -> SCREEN 3
        ========================================================== */
     const btnLetsSee = document.getElementById('btn-lets-see');
     const tvContainer = document.getElementById('tv-container');
@@ -2503,7 +2886,6 @@
 
       playChime(392.00, 1.4);
 
-      // Typing message with comfortable readability
       const textToType = "...and vice versa, Priyanshu also doesn't hate you at all. In fact, hate could never exist in his story for you. But you know what???";
       tvExplanation.textContent = "";
       let i = 0;
@@ -2531,11 +2913,10 @@
     });
 
     /* ==========================================================
-       FLOW STEP 3: DEEP FEELINGS -> "CLICK THIS FOR ONE LAST THING" -> 5.5s LOADER
+       FLOW STEP 3: SCREEN 3 -> TAP TO SEE SOMETHING INTERESTING -> AI ASSISTANT
        ========================================================== */
     const inputBtnSubmit = document.getElementById('input-btn-submit');
-    const riaCustomInput = document.getElementById('ria-custom-input');
-    const btnOneLastThing = document.getElementById('btn-one-last-thing');
+    const btnSeeInteresting = document.getElementById('btn-see-interesting');
 
     inputBtnSubmit.addEventListener('click', () => {
       playChime(659.25, 1.5);
@@ -2547,26 +2928,122 @@
       }, 900);
     });
 
-    btnOneLastThing.addEventListener('click', async () => {
-      btnOneLastThing.style.pointerEvents = 'none';
-      await animateButtonPress(btnOneLastThing, 950);
+    btnSeeInteresting.addEventListener('click', async () => {
+      btnSeeInteresting.style.pointerEvents = 'none';
+      await animateButtonPress(btnSeeInteresting, 900);
 
-      runLoader(5.5, "Preparing something special just for you... 🌷", () => {
-        // Screen 4 Intro: "This is for u bittua"
+      runLoader(5, "Loading Priyanshu's Virtual Assistant... 🤖", () => {
+        // Switch to AI Assistant section & pause background music
+        if (!bgAudio.paused) {
+          bgAudio.pause();
+          updateAudioUI(false);
+        }
+        showScreen(screens.assistant, 'assistant-mode');
+        playChime(523.25, 1.6);
+      });
+    });
+
+    /* ==========================================================
+       AI ASSISTANT MASCOT & VOICE VISUALIZER LOGIC
+       ========================================================== */
+    const mascotContainer = document.getElementById('mascotContainer');
+    const voiceVisualizer = document.getElementById('voiceVisualizer');
+    const assistantStatus = document.getElementById('assistant-audio-status');
+    const crypticCard = document.getElementById('cryptic-poem-card');
+    const mascotButtons = document.querySelectorAll('.mascot-btn');
+
+    function stopAssistantAudio() {
+      assistantAudio.pause();
+      assistantAudio.currentTime = 0;
+      mascotContainer.classList.remove('is-talking');
+      voiceVisualizer.classList.remove('active');
+      mascotButtons.forEach(b => b.classList.remove('playing-now'));
+    }
+
+    mascotButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const audioSrc = btn.getAttribute('data-audio');
+        if (!audioSrc) return;
+
+        // If currently playing this file, stop it
+        if (assistantAudio.src.includes(encodeURI(audioSrc)) && !assistantAudio.paused) {
+          stopAssistantAudio();
+          assistantStatus.textContent = "Audio paused. Tap to listen again 🎙️";
+          return;
+        }
+
+        stopAssistantAudio();
+
+        // Ensure background song is paused while assistant is speaking
+        if (!bgAudio.paused) {
+          bgAudio.pause();
+          updateAudioUI(false);
+        }
+
+        btn.classList.add('playing-now');
+        assistantAudio.src = audioSrc;
+        assistantAudio.play().then(() => {
+          mascotContainer.classList.add('is-talking');
+          voiceVisualizer.classList.add('active');
+          assistantStatus.textContent = "Speaking... 🔊";
+        }).catch((err) => {
+          console.warn("Audio file playback:", err);
+          assistantStatus.textContent = `Playing: ${audioSrc} (Check file availability)`;
+          // Run simulated lip sync if audio file not loaded locally yet
+          mascotContainer.classList.add('is-talking');
+          voiceVisualizer.classList.add('active');
+          setTimeout(() => {
+            stopAssistantAudio();
+            assistantStatus.textContent = "Done! Select another query 🎙️";
+          }, 4500);
+        });
+
+        // If "mandatory.mp3" is clicked, reveal the cryptic poem card
+        if (audioSrc.includes('mandatory')) {
+          setTimeout(() => {
+            crypticCard.classList.remove('hidden');
+            crypticCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 3500);
+        }
+      });
+    });
+
+    assistantAudio.addEventListener('ended', () => {
+      stopAssistantAudio();
+      assistantStatus.textContent = "Finished speaking ✨ Ask another query or proceed below!";
+    });
+
+    /* ==========================================================
+       FLOW STEP 4: ASSISTANT -> FINALE SCREEN ("This is for u bittua" -> Bouquet)
+       ========================================================== */
+    const btnProceedFinale = document.getElementById('btn-proceed-finale');
+
+    btnProceedFinale.addEventListener('click', async () => {
+      btnProceedFinale.style.pointerEvents = 'none';
+      stopAssistantAudio();
+      await animateButtonPress(btnProceedFinale, 900);
+
+      runLoader(5, "Preparing something special just for you... 🌷", () => {
         showScreen(screens.s4Intro);
         playChime(392, 2.5);
 
-        // Let the sketched text linger for 3.2s
+        // Sketched text lingers for 3.2s
         setTimeout(() => {
           screens.s4Intro.classList.remove('active');
           document.body.className = 'selection:bg-amber-200 selection:text-black';
           document.body.style.backgroundColor = '#000000';
 
-          // 1.4s of quiet blank pause before blooming
+          // 1.2s blank blackout transition before blooming
           setTimeout(() => {
             showScreen(screens.s5Bouquet, 'warm-paper');
             playChime(659.25, 3.0);
-          }, 1400);
+            
+            // Resume background music softly
+            if (bgAudio.paused) {
+              bgAudio.volume = 0.8;
+              bgAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+            }
+          }, 1200);
         }, 3200);
       });
     });
@@ -2575,6 +3052,7 @@
        FLOW RESTART
        ========================================================== */
     document.getElementById('btn-restart').addEventListener('click', () => {
+      stopAssistantAudio();
       canvasCheckbox.checked = false;
       btnEnterHeart.style.pointerEvents = 'auto';
       btnEnterHeart.style.opacity = '1';
@@ -2585,10 +3063,12 @@
       tvContainer.classList.remove('flex');
       unveilBtnWrap.classList.add('hidden');
       btnUnveilDeep.style.pointerEvents = 'auto';
-      btnOneLastThing.style.pointerEvents = 'auto';
+      btnSeeInteresting.style.pointerEvents = 'auto';
+      btnProceedFinale.style.pointerEvents = 'auto';
       btnWorldNext.style.pointerEvents = 'auto';
       passInput.value = '';
       passErrorMsg.textContent = '';
+      crypticCard.classList.add('hidden');
       showScreen(screens.world, 'dark-world');
     });
   </script>
